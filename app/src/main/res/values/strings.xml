@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">Liviet</string>
+    <string name="male">남자</string>
+    <string name="female">여자</string>
+</resources>
