@@ -6,6 +6,7 @@ import com.liviet.hoo.liviet.viewmodel.user.UserSetUpViewModel
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import javax.inject.Singleton
 
 
 @Module
@@ -20,5 +21,6 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(UserSetUpViewModel::class)
+    @Singleton
     internal abstract fun bindUserSetUpViewModel(viewModel: UserSetUpViewModel): ViewModel
 }

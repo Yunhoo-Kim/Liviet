@@ -12,8 +12,14 @@ fun setAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
     view.adapter = adapter
 }
 
-@BindingAdapter("entries")
-@Suppress("unused")
-fun Spinner.setEntries(entries: List<Any>?) {
-    setEntries(entries)
-}
+//@BindingAdapter("entries")
+//@Suppress("unused")
+//fun Spinner.setEntries(entries: List<Any>?) {
+//    setEntries(entries)
+//}
+//
+//@BindingAdapter("selection")
+//@Suppress("unused")
+//fun Spinner.setSelection(position:Int){
+//    setSelection(position)
+//}

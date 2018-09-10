@@ -2,4 +2,13 @@
     <string name="app_name">Liviet</string>
     <string name="male">남자</string>
     <string name="female">여자</string>
+    <string name="next">다음</string>
+    <string name="setup_info">정보를\n입력해주세요.</string>
+    <string name="setup_diet_style">다이어트 끼니를\n입력해주세요.</string>
+    <string name="weight">몸무게</string>
+    <string name="height">키</string>
+    <string name="age">나이</string>
+    <string name="breakfast">아침</string>
+    <string name="lunch">점심</string>
+    <string name="dinner">저녁</string>
 </resources>
