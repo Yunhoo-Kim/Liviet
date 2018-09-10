@@ -70,6 +70,9 @@ dependencies {
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation 'com.google.firebase:firebase-ads:15.0.1'
 
+    // Firebase
+    implementation 'com.google.firebase:firebase-core:16.0.3'
+
     // Support Design
     implementation "com.android.support:design:$android_support_version"
 
@@ -82,3 +85,5 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
 }
+
+apply plugin: 'com.google.gms.google-services'
