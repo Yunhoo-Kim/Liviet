@@ -15,8 +15,18 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
     val weight: MutableLiveData<Float> = MutableLiveData()
     val life_type: MutableLiveData<Int> = MutableLiveData()
     val diet_type: MutableLiveData<Int> = MutableLiveData()
+    var heightEntries: MutableLiveData<List<Int>> = MutableLiveData()
+
 
     init {
+
+        var heightList = mutableListOf<Int>().apply {
+            for (i in 140..220)
+                this.add(i)
+        }
+
+        heightEntries.value = heightList
+
     }
 
     fun insert(user:User){

@@ -27,13 +27,9 @@ class AgeSexSetUpFragment: BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_agesex, container, false)
-        return binding.root
-    }
-
-    override fun onAttach(context: Context?) {
-        super.onAttach(context)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(UserSetUpViewModel::class.java)
         binding.viewModel = viewModel
+        return binding.root
     }
 
     companion object {
