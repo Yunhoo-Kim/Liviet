@@ -2,6 +2,8 @@ package com.liviet.hoo.liviet.utils
 
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import java.text.NumberFormat
+import java.util.*
 
 
 class UiUtli {
@@ -23,5 +25,7 @@ class UiUtli {
                         .commit()
             }
         }
+
+        fun getFormatNumber(number: Int): String = NumberFormat.getNumberInstance(Locale.US).format(number)
     }
 }

@@ -1,9 +1,15 @@
 package com.liviet.hoo.liviet.utils
 
+import android.arch.lifecycle.LiveData
+import android.arch.lifecycle.MutableLiveData
 import android.databinding.BindingAdapter
+import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.widget.Spinner
 import android.widget.SpinnerAdapter
+import android.widget.TextView
+import com.liviet.hoo.liviet.utils.extension.getParentActivity
 
 
 @BindingAdapter("adapter")
@@ -11,6 +17,15 @@ import android.widget.SpinnerAdapter
 fun setAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
     view.adapter = adapter
 }
+
+@BindingAdapter("android:text")
+@Suppress("unused")
+fun setText(view: TextView, data: MutableLiveData<Float>?){
+    Log.d("AndroidText", data!!.value.toString())
+    if (data != null)
+        view.text = data.value.toString()
+}
+
 
 //@BindingAdapter("entries")
 //@Suppress("unused")

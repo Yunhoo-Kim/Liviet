@@ -1,5 +1,6 @@
 package com.liviet.hoo.liviet.base
 
+import android.support.v4.app.FragmentActivity
 import dagger.android.support.DaggerAppCompatActivity
 
 
