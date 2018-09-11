@@ -69,7 +69,7 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
 
         val basalMetabolism:Double = (12.2 * weight) - (4.82 * age) - (126.1 * sex) + (2.85 * height) + 468.3
         val standardWeight:Double = if(height > 150) (height - 100) * 0.9 else (height - 100).toDouble()
-        val bmi:Int = weight / (height * height)
+        val bmi = (weight / ((height * height) * 0.0001)).toInt()
 
         val kcal: Int = (basalMetabolism * life_type.value!!).toInt()
         this.kcal.value = "${kcal} kcal"
@@ -79,11 +79,11 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
         val protein = UiUtli.getFormatNumber(((kcal * 0.20) / 4).toInt())
 
         val list = mutableListOf<NutritionResult>()
-        list.add(NutritionResult(name = R.string.protein, ratio = "20", amt = "${protein}g"))
-        list.add(NutritionResult(name = R.string.carbohydrate, ratio = "65", amt = "${carbohydrate}g"))
-        list.add(NutritionResult(name = R.string.fat, ratio = "15", amt = "${fat}g"))
-        list.add(NutritionResult(name = R.string.bmi, ratio = "15", amt = "${bmi}g"))
-        list.add(NutritionResult(name = R.string.standard_weight, ratio = "15", amt = "${standardWeight}kg"))
+        list.add(NutritionResult(name = R.string.protein, ratio = "0", amt = "${protein}g"))
+        list.add(NutritionResult(name = R.string.carbohydrate, ratio = "0", amt = "${carbohydrate}g"))
+        list.add(NutritionResult(name = R.string.fat, ratio = "0", amt = "${fat}g"))
+        list.add(NutritionResult(name = R.string.bmi, ratio = "1", amt = "${bmi}"))
+        list.add(NutritionResult(name = R.string.standard_weight, ratio = "1", amt = "${standardWeight}kg"))
         nutritionListAdapter.updateNutritionResultList(list)
     }
 

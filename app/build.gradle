@@ -75,6 +75,7 @@ dependencies {
 
     // Support Design
     implementation "com.android.support:design:$android_support_version"
+    implementation "com.android.support:percent:$android_support_version"
 
     // Room
     implementation "android.arch.persistence.room:runtime:$room_version"
