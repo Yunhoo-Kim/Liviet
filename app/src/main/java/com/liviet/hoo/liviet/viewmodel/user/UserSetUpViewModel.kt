@@ -9,6 +9,7 @@ import com.liviet.hoo.liviet.base.BaseViewModel
 import com.liviet.hoo.liviet.model.nutrition.NutritionResult
 import com.liviet.hoo.liviet.model.user.User
 import com.liviet.hoo.liviet.model.user.UserRepository
+import com.liviet.hoo.liviet.ui.user.BodyInfoCardListAdapter
 import com.liviet.hoo.liviet.ui.user.NutritionListAdapter
 import com.liviet.hoo.liviet.utils.UiUtli
 import java.text.NumberFormat
@@ -28,6 +29,10 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
 
     val nutritionListAdapter: NutritionListAdapter by lazy {
         NutritionListAdapter()
+    }
+
+    val bodyInfoListAdapter: BodyInfoCardListAdapter by lazy {
+        BodyInfoCardListAdapter()
     }
 
     var ageDfIdx:Int = 10
@@ -70,6 +75,7 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
         val basalMetabolism:Double = (12.2 * weight) - (4.82 * age) - (126.1 * sex) + (2.85 * height) + 468.3
         val standardWeight:Double = if(height > 150) (height - 100) * 0.9 else (height - 100).toDouble()
         val bmi = (weight / ((height * height) * 0.0001)).toInt()
+        val bmiDegree = "정상체중"
 
         val kcal: Int = (basalMetabolism * life_type.value!!).toInt()
         this.kcal.value = "${kcal} kcal"
@@ -78,13 +84,17 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
         val fat = UiUtli.getFormatNumber(((kcal * 0.15) / 9).toInt())
         val protein = UiUtli.getFormatNumber(((kcal * 0.20) / 4).toInt())
 
-        val list = mutableListOf<NutritionResult>()
-        list.add(NutritionResult(name = R.string.protein, ratio = "0", amt = "${protein}g"))
-        list.add(NutritionResult(name = R.string.carbohydrate, ratio = "0", amt = "${carbohydrate}g"))
-        list.add(NutritionResult(name = R.string.fat, ratio = "0", amt = "${fat}g"))
-        list.add(NutritionResult(name = R.string.bmi, ratio = "1", amt = "${bmi}"))
-        list.add(NutritionResult(name = R.string.standard_weight, ratio = "1", amt = "${standardWeight}kg"))
-        nutritionListAdapter.updateNutritionResultList(list)
+        val nList = mutableListOf<NutritionResult>()
+        val bList = mutableListOf<NutritionResult>()
+
+        nList.add(NutritionResult(name = R.string.protein, ratio = "0", amt = "${protein}g"))
+        nList.add(NutritionResult(name = R.string.carbohydrate, ratio = "0", amt = "${carbohydrate}g"))
+        nList.add(NutritionResult(name = R.string.fat, ratio = "0", amt = "${fat}g"))
+        bList.add(NutritionResult(name = R.string.bmi, ratio = "1", amt = "$bmi $bmiDegree"))
+        bList.add(NutritionResult(name = R.string.standard_weight, ratio = "1", amt = "${standardWeight.toInt()}kg"))
+
+        nutritionListAdapter.updateNutritionResultList(nList)
+        bodyInfoListAdapter.updateBodyResultList(bList)
     }
 
     fun printUserInfo(){

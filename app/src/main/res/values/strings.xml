@@ -23,4 +23,5 @@
     <string name="bmi">BMI</string>
     <string name="standard_weight">표준 체중</string>
     <string name="select_one_of_them">하나를 선택해주세요.</string>
+    <string name="recommended_allowance">섭취 권장량</string>
 </resources>

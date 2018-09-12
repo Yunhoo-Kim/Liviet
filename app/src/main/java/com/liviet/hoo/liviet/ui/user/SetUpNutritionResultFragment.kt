@@ -3,6 +3,7 @@ package com.liviet.hoo.liviet.ui.user
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.widget.GridLayoutManager
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -30,9 +31,10 @@ class SetUpNutritionResultFragment: BaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_setup_result, container, false)
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(UserSetUpViewModel::class.java)
-        viewModel.calcUserNutritionResult()
         binding.viewModel = viewModel
         binding.nutriInfoList.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+        binding.bodyInfoList.layoutManager = GridLayoutManager(this.context, 2)
+        viewModel.calcUserNutritionResult()
 //        binding.setLifecycleOwner(this.activity!!)
         return binding.root
     }
