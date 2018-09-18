@@ -29,7 +29,7 @@ class BodySetUpFragment: BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_body_setup, container, false)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(UserSetUpViewModel::class.java)
+        viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(UserSetUpViewModel::class.java)
         binding.viewModel = viewModel
         binding.next.setOnClickListener {
             viewModel.height.value = binding.heightSpinner.selectedItem as String

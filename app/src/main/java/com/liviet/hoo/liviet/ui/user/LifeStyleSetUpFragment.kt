@@ -29,7 +29,7 @@ class LifeStyleSetUpFragment: BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_life_style_setup, container, false)
-        viewModel = ViewModelProviders.of(this, viewModelFactory).get(UserSetUpViewModel::class.java)
+        viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(UserSetUpViewModel::class.java)
         binding.viewModel = viewModel
         binding.lifeStyleNext.setOnClickListener {
 

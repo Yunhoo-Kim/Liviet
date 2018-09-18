@@ -21,6 +21,6 @@ abstract class ViewModelModule {
     @Binds
     @IntoMap
     @ViewModelKey(UserSetUpViewModel::class)
-    @Singleton
+//    @Singleton
     internal abstract fun bindUserSetUpViewModel(viewModel: UserSetUpViewModel): ViewModel
 }
