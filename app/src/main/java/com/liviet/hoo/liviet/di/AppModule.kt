@@ -27,6 +27,7 @@ class AppModule(val app: Application){
     @Singleton
     fun provideDatabase(app:Application): AppDatabase =
             Room.databaseBuilder(app, AppDatabase::class.java, "liviet.db")
+                    .allowMainThreadQueries()
                     .fallbackToDestructiveMigration()
                     .build()
 

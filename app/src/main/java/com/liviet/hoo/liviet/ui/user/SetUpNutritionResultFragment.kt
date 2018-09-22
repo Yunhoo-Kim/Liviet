@@ -14,6 +14,8 @@ import com.liviet.hoo.liviet.databinding.FragmentDietStyleSetupBinding
 import com.liviet.hoo.liviet.databinding.FragmentLifeStyleSetupBinding
 import com.liviet.hoo.liviet.databinding.FragmentSetupResultBinding
 import com.liviet.hoo.liviet.di.ViewModelFactory
+import com.liviet.hoo.liviet.ui.food.SelectFoodFragment
+import com.liviet.hoo.liviet.utils.UiUtli
 import com.liviet.hoo.liviet.viewmodel.user.UserSetUpViewModel
 import javax.inject.Inject
 
@@ -35,7 +37,11 @@ class SetUpNutritionResultFragment: BaseFragment() {
         binding.nutriInfoList.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
         binding.bodyInfoList.layoutManager = GridLayoutManager(this.context, 2)
         viewModel.calcUserNutritionResult()
-//        binding.setLifecycleOwner(this.activity!!)
+
+        binding.dietStyleNext.setOnClickListener {
+            viewModel.saveUserInfo()
+            UiUtli.addNewFragment(this.activity!!, SelectFoodFragment.newInstance(Bundle()), R.id.container_main)
+        }
         return binding.root
     }
 

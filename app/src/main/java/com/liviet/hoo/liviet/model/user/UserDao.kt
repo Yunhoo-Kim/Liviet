@@ -1,6 +1,7 @@
 package com.liviet.hoo.liviet.model.user
 
 import android.arch.persistence.room.Dao
+import android.arch.persistence.room.Delete
 import android.arch.persistence.room.Insert
 import android.arch.persistence.room.OnConflictStrategy.REPLACE
 import android.arch.persistence.room.Query
@@ -16,4 +17,7 @@ interface UserDao {
 
     @Insert(onConflict = REPLACE)
     fun insert(user: User): Long
+
+    @Query("DELETE FROM user")
+    fun deleteAll()
 }

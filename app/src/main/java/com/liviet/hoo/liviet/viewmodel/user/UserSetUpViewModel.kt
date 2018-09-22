@@ -1,9 +1,7 @@
 package com.liviet.hoo.liviet.viewmodel.user
 
 import android.arch.lifecycle.MutableLiveData
-import android.arch.lifecycle.Observer
 import android.util.Log
-import android.widget.ArrayAdapter
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseViewModel
 import com.liviet.hoo.liviet.model.nutrition.NutritionResult
@@ -12,8 +10,6 @@ import com.liviet.hoo.liviet.model.user.UserRepository
 import com.liviet.hoo.liviet.ui.user.BodyInfoCardListAdapter
 import com.liviet.hoo.liviet.ui.user.NutritionListAdapter
 import com.liviet.hoo.liviet.utils.UiUtli
-import java.text.NumberFormat
-import java.util.*
 import javax.inject.Inject
 
 
@@ -57,7 +53,19 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
 
     }
 
-    fun insert(user:User){
+    fun saveUserInfo(){
+        val age:Int = this.age.value!!.replace("""[\D]+""".toRegex(), "").toInt()
+        val weight:Int = this.weight.value!!.replace("""[\D]+""".toRegex(), "").toInt()
+        val height:Int = this.height.value!!.replace("""[\D]+""".toRegex(), "").toInt()
+        val sex:Int = if(this.sex.value!!) 0 else 1
+        val lifeType = this.life_type.value!!
+
+        val user = User(age = age, weight = weight,
+                height = height,
+                sex = sex,
+                life_type = lifeType,
+                diet_type = 0)
+
         userRepository.saveUserInfo(user)
     }
 

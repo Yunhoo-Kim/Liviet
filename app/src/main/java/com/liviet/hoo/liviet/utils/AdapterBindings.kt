@@ -6,6 +6,7 @@ import android.databinding.BindingAdapter
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.util.Log
+import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.SpinnerAdapter
 import android.widget.TextView
@@ -25,6 +26,12 @@ fun setText(view: TextView, data: MutableLiveData<Float>?){
     if (data != null)
         view.text = data.value.toString()
 }
+
+//@BindingAdapter("android:drawable")
+//@Suppress("unused")
+//fun setImage(view: ImageView, image_url: MutableLiveData<String>){
+//    Glide
+//}
 
 
 //@BindingAdapter("entries")

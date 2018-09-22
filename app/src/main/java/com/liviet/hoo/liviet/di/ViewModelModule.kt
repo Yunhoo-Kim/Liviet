@@ -2,6 +2,7 @@ package com.liviet.hoo.liviet.di
 
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
+import com.liviet.hoo.liviet.viewmodel.food.FoodVM
 import com.liviet.hoo.liviet.viewmodel.user.UserSetUpViewModel
 import dagger.Binds
 import dagger.Module
@@ -23,4 +24,9 @@ abstract class ViewModelModule {
     @ViewModelKey(UserSetUpViewModel::class)
 //    @Singleton
     internal abstract fun bindUserSetUpViewModel(viewModel: UserSetUpViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(FoodVM::class)
+    internal abstract fun bindFoodVM(viewModel: FoodVM): ViewModel
 }

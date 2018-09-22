@@ -18,8 +18,6 @@ class NutriItemVM: BaseViewModel() {
     val ratio: MutableLiveData<String> = MutableLiveData()
 
     fun bind(nutritionResult: NutritionResult){
-//        this.name.value = nutritionResult.name
-        Log.d("Result", "${nutritionResult.amt}, ${nutritionResult.ratio}, ${nutritionResult.name}")
         this.name.value = nutritionResult.name
         this.amt.value = nutritionResult.amt
         this.ratio.value = nutritionResult.ratio
