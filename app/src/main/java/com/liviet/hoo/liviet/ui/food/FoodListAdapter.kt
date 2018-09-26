@@ -8,6 +8,7 @@ import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.databinding.ItemFoodBinding
 import com.liviet.hoo.liviet.model.nutrition.Food
 import com.liviet.hoo.liviet.viewmodel.food.FoodItemVM
+import kotlinx.android.synthetic.main.item_food.view.*
 
 
 class FoodListAdapter: RecyclerView.Adapter<FoodListAdapter.ViewHolder>() {
@@ -35,6 +36,18 @@ class FoodListAdapter: RecyclerView.Adapter<FoodListAdapter.ViewHolder>() {
         fun bind(food: Food){
             foodItemVm.bind(food)
             binding.viewModel = foodItemVm
+            binding.foodCard.setOnClickListener {
+                if(food.selected) {
+                    food.selected = false
+                    it.setBackgroundResource(R.color.white)
+                    it.food_name.setTextColor(it.resources.getColor(R.color.colorPrimary))
+                }
+                else {
+                    food.selected = true
+                    it.setBackgroundResource(R.color.colorPrimary)
+                    it.food_name.setTextColor(it.resources.getColor(R.color.white))
+                }
+            }
         }
     }
 }

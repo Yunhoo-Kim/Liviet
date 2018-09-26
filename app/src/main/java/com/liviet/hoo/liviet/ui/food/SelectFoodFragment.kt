@@ -11,6 +11,8 @@ import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseFragment
 import com.liviet.hoo.liviet.databinding.FragmentSelectFoodBinding
 import com.liviet.hoo.liviet.di.ViewModelFactory
+import com.liviet.hoo.liviet.ui.LivietMainFragment
+import com.liviet.hoo.liviet.utils.UiUtli
 import com.liviet.hoo.liviet.viewmodel.food.FoodVM
 import javax.inject.Inject
 
@@ -30,8 +32,11 @@ class SelectFoodFragment: BaseFragment() {
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(FoodVM::class.java)
         binding.viewModel = viewModel
         binding.foodSelectList.layoutManager = GridLayoutManager(this.context, 2)
-
+        binding.foodSelectList.isNestedScrollingEnabled = false
         viewModel.getFoods()
+        binding.dietStyleNext.setOnClickListener {
+            UiUtli.addNewFragment(this.activity!!, LivietMainFragment.newInstance(Bundle()), R.id.container_main)
+        }
 
         return binding.root
     }

@@ -1,8 +1,10 @@
 <resources>
     <string name="app_name">Liviet</string>
+    <string name="diet">식단</string>
     <string name="male">남자</string>
     <string name="female">여자</string>
     <string name="next">다음</string>
+    <string name="plus">추가</string>
     <string name="setup_info">정보를\n입력해주세요.</string>
     <string name="setup_diet_style">다이어트 끼니를\n선택해주세요.</string>
     <string name="select_diet_start_day">식단 시작 요일을\n선택해주세요.</string>
@@ -33,4 +35,5 @@
     <string name="fri">금</string>
     <string name="sat">토</string>
     <string name="sun">일</string>
+    <string name="admob_id">ca-app-pub-7552170233373075/5730430259</string>
 </resources>

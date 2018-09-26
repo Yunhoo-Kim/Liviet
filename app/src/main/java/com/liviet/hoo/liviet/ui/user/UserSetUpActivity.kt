@@ -4,6 +4,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.util.Log
+import com.google.android.gms.ads.MobileAds
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseActivity
 import com.liviet.hoo.liviet.databinding.ActivitySetupBinding
@@ -26,6 +27,9 @@ class UserSetUpActivity: BaseActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_setup)
 
         setContentView(binding.root)
+
+        MobileAds.initialize(this,
+                getString(R.string.admob_id))
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(UserSetUpViewModel::class.java)
         binding.viewModel = viewModel

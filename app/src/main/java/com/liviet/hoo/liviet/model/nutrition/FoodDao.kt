@@ -16,4 +16,7 @@ interface FoodDao {
 
     @Insert(onConflict = REPLACE)
     fun insert(food: Food): Long
+
+    @Query("DELETE FROM food")
+    fun deleteAll()
 }

@@ -10,7 +10,6 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.SpinnerAdapter
 import android.widget.TextView
-import com.liviet.hoo.liviet.utils.extension.getParentActivity
 
 
 @BindingAdapter("adapter")
@@ -27,11 +26,12 @@ fun setText(view: TextView, data: MutableLiveData<Float>?){
         view.text = data.value.toString()
 }
 
-//@BindingAdapter("android:drawable")
-//@Suppress("unused")
-//fun setImage(view: ImageView, image_url: MutableLiveData<String>){
-//    Glide
-//}
+@BindingAdapter("imageRes")
+@Suppress("unused")
+fun setImageResource(view: ImageView, image_id: MutableLiveData<Int>?){
+    Log.d("Image Tag", image_id!!.value.toString())
+    view.setImageResource(image_id.value!!)
+}
 
 
 //@BindingAdapter("entries")

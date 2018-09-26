@@ -12,11 +12,13 @@ data class Food(
         val id: Long = 0,
         val name: String,
         val image_url: String,
+        val resource_id: Int,
         val carbon_hydrate: Float,
         val fat: Float,
         val protein: Float,
         val cal: Float,
         val na: Float,
         val amount: Int,
-        val measure: String
+        val measure: String,
+        var selected: Boolean = false
 )

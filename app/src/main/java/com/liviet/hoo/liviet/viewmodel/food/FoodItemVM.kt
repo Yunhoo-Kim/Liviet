@@ -18,10 +18,14 @@ class FoodItemVM: BaseViewModel() {
     var name: MutableLiveData<String> = MutableLiveData()
     val amount: MutableLiveData<String> = MutableLiveData()
     val image: MutableLiveData<String> = MutableLiveData()
+    val amt: MutableLiveData<String> = MutableLiveData()
+    val resId: MutableLiveData<Int> = MutableLiveData()
 
     fun bind(food: Food){
         this.name.value = food.name
         this.amount.value = food.amount.toString()
-        this.image.value = food.image_url
+//        this.image.value = food.image_url
+        this.amt.value = "${food.amount}${food.measure}"
+        this.resId.value = food.resource_id
     }
 }
