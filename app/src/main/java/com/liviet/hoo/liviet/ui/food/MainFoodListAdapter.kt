@@ -1,6 +1,7 @@
 package com.liviet.hoo.liviet.ui.food
 
 import android.databinding.DataBindingUtil
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -12,6 +13,8 @@ import com.liviet.hoo.liviet.databinding.ItemFoodBinding
 import com.liviet.hoo.liviet.databinding.ItemFoodMainBinding
 import com.liviet.hoo.liviet.databinding.ItemPlusBinding
 import com.liviet.hoo.liviet.model.nutrition.Food
+import com.liviet.hoo.liviet.utils.UiUtli
+import com.liviet.hoo.liviet.utils.extension.getParentActivity
 import com.liviet.hoo.liviet.viewmodel.food.FoodItemVM
 
 
@@ -71,7 +74,11 @@ class MainFoodListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     }
     class PlusViewHolder(private val binding: ItemPlusBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(food: Food){
-//            binding.foodCard.setOnClickListener {
+            binding.plusCont.setOnClickListener {
+                UiUtli.addNewFragment(it.getParentActivity()!!, AddDietFoodFragment.newInstance(Bundle()), R.id.container_main)
+            }
+//            binding.plusCont.setOnClickListener {
+//                UiUtli.addNewFragment()
 //            }
         }
     }
@@ -80,9 +87,6 @@ class MainFoodListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
             val adRequest = AdRequest.Builder().build()
             val ad: AdView = binding.itemAd
             ad.loadAd(adRequest)
-
-//            binding.foodCard.setOnClickListener {
-//            }
         }
     }
 }

@@ -8,6 +8,7 @@ import com.liviet.hoo.liviet.ui.food.FoodListAdapter
 import com.liviet.hoo.liviet.ui.food.MainDateListAdapter
 import com.liviet.hoo.liviet.ui.food.MainFoodListAdapter
 import io.reactivex.Observable
+import java.util.*
 import javax.inject.Inject
 
 
@@ -49,11 +50,15 @@ class LivietMainVM @Inject constructor(private val foodRepository: FoodRepositor
                 ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.sweet_potato))
         foodList.add(Food(name = "브로콜리", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
                 ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.broccoli))
+        foodList.add(Food(name = "ad", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
+                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.broccoli))
         foodList.add(Food(name = "사과", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
                 ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))
         foodList.add(Food(name = "고구마", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
                 ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.sweet_potato))
         foodList.add(Food(name = "브로콜리", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
+                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.broccoli))
+        foodList.add(Food(name = "ad", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
                 ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.broccoli))
         foodList.add(Food(name = "사과", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
                 ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))
@@ -64,7 +69,15 @@ class LivietMainVM @Inject constructor(private val foodRepository: FoodRepositor
         mainFoodListAdapter.updateFoodList(foodList)
     }
     fun initDate(){
-        var dateList = mutableListOf("27", "28", "29", "30", "31", "1", "2", "3", "4", "5")
+
+        var calendar:Calendar = Calendar.getInstance()
+        var dateList = mutableListOf<Date>(calendar.time)
+
+        for (i in 1..7){
+            calendar.add(Calendar.DAY_OF_WEEK, 1)
+            dateList.add(calendar.time)
+        }
+
         dateListAdapter.updateDateList(dateList)
     }
 }

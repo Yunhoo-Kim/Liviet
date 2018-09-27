@@ -5,6 +5,7 @@
     <string name="female">여자</string>
     <string name="next">다음</string>
     <string name="plus">추가</string>
+    <string name="diet_plus">식단 추가</string>
     <string name="setup_info">정보를\n입력해주세요.</string>
     <string name="setup_diet_style">다이어트 끼니를\n선택해주세요.</string>
     <string name="select_diet_start_day">식단 시작 요일을\n선택해주세요.</string>
@@ -27,6 +28,8 @@
     <string name="standard_weight">표준 체중</string>
     <string name="select_one_of_them">하나를 선택해주세요.</string>
     <string name="select_food">식단 생성에 포함할\n음식을 선택해주세요.</string>
+    <string name="add_food">음식을 선택해주세요.</string>
+    <string name="add_food_amount">음식 양을 입력해주세요.</string>
     <string name="recommended_allowance">섭취 권장량</string>
     <string name="mon">월</string>
     <string name="tue">화</string>
@@ -36,4 +39,5 @@
     <string name="sat">토</string>
     <string name="sun">일</string>
     <string name="admob_id">ca-app-pub-7552170233373075/5730430259</string>
+    <string name="default_amount">100g</string>
 </resources>

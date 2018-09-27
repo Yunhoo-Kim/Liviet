@@ -7,6 +7,7 @@
         android:layout_height="wrap_content">
 
         <android.support.constraint.ConstraintLayout
+            android:id="@+id/plus_cont"
             android:padding="12dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -17,8 +18,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 style="@style/appFont.Title"
+                android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
-                android:text="@string/plus" />
+                android:text="@string/diet_plus" />
 
         </android.support.constraint.ConstraintLayout>
 
