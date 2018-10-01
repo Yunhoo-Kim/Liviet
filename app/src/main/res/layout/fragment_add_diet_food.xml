@@ -15,34 +15,49 @@
         android:clickable="true"
         android:focusable="true">
 
-        <TextView
-            android:id="@+id/title"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginStart="8dp"
-            android:text="@string/add_food"
-            android:textColor="@color/black"
-            style="@style/appFont.Title"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            />
+            <TextView
+                android:id="@+id/title"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginStart="8dp"
+                android:text="@string/add_food"
+                android:textColor="@color/black"
+                style="@style/appFont.Title"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <Button
+                android:id="@+id/add_new_food_btn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:background="@null"
+                android:text="@string/plus"
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:textAlignment="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/title"
+                style="@style/appFont"/>
 
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/food_select_list"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/title"
-            app:layout_constraintBottom_toTopOf="@+id/diet_style_next"
-            android:layout_marginTop="12dp"
-            android:adapter="@{viewModel.addFoodListAdapter}"
-            >
-        </android.support.v7.widget.RecyclerView>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/food_select_list"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/add_new_food_btn"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:layout_marginTop="12dp"
+                android:adapter="@{viewModel.addFoodListAdapter}"
+                >
+            </android.support.v7.widget.RecyclerView>
 
-        <!--<Button-->
+            <!--<Button-->
             <!--android:id="@+id/diet_style_next"-->
             <!--android:layout_width="wrap_content"-->
             <!--android:layout_height="wrap_content"-->
@@ -54,7 +69,6 @@
             <!--android:layout_marginEnd="8dp"-->
             <!--app:layout_constraintBottom_toBottomOf="parent"-->
             <!--app:layout_constraintEnd_toEndOf="parent"/>-->
-
 
     </android.support.constraint.ConstraintLayout>
 </layout>

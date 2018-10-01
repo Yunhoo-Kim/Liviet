@@ -76,6 +76,7 @@ class MainFoodListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         fun bind(food: Food){
             binding.plusCont.setOnClickListener {
                 UiUtli.addNewFragment(it.getParentActivity()!!, AddDietFoodFragment.newInstance(Bundle()), R.id.container_main)
+//                UiUtli.addNewFragment(it.getParentActivity()!!, AddNewDietFoodFragment.newInstance(Bundle()), R.id.container_main)
             }
 //            binding.plusCont.setOnClickListener {
 //                UiUtli.addNewFragment()

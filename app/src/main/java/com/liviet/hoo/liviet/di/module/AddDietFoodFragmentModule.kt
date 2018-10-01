@@ -4,6 +4,7 @@ import com.liviet.hoo.liviet.di.FragmentScope
 import com.liviet.hoo.liviet.model.nutrition.FoodRepository
 import com.liviet.hoo.liviet.model.user.UserRepository
 import com.liviet.hoo.liviet.ui.food.AddDietFoodFragment
+import com.liviet.hoo.liviet.ui.food.AddNewDietFoodFragment
 import com.liviet.hoo.liviet.ui.food.SelectFoodFragment
 import com.liviet.hoo.liviet.ui.user.BodySetUpFragment
 import com.liviet.hoo.liviet.ui.user.DietStyleSetUpFragment
@@ -19,6 +20,10 @@ abstract class AddDietFoodFragmentModule {
     @FragmentScope
     @Binds
     abstract fun bindAddDietFoodFragment(addDietFoodFragment: AddDietFoodFragment): AddDietFoodFragment
+
+    @FragmentScope
+    @Binds
+    abstract fun bindAddNewDietFoodFragment(addNewDietFoodFragment: AddNewDietFoodFragment): AddNewDietFoodFragment
 
     @FragmentScope
     @Binds

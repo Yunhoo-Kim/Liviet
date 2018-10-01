@@ -1,8 +1,10 @@
 package com.liviet.hoo.liviet.ui.food
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.v7.widget.GridLayoutManager
 import android.view.LayoutInflater
 import android.view.View
@@ -34,10 +36,20 @@ class AddDietFoodFragment: BaseFragment() {
         binding.viewModel = viewModel
         binding.foodSelectList.layoutManager = GridLayoutManager(this.context, 2)
         binding.foodSelectList.isNestedScrollingEnabled = false
+
+        binding.addNewFoodBtn.setOnClickListener {
+            UiUtli.addNewFragment(activity!!, AddNewDietFoodFragment.newInstance(Bundle()), R.id.container_main)
+        }
+
         viewModel.loadFoodOnAdd()
+
 
         return binding.root
     }
+
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//    }
 
     companion object {
         fun newInstance(args: Bundle?): AddDietFoodFragment {
@@ -46,5 +58,4 @@ class AddDietFoodFragment: BaseFragment() {
             }
         }
     }
-
 }

@@ -33,6 +33,13 @@ fun setImageResource(view: ImageView, image_id: MutableLiveData<Int>?){
     view.setImageResource(image_id.value!!)
 }
 
+@BindingAdapter("imageRes")
+@Suppress("unused")
+fun setImageResourceByURI(view: ImageView, image_id: MutableLiveData<String>?){
+//    Log.d("Image Tag", image_id!!.value.toString())
+//    view.setImageResource(image_id.value!!)
+}
+
 
 //@BindingAdapter("entries")
 //@Suppress("unused")

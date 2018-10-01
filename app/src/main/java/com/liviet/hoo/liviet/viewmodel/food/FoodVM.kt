@@ -1,5 +1,6 @@
 package com.liviet.hoo.liviet.viewmodel.food
 
+import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseViewModel
 import com.liviet.hoo.liviet.model.nutrition.Food
 import com.liviet.hoo.liviet.model.nutrition.FoodRepository
@@ -12,6 +13,16 @@ import javax.inject.Inject
 @Suppress("unused")
 class FoodVM @Inject constructor(private val foodRepository: FoodRepository): BaseViewModel() {
 
+    var measureEntries: MutableList<String> = mutableListOf<String>().apply {
+//        R.array.select_measure
+        this.add("g")
+        this.add("mg")
+        this.add("l")
+        this.add("ml")
+        this.add("개")
+        this.add("공기")
+    }
+
     val foodListAdapter: FoodListAdapter by lazy {
         FoodListAdapter()
     }
@@ -20,11 +31,11 @@ class FoodVM @Inject constructor(private val foodRepository: FoodRepository): Ba
         AddFoodListAdapter()
     }
 
-//    val addFoodListAdapter
-
     init {
 
     }
+
+    fun insertFood(food:Food) = foodRepository.saveFood(food)
 
     fun getFoods(): Observable<List<Food>>{
         foodListAdapter.updateFoodList(foodRepository.getFoods().blockingFirst())
