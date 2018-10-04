@@ -29,39 +29,40 @@ class FoodRepository @Inject constructor(private val foodDao: FoodDao, private v
         foodDao.deleteAll()
 
         foodDao.insert(Food(name = "사과", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-        ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))
+        ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))
 
         foodDao.insert(Food(name = "고구마", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.sweet_potato))
+                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.sweet_potato))
 
         foodDao.insert(Food(name = "브로콜리", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.broccoli))
+                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.broccoli))
 
         foodDao.insert(Food(name = "파프리카", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.paprika))
+                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.paprika))
+
         foodDao.insert(Food(name = "사과1", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))
+                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))
 
         foodDao.insert(Food(name = "고구마1", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.sweet_potato))
+                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.sweet_potato))
 
         foodDao.insert(Food(name = "브로콜리1", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.broccoli))
+                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.broccoli))
 
         foodDao.insert(Food(name = "파프리카1", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.paprika))
+                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.paprika))
 
         foodDao.insert(Food(name = "사과2", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))
+                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))
 
         foodDao.insert(Food(name = "고구마2", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.sweet_potato))
+                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.sweet_potato))
 
         foodDao.insert(Food(name = "브로콜리2", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.broccoli))
+                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.broccoli))
 
         foodDao.insert(Food(name = "파프리카2", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-                ,image_url = "aaa.png", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.paprika))
+                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.paprika))
     }
 
     fun getFoods(): Observable<List<Food>> = Observable.just(foodDao.getFoods())

@@ -31,6 +31,7 @@
     <string name="bmi">BMI</string>
     <string name="standard_weight">표준 체중</string>
     <string name="select_one_of_them">하나를 선택해주세요.</string>
+    <string name="plz_fill_info">정보를 전부 입력해주세요.</string>
     <string name="select_food">식단 생성에 포함할\n음식을 선택해주세요.</string>
     <string name="add_food">음식을 선택해주세요.</string>
     <string name="add_food_amount">음식 양을 입력해주세요.</string>

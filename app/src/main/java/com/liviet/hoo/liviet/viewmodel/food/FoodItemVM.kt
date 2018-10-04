@@ -24,7 +24,7 @@ class FoodItemVM: BaseViewModel() {
     fun bind(food: Food){
         this.name.value = food.name
         this.amount.value = food.amount.toString()
-//        this.image.value = food.image_url
+        this.image.value = food.image_url
         this.amt.value = "${food.amount}${food.measure}"
         this.resId.value = food.resource_id
     }

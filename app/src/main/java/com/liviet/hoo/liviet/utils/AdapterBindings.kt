@@ -3,6 +3,7 @@ package com.liviet.hoo.liviet.utils
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.BindingAdapter
+import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -29,15 +30,22 @@ fun setText(view: TextView, data: MutableLiveData<Float>?){
 @BindingAdapter("imageRes")
 @Suppress("unused")
 fun setImageResource(view: ImageView, image_id: MutableLiveData<Int>?){
+    if(image_id!!.value == 0)
+        return
+
     Log.d("Image Tag", image_id!!.value.toString())
     view.setImageResource(image_id.value!!)
 }
 
-@BindingAdapter("imageRes")
+@BindingAdapter("imageResUri")
 @Suppress("unused")
 fun setImageResourceByURI(view: ImageView, image_id: MutableLiveData<String>?){
-//    Log.d("Image Tag", image_id!!.value.toString())
-//    view.setImageResource(image_id.value!!)
+    Log.d("Image String", image_id!!.value)
+    if(image_id!!.value.isNullOrEmpty())
+        return
+
+    Log.d("Image String", image_id!!.value)
+    view.setImageURI(Uri.parse(image_id.value))
 }
 
 

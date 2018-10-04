@@ -67,21 +67,26 @@ class AddNewDietFoodFragment: BaseFragment() {
 
         binding.saveFood.setOnClickListener {
             when {
-                binding.foodName.text.isNullOrEmpty() -> UiUtli.makeSnackbar(it, R.string.protein)
-                binding.foodAmountInput.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.protein)
-                binding.carbonHydrateAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.protein)
-                binding.fatAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.protein)
-                binding.proteinAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.protein)
+                binding.foodName.text.isNullOrEmpty() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
+                binding.foodAmountInput.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
+                binding.carbonHydrateAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
+                binding.fatAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
+                binding.proteinAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
+                binding.kcalAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
                 else -> {
-                    Log.d("Food info", "${binding.foodImage.tag} ${binding.foodName.text} ${binding.foodAmountInput.text} ${binding.foodAmountMeasure.selectedItem}  ${binding.carbonHydrateAmount.text}  ${binding.fatAmount.text}   ${binding.proteinAmount.text}")
-                    Food(image_url = binding.foodImage.tag as String, resource_id = 0, name = binding.foodName.text.toString(), measure = binding.foodAmountMeasure.selectedItem.toString(),
+                    Log.d("Food info", "$mCurrentPhotoPath ${binding.foodName.text} ${binding.foodAmountInput.text} ${binding.foodAmountMeasure.selectedItem}  ${binding.carbonHydrateAmount.text}  ${binding.fatAmount.text}   ${binding.proteinAmount.text}")
+                    var food  = Food(image_url = mCurrentPhotoPath,
+                            resource_id = 0,
+                            name = binding.foodName.text.toString(),
+                            measure = binding.foodAmountMeasure.selectedItem.toString(),
                             carbon_hydrate = binding.carbonHydrateAmount.text.toString().toFloat(),
                             fat = binding.fatAmount.text.toString().toFloat(),
                             protein = binding.proteinAmount.text.toString().toFloat(),
                             amount = binding.foodAmountInput.text.toString().toInt(),
-                            cal = 0.0f,
+                            cal = binding.kcalAmount.text.toString().toFloat(),
                             na = 0.0f)
-
+                    viewModel.insertFood(food)
+                    activity?.onBackPressed()
                 }
             }
         }
@@ -145,7 +150,6 @@ class AddNewDietFoodFragment: BaseFragment() {
                     binding.foodImage.setImageURI(Uri.parse(mCurrentPhotoPath))
                 }
             }
-            binding.foodImage.tag = mCurrentPhotoPath
         }
     }
 
