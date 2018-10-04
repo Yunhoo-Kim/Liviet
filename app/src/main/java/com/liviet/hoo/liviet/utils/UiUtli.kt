@@ -5,8 +5,10 @@ import android.content.ContentValues
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
+import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.view.View
 import java.io.ByteArrayOutputStream
 import java.net.URI
 import java.text.NumberFormat
@@ -41,5 +43,14 @@ class UiUtli {
             val path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, UUID.randomUUID().toString(), null)
             return Uri.parse(path)
         }
+
+        fun makeSnackbar(view: View, resId: Int){
+           Snackbar.make(view, resId, Snackbar.LENGTH_SHORT).show()
+        }
+
+        fun makeSnackbar(view: View, msg: String){
+            Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show()
+        }
+
     }
 }

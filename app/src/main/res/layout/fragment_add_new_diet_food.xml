@@ -148,9 +148,41 @@
                     app:layout_constraintTop_toBottomOf="@+id/food_amount_cont">
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/carbon_hydrate_cont"
+                        android:id="@+id/kcal_cont"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/kcal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/kcal"
+                            android:textAlignment="center"
+                            style="@style/appFont.Medium"
+                            app:layout_constraintTop_toTopOf="@+id/kcal_amount"
+                            app:layout_constraintBottom_toBottomOf="@+id/kcal_amount"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/kcal_amount"/>
+
+                        <android.support.design.widget.TextInputEditText
+                            android:id="@+id/kcal_amount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:textAlignment="center"
+                            android:maxLines="1"
+                            style="@style/appFont.Medium"
+                            android:inputType="number"
+                            app:layout_constraintStart_toEndOf="@+id/kcal"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/carbon_hydrate_cont"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/kcal_cont">
 
                         <TextView
                             android:id="@+id/carbon_hydrate"
@@ -176,7 +208,6 @@
                             app:layout_constraintEnd_toEndOf="parent"/>
 
                     </android.support.constraint.ConstraintLayout>
-
                     <android.support.constraint.ConstraintLayout
                         android:id="@+id/protein_cont"
                         android:layout_width="match_parent"

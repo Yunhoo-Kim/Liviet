@@ -3,39 +3,27 @@ package com.liviet.hoo.liviet.ui.food
 import android.app.Activity.RESULT_OK
 import android.arch.lifecycle.ViewModelProviders
 import android.content.ContentValues
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.databinding.DataBindingUtil
-import android.graphics.Bitmap
 import android.net.Uri
 import android.os.Bundle
-import android.os.Environment
 import android.provider.MediaStore
-import android.provider.MediaStore.ACTION_IMAGE_CAPTURE
 import android.support.design.widget.Snackbar
 import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
-import android.support.v7.widget.GridLayoutManager
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
-import com.liviet.hoo.liviet.Manifest
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseFragment
-import com.liviet.hoo.liviet.databinding.FragmentAddDietFoodBinding
 import com.liviet.hoo.liviet.databinding.FragmentAddNewDietFoodBinding
-import com.liviet.hoo.liviet.databinding.FragmentSelectFoodBinding
 import com.liviet.hoo.liviet.di.ViewModelFactory
-import com.liviet.hoo.liviet.ui.LivietMainFragment
+import com.liviet.hoo.liviet.model.nutrition.Food
 import com.liviet.hoo.liviet.utils.UiUtli
 import com.liviet.hoo.liviet.viewmodel.food.FoodVM
-import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 
@@ -78,9 +66,25 @@ class AddNewDietFoodFragment: BaseFragment() {
         }
 
         binding.saveFood.setOnClickListener {
-            Log.d("Food info","${binding.foodName.text} ${binding.foodAmountInput.text} ${binding.foodAmountMeasure.selectedItem}  ${binding.carbonHydrateAmount.text}  ${binding.fatAmount.text}   ${binding.proteinAmount.text}")
-        }
+            when {
+                binding.foodName.text.isNullOrEmpty() -> UiUtli.makeSnackbar(it, R.string.protein)
+                binding.foodAmountInput.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.protein)
+                binding.carbonHydrateAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.protein)
+                binding.fatAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.protein)
+                binding.proteinAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.protein)
+                else -> {
+                    Log.d("Food info", "${binding.foodImage.tag} ${binding.foodName.text} ${binding.foodAmountInput.text} ${binding.foodAmountMeasure.selectedItem}  ${binding.carbonHydrateAmount.text}  ${binding.fatAmount.text}   ${binding.proteinAmount.text}")
+                    Food(image_url = binding.foodImage.tag as String, resource_id = 0, name = binding.foodName.text.toString(), measure = binding.foodAmountMeasure.selectedItem.toString(),
+                            carbon_hydrate = binding.carbonHydrateAmount.text.toString().toFloat(),
+                            fat = binding.fatAmount.text.toString().toFloat(),
+                            protein = binding.proteinAmount.text.toString().toFloat(),
+                            amount = binding.foodAmountInput.text.toString().toInt(),
+                            cal = 0.0f,
+                            na = 0.0f)
 
+                }
+            }
+        }
         return binding.root
     }
 
@@ -141,6 +145,7 @@ class AddNewDietFoodFragment: BaseFragment() {
                     binding.foodImage.setImageURI(Uri.parse(mCurrentPhotoPath))
                 }
             }
+            binding.foodImage.tag = mCurrentPhotoPath
         }
     }
 
