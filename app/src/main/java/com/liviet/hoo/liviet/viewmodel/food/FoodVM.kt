@@ -37,6 +37,10 @@ class FoodVM @Inject constructor(private val foodRepository: FoodRepository): Ba
 
     fun insertFood(food:Food) = foodRepository.saveFood(food)
 
+    fun getFood(id: Long): Observable<Food>{
+        return foodRepository.getFoodById(id)
+    }
+
     fun getFoods(): Observable<List<Food>>{
         foodListAdapter.updateFoodList(foodRepository.getFoods().blockingFirst())
         return foodRepository.getFoods()

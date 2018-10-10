@@ -1,12 +1,15 @@
 package com.liviet.hoo.liviet.ui.food
 
 import android.databinding.DataBindingUtil
+import android.os.Bundle
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.databinding.ItemAddFoodBinding
 import com.liviet.hoo.liviet.model.nutrition.Food
+import com.liviet.hoo.liviet.utils.UiUtli
+import com.liviet.hoo.liviet.utils.extension.getParentActivity
 import com.liviet.hoo.liviet.viewmodel.food.FoodItemVM
 
 
@@ -36,6 +39,9 @@ class AddFoodListAdapter: RecyclerView.Adapter<AddFoodListAdapter.ViewHolder>() 
             foodItemVm.bind(food)
             binding.viewModel = foodItemVm
             binding.foodCard.setOnClickListener {
+                var bundle = Bundle()
+                bundle.putLong("foodId", food.id)
+                UiUtli.addNewFragment(it.getParentActivity()!!, AddDietFoodDetailFragment.newInstance(bundle), R.id.container_main)
             }
         }
     }

@@ -27,6 +27,9 @@ class LivietMainVM @Inject constructor(private val foodRepository: FoodRepositor
 
     }
 
+//    fun saveDiet(): Observable<Food> {
+//
+//    }
 //    fun getFoods(): Observable<List<Food>>{
 //        foodListAdapter.updateFoodList(foodRepository.getFoods().blockingFirst())
 //        return foodRepository.getFoods()
@@ -44,7 +47,6 @@ class LivietMainVM @Inject constructor(private val foodRepository: FoodRepositor
                 ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.sweet_potato))
         foodList.add(Food(name = "ad", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
                 ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.broccoli))
-
         foodList.add(Food(name = "사과", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
                 ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))
         foodList.add(Food(name = "고구마", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f

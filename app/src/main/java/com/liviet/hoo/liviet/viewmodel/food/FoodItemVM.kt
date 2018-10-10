@@ -2,6 +2,7 @@ package com.liviet.hoo.liviet.viewmodel.food
 
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.Observer
+import android.databinding.ObservableField
 import android.util.Log
 import android.widget.ArrayAdapter
 import com.liviet.hoo.liviet.base.BaseViewModel
@@ -20,6 +21,8 @@ class FoodItemVM: BaseViewModel() {
     val image: MutableLiveData<String> = MutableLiveData()
     val amt: MutableLiveData<String> = MutableLiveData()
     val resId: MutableLiveData<Int> = MutableLiveData()
+    val measure: MutableLiveData<String> = MutableLiveData()
+    var amountText: MutableLiveData<String> = MutableLiveData()
 
     fun bind(food: Food){
         this.name.value = food.name
@@ -27,5 +30,6 @@ class FoodItemVM: BaseViewModel() {
         this.image.value = food.image_url
         this.amt.value = "${food.amount}${food.measure}"
         this.resId.value = food.resource_id
+        this.measure.value = food.measure
     }
 }
