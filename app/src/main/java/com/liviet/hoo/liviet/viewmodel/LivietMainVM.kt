@@ -37,7 +37,7 @@ class LivietMainVM @Inject constructor(private val foodRepository: FoodRepositor
 
     fun addFoods(){
         var foodList: MutableList<Food> = mutableListOf()
-        foodList.addAll(foodRepository.getFoods().blockingFirst())
+//        foodList.addAll(foodRepository.getFoods().blockingFirst())
 
         foodList.add(Food(name = "plus", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
                 ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))

@@ -2,6 +2,7 @@ package com.liviet.hoo.liviet.di
 
 import com.liviet.hoo.liviet.di.module.*
 import com.liviet.hoo.liviet.ui.LivietMainFragment
+import com.liviet.hoo.liviet.ui.food.AddDietFoodDetailFragment
 import com.liviet.hoo.liviet.ui.food.AddDietFoodFragment
 import com.liviet.hoo.liviet.ui.food.AddNewDietFoodFragment
 import com.liviet.hoo.liviet.ui.food.SelectFoodFragment
@@ -31,6 +32,9 @@ abstract class ActivityBuilder{
 
     @ContributesAndroidInjector(modules = [AddDietFoodFragmentModule::class])
     abstract fun bindAddDietFoodFragment(): AddDietFoodFragment
+
+    @ContributesAndroidInjector(modules = [AddDietFoodFragmentModule::class])
+    abstract fun bindAddDietFoodDetailFragment(): AddDietFoodDetailFragment
 
     @ContributesAndroidInjector(modules = [AddDietFoodFragmentModule::class])
     abstract fun bindAddNewDietFoodFragment(): AddNewDietFoodFragment
