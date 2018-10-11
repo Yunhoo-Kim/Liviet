@@ -11,6 +11,9 @@ import android.widget.ImageView
 import android.widget.Spinner
 import android.widget.SpinnerAdapter
 import android.widget.TextView
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
+import com.liviet.hoo.liviet.utils.extension.getParentActivity
 
 
 @BindingAdapter("adapter")
@@ -41,11 +44,13 @@ fun setImageResource(view: ImageView, image_id: MutableLiveData<Int>?){
 @Suppress("unused")
 fun setImageResourceByURI(view: ImageView, image_id: MutableLiveData<String>?){
     Log.d("Image String", image_id!!.value)
-    if(image_id!!.value.isNullOrEmpty())
+    if(image_id.value.isNullOrEmpty())
         return
 
-    Log.d("Image String", image_id!!.value)
-    view.setImageURI(Uri.parse(image_id.value))
+    Glide.with(view.getParentActivity()!!)
+            .load(FirebaseStorage.getInstance().reference.child(image_id.value!!))
+            .into(view)
+//    view.setImageURI(Uri.parse(image_id.value))
 }
 
 

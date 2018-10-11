@@ -17,13 +17,18 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.firebase.storage.FirebaseStorage
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseFragment
 import com.liviet.hoo.liviet.databinding.FragmentAddNewDietFoodBinding
 import com.liviet.hoo.liviet.di.ViewModelFactory
 import com.liviet.hoo.liviet.model.nutrition.Food
+import com.liviet.hoo.liviet.utils.GCS
 import com.liviet.hoo.liviet.utils.UiUtli
+import com.liviet.hoo.liviet.utils.Utils
 import com.liviet.hoo.liviet.viewmodel.food.FoodVM
+import com.theartofdev.edmodo.cropper.CropImage
+import com.theartofdev.edmodo.cropper.CropImageView
 import javax.inject.Inject
 
 
@@ -36,6 +41,10 @@ class AddNewDietFoodFragment: BaseFragment() {
     private lateinit var binding: FragmentAddNewDietFoodBinding
 
     private lateinit var mCurrentPhotoPath:String
+
+    private val storage: FirebaseStorage by lazy {
+        FirebaseStorage.getInstance(GCS)
+    }
 
     private val SELECTIMG = 1234
     private val CAMERA = 1231
@@ -65,6 +74,7 @@ class AddNewDietFoodFragment: BaseFragment() {
             builder.show()
         }
 
+
         binding.saveFood.setOnClickListener {
             when {
                 binding.foodName.text.isNullOrEmpty() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
@@ -75,7 +85,7 @@ class AddNewDietFoodFragment: BaseFragment() {
                 binding.kcalAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
                 else -> {
                     Log.d("Food info", "$mCurrentPhotoPath ${binding.foodName.text} ${binding.foodAmountInput.text} ${binding.foodAmountMeasure.selectedItem}  ${binding.carbonHydrateAmount.text}  ${binding.fatAmount.text}   ${binding.proteinAmount.text}")
-                    var food  = Food(image_url = mCurrentPhotoPath,
+                    val food  = Food(image_url = mCurrentPhotoPath,
                             resource_id = 0,
                             name = binding.foodName.text.toString(),
                             measure = binding.foodAmountMeasure.selectedItem.toString(),
@@ -85,6 +95,7 @@ class AddNewDietFoodFragment: BaseFragment() {
                             amount = binding.foodAmountInput.text.toString().toInt(),
                             cal = binding.kcalAmount.text.toString().toFloat(),
                             na = 0.0f)
+
                     viewModel.insertFood(food)
                     activity?.onBackPressed()
                 }
@@ -116,23 +127,10 @@ class AddNewDietFoodFragment: BaseFragment() {
     }
 
     private fun cropImage(uri: Uri){
-        val values = ContentValues(1)
-        values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
-        val fileUri = activity?.contentResolver?.insert(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, values)
-
-        val intent = Intent("com.android.camera.action.CROP")
-        intent.setDataAndType(uri, "image/*")
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileUri)
-        intent.putExtra("outputX", 500)
-        intent.putExtra("outputY", 500)
-        intent.putExtra("crop", true)
-        intent.putExtra("aspectX", 1)
-        intent.putExtra("aspectY", 1)
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, Uri.parse(mCurrentPhotoPath))
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION
-                or Intent.FLAG_GRANT_WRITE_URI_PERMISSION)
-        intent.putExtra("return-data", false)
-        startActivityForResult(intent, CROP)
+        CropImage.activity(uri)
+                .setAspectRatio(1,1)
+                .setGuidelines(CropImageView.Guidelines.ON)
+                .start(context!!, this)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -148,6 +146,24 @@ class AddNewDietFoodFragment: BaseFragment() {
                 }
                 CROP -> {
                     binding.foodImage.setImageURI(Uri.parse(mCurrentPhotoPath))
+                }
+                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+
+                    Utils.uploadImageToGCS(
+                            UiUtli.convertURIBM(context!!.contentResolver,
+                            CropImage.getActivityResult(data).uri), storage.reference).run {
+                        this.addOnFailureListener {
+                            UiUtli.makeSnackbar(this@AddNewDietFoodFragment.view!!, "Fail to upload")
+                        }
+                        this.addOnSuccessListener {
+                            mCurrentPhotoPath = it.metadata?.name!!
+//                            binding.view
+                            UiUtli.loadImage(binding.foodImage, mCurrentPhotoPath)
+//                            binding.foodImage.setImageURI(Uri.parse(mCurrentPhotoPath))
+
+                        }
+                    }
+
                 }
             }
         }

@@ -9,6 +9,10 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.view.View
+import android.widget.ImageButton
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
 import java.net.URI
 import java.text.NumberFormat
@@ -44,6 +48,10 @@ class UiUtli {
             return Uri.parse(path)
         }
 
+        fun convertURIBM(contentResolver: ContentResolver, uri: Uri): Bitmap{
+            return MediaStore.Images.Media.getBitmap(contentResolver, uri)
+        }
+
 
         fun makeSnackbar(view: View, resId: Int){
            Snackbar.make(view, resId, Snackbar.LENGTH_SHORT).show()
@@ -51,6 +59,12 @@ class UiUtli {
 
         fun makeSnackbar(view: View, msg: String){
             Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show()
+        }
+
+        fun loadImage(view: ImageView, url: String){
+            Glide.with(view.rootView)
+                    .load(FirebaseStorage.getInstance().reference.child(url))
+                    .into(view)
         }
 
     }

@@ -22,7 +22,8 @@
             android:id="@+id/food_image"
             android:layout_width="90dp"
             android:layout_height="90dp"
-            imageRes="@{viewModel.resId}"/>
+            imageRes="@{viewModel.resId}"
+            imageResUri="@{viewModel.image}" />
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/food_text_cont"
