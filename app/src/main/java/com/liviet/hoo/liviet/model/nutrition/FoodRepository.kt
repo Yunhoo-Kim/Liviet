@@ -26,7 +26,10 @@ class FoodRepository @Inject constructor(private val foodDao: FoodDao, private v
     fun saveFood(food: Food)  = foodDao.insert(food)
 
     private fun initFoods(){
-        foodDao.deleteAll()
+//        foodDao.deleteAll()
+        if(foodDao.getFoods().isNotEmpty()){
+           return
+        }
 
         foodDao.insert(Food(name = "사과", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
         ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))

@@ -14,7 +14,7 @@ import java.util.*
 data class Diet(
         @field: PrimaryKey(autoGenerate = true)
         val id: Long = 0,
-        val date: Date,
+        var date: Date,
         val foodId: Long,
         val amount: Int
 )

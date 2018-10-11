@@ -9,6 +9,7 @@
     </data>
 
     <android.support.constraint.ConstraintLayout
+        android:id="@+id/date_cont"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="7dp">

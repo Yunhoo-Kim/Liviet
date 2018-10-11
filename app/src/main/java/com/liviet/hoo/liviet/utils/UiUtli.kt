@@ -14,14 +14,14 @@ import java.net.URI
 import java.text.NumberFormat
 import java.util.*
 
-
+@Suppress("unused")
 class UiUtli {
     companion object {
         fun addNewFragment(activity:FragmentActivity, fragment: Fragment, container_id:Int){
             activity.supportFragmentManager.apply {
                 this.beginTransaction()
                         .addToBackStack(null)
-                        .add(container_id, fragment, "")
+                        .replace(container_id, fragment, "")
                         .commit()
             }
         }
@@ -43,6 +43,7 @@ class UiUtli {
             val path = MediaStore.Images.Media.insertImage(contentResolver, bitmap, UUID.randomUUID().toString(), null)
             return Uri.parse(path)
         }
+
 
         fun makeSnackbar(view: View, resId: Int){
            Snackbar.make(view, resId, Snackbar.LENGTH_SHORT).show()

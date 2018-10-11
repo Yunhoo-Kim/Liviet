@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.liviet.hoo.liviet.viewmodel.LivietMainVM"/>
+            type="com.liviet.hoo.liviet.viewmodel.food.DietVM"/>
     </data>
 
     <android.support.constraint.ConstraintLayout
@@ -26,7 +26,7 @@
         </android.support.v7.widget.RecyclerView>
 
         <android.support.v7.widget.RecyclerView
-            android:id="@+id/food_list"
+            android:id="@+id/diet_list"
             android:layout_marginTop="16dp"
             app:layout_constraintTop_toBottomOf="@+id/date_list"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -35,7 +35,7 @@
             android:clipToPadding="false"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            adapter="@{viewModel.mainFoodListAdapter}">
+            adapter="@{viewModel.dietListAdapter}">
 
         </android.support.v7.widget.RecyclerView>
 

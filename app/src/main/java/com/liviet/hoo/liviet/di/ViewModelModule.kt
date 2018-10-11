@@ -3,6 +3,7 @@ package com.liviet.hoo.liviet.di
 import android.arch.lifecycle.ViewModel
 import android.arch.lifecycle.ViewModelProvider
 import com.liviet.hoo.liviet.viewmodel.LivietMainVM
+import com.liviet.hoo.liviet.viewmodel.food.DietVM
 import com.liviet.hoo.liviet.viewmodel.food.FoodVM
 import com.liviet.hoo.liviet.viewmodel.user.UserSetUpViewModel
 import dagger.Binds
@@ -30,6 +31,11 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(FoodVM::class)
     internal abstract fun bindFoodVM(viewModel: FoodVM): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(DietVM::class)
+    internal abstract fun bindDietVM(viewModel: DietVM): ViewModel
 
     @Binds
     @IntoMap

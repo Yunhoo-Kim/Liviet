@@ -8,14 +8,17 @@ import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.databinding.ItemDateBinding
 import com.liviet.hoo.liviet.databinding.ItemFoodBinding
 import com.liviet.hoo.liviet.model.nutrition.Food
+import com.liviet.hoo.liviet.utils.UiUtli
+import com.liviet.hoo.liviet.utils.Utils
 import com.liviet.hoo.liviet.viewmodel.food.DateItemVM
+import com.liviet.hoo.liviet.viewmodel.food.DietVM
 import com.liviet.hoo.liviet.viewmodel.food.FoodItemVM
 import kotlinx.android.synthetic.main.item_food.view.*
 import java.util.*
 
 
-class MainDateListAdapter: RecyclerView.Adapter<MainDateListAdapter.ViewHolder>() {
-    private lateinit var dateList: List<Date>
+class MainDateListAdapter constructor(val viewModel: DietVM): RecyclerView.Adapter<MainDateListAdapter.ViewHolder>() {
+    private lateinit var dateList: List<Calendar>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MainDateListAdapter.ViewHolder {
         val binding: ItemDateBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_date, parent,false)
@@ -23,10 +26,10 @@ class MainDateListAdapter: RecyclerView.Adapter<MainDateListAdapter.ViewHolder>(
     }
 
     override fun onBindViewHolder(holder: MainDateListAdapter.ViewHolder, position: Int) {
-        holder.bind(dateList[position])
+        holder.bind(dateList[position], viewModel)
     }
 
-    fun updateDateList(dateList : List<Date>){
+    fun updateDateList(dateList : List<Calendar>){
         this.dateList = dateList
         notifyDataSetChanged()
     }
@@ -36,21 +39,13 @@ class MainDateListAdapter: RecyclerView.Adapter<MainDateListAdapter.ViewHolder>(
     class ViewHolder(private val binding: ItemDateBinding): RecyclerView.ViewHolder(binding.root){
         private val dateItemVm = DateItemVM()
 
-        fun bind(date: Date){
-            dateItemVm.bind(date)
+        fun bind(calendar: Calendar, viewModel: DietVM){
+            dateItemVm.bind(Utils.makeCalendarToDate(calendar))
             binding.viewModel = dateItemVm
-//            binding.foodCard.setOnClickListener {
-//                if(food.selected) {
-//                    food.selected = false
-//                    it.setBackgroundResource(R.color.white)
-//                    it.food_name.setTextColor(it.resources.getColor(R.color.colorPrimary))
-//                }
-//                else {
-//                    food.selected = true
-//                    it.setBackgroundResource(R.color.colorPrimary)
-//                    it.food_name.setTextColor(it.resources.getColor(R.color.white))
-//                }
-//            }
+            binding.dateCont.setOnClickListener {
+                viewModel.cDate = Utils.makeCalendarToDate(calendar)
+                viewModel.getDiets()
+            }
         }
     }
 }

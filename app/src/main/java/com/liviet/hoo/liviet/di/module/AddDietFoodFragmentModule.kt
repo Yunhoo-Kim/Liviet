@@ -1,6 +1,7 @@
 package com.liviet.hoo.liviet.di.module
 
 import com.liviet.hoo.liviet.di.FragmentScope
+import com.liviet.hoo.liviet.model.nutrition.DietRepository
 import com.liviet.hoo.liviet.model.nutrition.FoodRepository
 import com.liviet.hoo.liviet.model.user.UserRepository
 import com.liviet.hoo.liviet.ui.food.AddDietFoodDetailFragment
@@ -33,4 +34,8 @@ abstract class AddDietFoodFragmentModule {
     @FragmentScope
     @Binds
     abstract fun bindFoodRepository(foodRepository: FoodRepository): FoodRepository
+
+    @FragmentScope
+    @Binds
+    abstract fun bindDietRepository(dietRepository: DietRepository): DietRepository
 }

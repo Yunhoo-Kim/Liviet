@@ -6,6 +6,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.provider.MediaStore
+import android.support.v7.view.menu.MenuView
 import android.support.v7.widget.GridLayoutManager
 import android.text.Editable
 import android.text.TextWatcher
@@ -19,11 +20,15 @@ import com.liviet.hoo.liviet.databinding.FragmentAddDietFoodBinding
 import com.liviet.hoo.liviet.databinding.FragmentAddDietFoodDetailBinding
 import com.liviet.hoo.liviet.databinding.FragmentSelectFoodBinding
 import com.liviet.hoo.liviet.di.ViewModelFactory
+import com.liviet.hoo.liviet.model.nutrition.Diet
 import com.liviet.hoo.liviet.model.nutrition.Food
 import com.liviet.hoo.liviet.ui.LivietMainFragment
 import com.liviet.hoo.liviet.utils.UiUtli
+import com.liviet.hoo.liviet.utils.Utils
+import com.liviet.hoo.liviet.viewmodel.food.DietVM
 import com.liviet.hoo.liviet.viewmodel.food.FoodItemVM
 import com.liviet.hoo.liviet.viewmodel.food.FoodVM
+import java.util.*
 import javax.inject.Inject
 
 
@@ -33,9 +38,13 @@ class AddDietFoodDetailFragment: BaseFragment() {
     lateinit var viewModelFactory: ViewModelFactory
 
     private var foodId: Long = 0
-    private lateinit var viewModel: FoodVM
+    private lateinit var viewModel: DietVM
+    private val itemVM: FoodItemVM by lazy {
+        FoodItemVM()
+    }
     private lateinit var binding: FragmentAddDietFoodDetailBinding
     private lateinit var food: Food
+
     private var defCarbon: Float = 0.0f
     private var defProtein: Float = 0.0f
     private var defFat: Float = 0.0f
@@ -44,14 +53,15 @@ class AddDietFoodDetailFragment: BaseFragment() {
         super.onCreateView(inflater, container, savedInstanceState)
 
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_diet_food_detail, container, false)
-        viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(FoodVM::class.java)
+        viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(DietVM::class.java)
         binding.viewModel = viewModel
 
         foodId = arguments!!.getLong("foodId")
 
-        var itemVM = FoodItemVM()
-        food = viewModel.getFood(foodId).blockingFirst()
+        food = viewModel.getFoodById(foodId).blockingFirst()
+
         itemVM.bind(food)
+
         binding.itemViewModel = itemVM
 
         defCarbon = food.carbon_hydrate / food.amount.toFloat()
@@ -59,7 +69,18 @@ class AddDietFoodDetailFragment: BaseFragment() {
         defFat = food.fat / food.amount.toFloat()
 
         binding.saveDiet.setOnClickListener {
-            // save diet info to db and close fragment
+            val amount = binding.foodAmountInput.text
+
+            if(amount.isEmpty()){
+                UiUtli.makeSnackbar(it, R.string.plz_fill_info)
+                return@setOnClickListener
+            }
+
+            val diet = Diet(amount = amount.toString().toInt(), date= Utils.makeCalendarToDate(Calendar.getInstance()), foodId = food.id)
+            viewModel.insertDiet(diet)
+
+            fragmentManager!!.popBackStack() // close this fragment
+            fragmentManager!!.popBackStack() // close select food fragment
         }
 
         binding.foodAmountInput.addTextChangedListener(object: TextWatcher{
@@ -71,16 +92,12 @@ class AddDietFoodDetailFragment: BaseFragment() {
                 binding.carbonHydrateAmount.text = "${defCarbon * p0.toString().toInt()}${food.measure}"
                 binding.proteinAmount.text = "${defProtein * p0.toString().toInt()}${food.measure}"
                 binding.fatAmount.text = "${defFat * p0.toString().toInt()}${food.measure}"
-
-                Log.d("Amount Input", p0.toString())
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                Log.d("Amount Input", p0.toString())
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                Log.d("Amount Input", p0.toString())
             }
 
         })
