@@ -2,6 +2,7 @@ package com.liviet.hoo.liviet.ui.food
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -16,9 +17,10 @@ import com.liviet.hoo.liviet.model.nutrition.Food
 import com.liviet.hoo.liviet.utils.UiUtli
 import com.liviet.hoo.liviet.utils.extension.getParentActivity
 import com.liviet.hoo.liviet.viewmodel.food.DietItemVM
+import com.liviet.hoo.liviet.viewmodel.food.DietVM
 
 
-class DietListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DietListAdapter constructor(val dietVM: DietVM): RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     private lateinit var dietList: List<Pair<Diet,Food>>
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -50,7 +52,7 @@ class DietListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when(holder.itemViewType){
-            0 -> (holder as ViewHolder).bind(dietList[position].first, dietList[position].second)
+            0 -> (holder as ViewHolder).bind(dietList[position].first, dietList[position].second, dietVM)
             1 -> (holder as PlusViewHolder).bind()
             2 -> (holder as AdViewHolder).bind()
         }
@@ -66,11 +68,29 @@ class DietListAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     class ViewHolder(private val binding: ItemDietMainBinding): RecyclerView.ViewHolder(binding.root){
         private val dietItemVm = DietItemVM()
 
-        fun bind(diet: Diet, food: Food){
+        fun bind(diet: Diet, food: Food, dietVM: DietVM){
             dietItemVm.bind(diet, food)
             binding.viewModel = dietItemVm
+
+            binding.foodTextCont.setOnClickListener {
+                val bundle = Bundle()
+                bundle.putLong("dietId", diet.id)
+                UiUtli.addNewFragment(it.getParentActivity()!!, DietDetailFragment.newInstance(bundle), R.id.container_main)
+            }
+
+            binding.foodCheck.setOnClickListener {
+                val builder = AlertDialog.Builder(it.context)
+                builder.setMessage(R.string.do_you_want_to_remove)
+                        .setPositiveButton(R.string.remove) { _, _ ->
+                            // delete
+                            dietVM.deleteDiet(diet.id)
+                        }
+                        .setNegativeButton(R.string.cancel) { _,_ -> }
+                builder.show()
+            }
         }
     }
+
     class PlusViewHolder(private val binding: ItemPlusBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(){
             binding.plusCont.setOnClickListener {

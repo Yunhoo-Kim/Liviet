@@ -18,12 +18,14 @@ import javax.inject.Inject
 class DateItemVM: BaseViewModel() {
 
     private val dayFormat: String = "d"
-    private val daySFormat = SimpleDateFormat(dayFormat, Locale.getDefault()).apply{
-        this.timeZone = TimeZone.getTimeZone("KST")}
+//    private val daySFormat = SimpleDateFormat(dayFormat, Locale.getDefault()).apply{
+//        this.timeZone = TimeZone.getTimeZone("KST")}
+    private val daySFormat = SimpleDateFormat(dayFormat, Locale.getDefault())
 
     private val dayOWFormat: String = "E"
-    private val daySOWFormat = SimpleDateFormat(dayOWFormat, Locale.getDefault()).apply{
-        this.timeZone = TimeZone.getTimeZone("KST")}
+//    private val daySOWFormat = SimpleDateFormat(dayOWFormat, Locale.getDefault()).apply{
+//        this.timeZone = TimeZone.getTimeZone("KST")}
+    private val daySOWFormat = SimpleDateFormat(dayOWFormat, Locale.getDefault())
 
     var day: MutableLiveData<String> = MutableLiveData()
     var dayOfWeek: MutableLiveData<String> = MutableLiveData()

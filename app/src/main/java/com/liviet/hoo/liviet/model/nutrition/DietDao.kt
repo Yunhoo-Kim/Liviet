@@ -15,8 +15,14 @@ interface DietDao {
     @Query("SELECT * FROM diet where date=:date")
     fun getDietByDate(date: Date): List<Diet>
 
+    @Query("SELECT * FROM diet where id=:id")
+    fun getDietById(id: Long): Diet
+
     @Insert(onConflict = REPLACE)
     fun insert(diet: Diet): Long
+
+    @Query("DELETE  FROM diet where id=:id")
+    fun delDiet(id: Long)
 
     @Query("DELETE FROM diet")
     fun deleteAll()

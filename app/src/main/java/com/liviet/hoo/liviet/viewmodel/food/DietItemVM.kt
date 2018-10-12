@@ -27,17 +27,23 @@ class DietItemVM: BaseViewModel() {
     var carbon: MutableLiveData<String> = MutableLiveData()
     var protein: MutableLiveData<String> = MutableLiveData()
     var fat: MutableLiveData<String> = MutableLiveData()
+    var kcal: MutableLiveData<String> = MutableLiveData()
 
     fun bind(diet: Diet, food: Food){
         this.name.value = food.name
         this.amount.value = diet.amount.toString()
-        this.amountText.value = food.amount.toString()
+        this.amountText.value = "${food.amount} ${food.measure}"
         this.image.value = food.image_url
-        this.amt.value = "${food.amount}${food.measure}"
+        this.amt.value = "${diet.amount}${food.measure}"
         this.resId.value = food.resource_id
         this.measure.value = food.measure
-        this.carbon.value = "${food.carbon_hydrate} ${food.measure}"
-        this.protein.value = "${food.protein} ${food.measure}"
-        this.fat.value = "${food.fat} ${food.measure}"
+        this.carbon.value = "${food.carbon_hydrate / food.amount.toFloat() * diet.amount} ${food.measure}"
+        this.protein.value = "${food.protein / food.amount.toFloat() * diet.amount} ${food.measure}"
+        this.fat.value = "${food.fat / food.amount.toFloat() * diet.amount} ${food.measure}"
+        this.kcal.value = "${(food.cal / food.amount * diet.amount).toInt()} Kcal"
+
+//        defCarbon = food.carbon_hydrate / food.amount.toFloat()
+//        defProtein = food.protein / food.amount.toFloat()
+//        defFat = food.fat / food.amount.toFloat()
     }
 }

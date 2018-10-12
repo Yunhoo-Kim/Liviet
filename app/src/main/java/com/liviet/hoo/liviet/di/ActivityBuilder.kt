@@ -2,10 +2,8 @@ package com.liviet.hoo.liviet.di
 
 import com.liviet.hoo.liviet.di.module.*
 import com.liviet.hoo.liviet.ui.LivietMainFragment
-import com.liviet.hoo.liviet.ui.food.AddDietFoodDetailFragment
-import com.liviet.hoo.liviet.ui.food.AddDietFoodFragment
-import com.liviet.hoo.liviet.ui.food.AddNewDietFoodFragment
-import com.liviet.hoo.liviet.ui.food.SelectFoodFragment
+import com.liviet.hoo.liviet.ui.MainActivity
+import com.liviet.hoo.liviet.ui.food.*
 import com.liviet.hoo.liviet.ui.user.*
 import dagger.Module
 import dagger.android.ContributesAndroidInjector
@@ -18,6 +16,8 @@ abstract class ActivityBuilder{
     @ContributesAndroidInjector(modules = [UserSetUpActivityModule::class])
     abstract fun bindUserSetUpActivityModule(): UserSetUpActivity
 
+    @ContributesAndroidInjector(modules = [MainActivityModule::class])
+    abstract fun bindMainActivityModule(): MainActivity
     @ContributesAndroidInjector(modules = [DietStyleSetUpFragmentModule::class])
     abstract fun bindDietStyleSetUpFragmentModule(): DietStyleSetUpFragment
 
@@ -38,6 +38,9 @@ abstract class ActivityBuilder{
 
     @ContributesAndroidInjector(modules = [AddDietFoodFragmentModule::class])
     abstract fun bindAddNewDietFoodFragment(): AddNewDietFoodFragment
+
+    @ContributesAndroidInjector(modules = [DietDetailFragmentModule::class])
+    abstract fun bindDietDetailFragment(): DietDetailFragment
 
     @ContributesAndroidInjector(modules = [LivietMainFragmentModule::class])
     abstract fun bindLivietMainFragment(): LivietMainFragment

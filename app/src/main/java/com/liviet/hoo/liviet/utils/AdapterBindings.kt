@@ -12,6 +12,7 @@ import android.widget.Spinner
 import android.widget.SpinnerAdapter
 import android.widget.TextView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.google.firebase.storage.FirebaseStorage
 import com.liviet.hoo.liviet.utils.extension.getParentActivity
 
@@ -49,6 +50,7 @@ fun setImageResourceByURI(view: ImageView, image_id: MutableLiveData<String>?){
 
     Glide.with(view.getParentActivity()!!)
             .load(FirebaseStorage.getInstance().reference.child(image_id.value!!))
+//            .apply(RequestOptions.)
             .into(view)
 //    view.setImageURI(Uri.parse(image_id.value))
 }

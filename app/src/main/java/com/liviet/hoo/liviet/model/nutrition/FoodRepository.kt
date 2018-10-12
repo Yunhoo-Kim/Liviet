@@ -26,7 +26,7 @@ class FoodRepository @Inject constructor(private val foodDao: FoodDao, private v
     fun saveFood(food: Food)  = foodDao.insert(food)
 
     private fun initFoods(){
-        foodDao.deleteAll()
+//        foodDao.deleteAll()
         if(foodDao.getFoods().isNotEmpty()){
            return
         }

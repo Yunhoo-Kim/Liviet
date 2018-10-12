@@ -57,7 +57,7 @@ class AddNewDietFoodFragment: BaseFragment() {
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(FoodVM::class.java)
         binding.viewModel = viewModel
         binding.foodImage.setOnClickListener {
-            var builder = AlertDialog.Builder(context!!)
+            val builder = AlertDialog.Builder(context!!)
             builder.setItems(R.array.select_image){ dialog, i ->
                 when(i){
                     0 -> {
@@ -106,9 +106,9 @@ class AddNewDietFoodFragment: BaseFragment() {
 
     private fun requestCamera(){
         if(ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(activity!!, arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE), CAMERA)
+            requestPermissions(arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA), CAMERA)
         }else if(ContextCompat.checkSelfPermission(context!!, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED){
-            ActivityCompat.requestPermissions(activity!!, arrayOf(android.Manifest.permission.CAMERA), CAMERA)
+            requestPermissions(arrayOf(android.Manifest.permission.WRITE_EXTERNAL_STORAGE, android.Manifest.permission.CAMERA), CAMERA)
         }else {
             val values = ContentValues(1)
             values.put(MediaStore.Images.Media.MIME_TYPE, "image/jpg")
@@ -128,6 +128,8 @@ class AddNewDietFoodFragment: BaseFragment() {
 
     private fun cropImage(uri: Uri){
         CropImage.activity(uri)
+                .setOutputCompressQuality(80)
+                .setRequestedSize(300, 300)
                 .setAspectRatio(1,1)
                 .setGuidelines(CropImageView.Guidelines.ON)
                 .start(context!!, this)
@@ -172,11 +174,13 @@ class AddNewDietFoodFragment: BaseFragment() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
+        Log.d("RequestPermission", requestCode.toString())
         when(requestCode){
             CAMERA -> {
                 if (grantResults.isEmpty() || grantResults[0] != PackageManager.PERMISSION_GRANTED) {
                     Snackbar.make(view!!, R.string.allow_grant, Snackbar.LENGTH_SHORT).show()
                 } else {
+                    Log.d("Request Permission", requestCode.toString())
                     requestCamera()
                 }
             }

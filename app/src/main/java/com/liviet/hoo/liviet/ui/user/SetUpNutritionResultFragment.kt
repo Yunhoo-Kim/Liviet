@@ -1,6 +1,7 @@
 package com.liviet.hoo.liviet.ui.user
 
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -14,6 +15,7 @@ import com.liviet.hoo.liviet.databinding.FragmentDietStyleSetupBinding
 import com.liviet.hoo.liviet.databinding.FragmentLifeStyleSetupBinding
 import com.liviet.hoo.liviet.databinding.FragmentSetupResultBinding
 import com.liviet.hoo.liviet.di.ViewModelFactory
+import com.liviet.hoo.liviet.ui.MainActivity
 import com.liviet.hoo.liviet.ui.food.SelectFoodFragment
 import com.liviet.hoo.liviet.utils.UiUtli
 import com.liviet.hoo.liviet.viewmodel.user.UserSetUpViewModel
@@ -40,7 +42,11 @@ class SetUpNutritionResultFragment: BaseFragment() {
 
         binding.dietStyleNext.setOnClickListener {
             viewModel.saveUserInfo()
-            UiUtli.addNewFragment(this.activity!!, SelectFoodFragment.newInstance(Bundle()), R.id.container_main)
+//            UiUtli.addNewFragment(this.activity!!, SelectFoodFragment.newInstance(Bundle()), R.id.container_main)
+
+            val intent = Intent(this.activity, MainActivity::class.java)
+            startActivity(intent)
+            this.activity!!.finish()
         }
         return binding.root
     }

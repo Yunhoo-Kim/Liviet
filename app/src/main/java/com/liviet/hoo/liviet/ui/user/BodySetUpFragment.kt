@@ -42,7 +42,8 @@ class BodySetUpFragment: BaseFragment() {
             Log.d("Select NextButton","weight item ${binding.weightSpinner.selectedItem}")
             Log.d("Select NextButton","Is Man ${binding.male.isChecked}")
 
-            UiUtli.addNewFragment(activity!!, DietStyleSetUpFragment.newInstance(Bundle()), R.id.container_main)
+//            UiUtli.addNewFragment(activity!!, DietStyleSetUpFragment.newInstance(Bundle()), R.id.container_main)
+            UiUtli.addNewFragment(activity!!, LifeStyleSetUpFragment.newInstance(Bundle()), R.id.container_main)
         }
 
         return binding.root

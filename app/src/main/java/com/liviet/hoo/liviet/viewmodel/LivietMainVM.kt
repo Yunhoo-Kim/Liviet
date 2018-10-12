@@ -25,9 +25,9 @@ class LivietMainVM @Inject constructor(private val foodRepository: FoodRepositor
     val mainFoodListAdapter: MainFoodListAdapter by lazy {
         MainFoodListAdapter()
     }
-    val dietListAdapter: DietListAdapter by lazy {
-        DietListAdapter()
-    }
+//    val dietListAdapter: DietListAdapter by lazy {
+//        DietListAdapter()
+//    }
 
     init {
 
@@ -41,33 +41,33 @@ class LivietMainVM @Inject constructor(private val foodRepository: FoodRepositor
 //        return foodRepository.getFoods()
 //    }
 
-    fun getDiet(date: Date): Observable<List<Diet>>{
-//        foodList.add(Food(name = "plus", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
-//                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))
-
-        val dietList = dietRepository.getDietsByDate(date).blockingFirst()
-        val mDietList: MutableList<Pair<Diet, Food>> = mutableListOf()
-
-        for(d in dietList){
-            val pair = Pair<Diet, Food>(d, foodRepository.getFoodById(d.foodId).blockingFirst() )
-            mDietList.add(pair)
-        }
-
-        dietListAdapter.updateDietList(mDietList)
-        return Observable.just(dietList)
-    }
-
-    fun getDiets(): Observable<List<Diet>>{
-        val dietList = dietRepository.getDiets().blockingFirst()
-        val mDietList: MutableList<Pair<Diet, Food>> = mutableListOf()
-
-        for(d in dietList){
-            val pair = Pair<Diet, Food>(d, foodRepository.getFoodById(d.foodId).blockingFirst() )
-            mDietList.add(pair)
-        }
-        dietListAdapter.updateDietList(mDietList)
-        return Observable.just(dietList)
-    }
+//    fun getDiet(date: Date): Observable<List<Diet>>{
+////        foodList.add(Food(name = "plus", amount = 100, carbon_hydrate = 10f, cal = 10f, fat = 10f
+////                ,image_url = "", measure = "g", na = 10.0f, protein = 10.0f, resource_id = R.drawable.apple))
+//
+//        val dietList = dietRepository.getDietsByDate(date).blockingFirst()
+//        val mDietList: MutableList<Pair<Diet, Food>> = mutableListOf()
+//
+//        for(d in dietList){
+//            val pair = Pair<Diet, Food>(d, foodRepository.getFoodById(d.foodId).blockingFirst() )
+//            mDietList.add(pair)
+//        }
+//
+//        dietListAdapter.updateDietList(mDietList)
+//        return Observable.just(dietList)
+//    }
+//
+//    fun getDiets(): Observable<List<Diet>>{
+//        val dietList = dietRepository.getDiets().blockingFirst()
+//        val mDietList: MutableList<Pair<Diet, Food>> = mutableListOf()
+//
+//        for(d in dietList){
+//            val pair = Pair<Diet, Food>(d, foodRepository.getFoodById(d.foodId).blockingFirst() )
+//            mDietList.add(pair)
+//        }
+//        dietListAdapter.updateDietList(mDietList)
+//        return Observable.just(dietList)
+//    }
 
     fun addFoods(){
         var foodList: MutableList<Food> = mutableListOf()

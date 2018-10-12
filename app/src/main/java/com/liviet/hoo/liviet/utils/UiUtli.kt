@@ -33,7 +33,6 @@ class UiUtli {
         fun replaceNewFragment(activity:FragmentActivity, fragment: Fragment, container_id:Int){
             activity.supportFragmentManager.apply {
                 this.beginTransaction()
-                        .addToBackStack(null)
                         .replace(container_id, fragment, "")
                         .commit()
             }
@@ -48,10 +47,7 @@ class UiUtli {
             return Uri.parse(path)
         }
 
-        fun convertURIBM(contentResolver: ContentResolver, uri: Uri): Bitmap{
-            return MediaStore.Images.Media.getBitmap(contentResolver, uri)
-        }
-
+        fun convertURIBM(contentResolver: ContentResolver, uri: Uri): Bitmap = MediaStore.Images.Media.getBitmap(contentResolver, uri)
 
         fun makeSnackbar(view: View, resId: Int){
            Snackbar.make(view, resId, Snackbar.LENGTH_SHORT).show()

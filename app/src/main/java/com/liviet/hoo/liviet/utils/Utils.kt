@@ -1,6 +1,7 @@
 package com.liviet.hoo.liviet.utils
 
 import android.graphics.Bitmap
+import android.util.Log
 import com.google.android.gms.tasks.OnFailureListener
 import com.google.firebase.storage.StorageMetadata
 import com.google.firebase.storage.StorageReference
@@ -22,10 +23,7 @@ class Utils {
         }
 
         fun uploadImageToGCS(bitmap: Bitmap, storageReference: StorageReference): UploadTask{
-            val fileName = "abc.png"
-//            val storageMetadata = StorageMetadata.Builder()
-//                    .setContent
-
+            val fileName = "${Utils.makeRandomString()}.png"
             val imageRef = storageReference.child(fileName)
             val baos = ByteArrayOutputStream()
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
@@ -33,5 +31,7 @@ class Utils {
             return imageRef.putBytes(baos.toByteArray())
 
         }
+
+        fun makeRandomString(): String = UUID.randomUUID().toString()
     }
 }

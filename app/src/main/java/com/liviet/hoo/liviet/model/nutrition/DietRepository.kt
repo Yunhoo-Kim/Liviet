@@ -26,4 +26,6 @@ class DietRepository @Inject constructor(private val dietDao: DietDao, private v
 
     fun getDiets(): Observable<List<Diet>> = Observable.just(dietDao.getDiets())
     fun getDietsByDate(date: Date): Observable<List<Diet>> = Observable.just(dietDao.getDietByDate(date))
+    fun getDietById(id: Long): Observable<Diet> = Observable.just(dietDao.getDietById(id))
+    fun delDiet(id: Long) = dietDao.delDiet(id)
 }

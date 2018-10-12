@@ -2,6 +2,7 @@ package com.liviet.hoo.liviet.ui
 
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
+import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
@@ -13,9 +14,9 @@ import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseFragment
 import com.liviet.hoo.liviet.databinding.FragmentLivietMainBinding
 import com.liviet.hoo.liviet.di.ViewModelFactory
-import com.liviet.hoo.liviet.viewmodel.LivietMainVM
+import com.liviet.hoo.liviet.ui.user.UserSetUpActivity
+import com.liviet.hoo.liviet.utils.UiUtli
 import com.liviet.hoo.liviet.viewmodel.food.DietVM
-import java.util.*
 import javax.inject.Inject
 
 
@@ -37,6 +38,15 @@ class LivietMainFragment: BaseFragment() {
         binding.dateList.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
 
         viewModel.initDate()
+
+        binding.capture.setOnClickListener {
+            UiUtli.makeSnackbar(it.rootView, R.string.not_ready_yet)
+        }
+        binding.settings.setOnClickListener {
+            val intent = Intent(this.activity, UserSetUpActivity::class.java)
+            startActivity(intent)
+//            finish()
+        }
 //        viewModel.getDiet(Date())
 //        viewModel.addFoods()
 

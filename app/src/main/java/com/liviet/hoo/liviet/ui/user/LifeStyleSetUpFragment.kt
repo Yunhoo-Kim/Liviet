@@ -38,8 +38,8 @@ class LifeStyleSetUpFragment: BaseFragment() {
             }
             else {
                 viewModel.life_type.value = if (binding.eNone.isChecked) 1.2 else if (binding.eLow.isChecked) 1.3 else if (binding.eNormal.isChecked) 1.5 else if (binding.eHigh.isChecked) 1.75 else 0.0
-                UiUtli.addNewFragment(this.activity!!, SelectStartDietDayFragment.newInstance(Bundle()), R.id.container_main)
-//                UiUtli.addNewFragment(this.activity!!, SetUpNutritionResultFragment.newInstance(Bundle()), R.id.container_main)
+//                UiUtli.addNewFragment(this.activity!!, SelectStartDietDayFragment.newInstance(Bundle()), R.id.container_main)
+                UiUtli.addNewFragment(this.activity!!, SetUpNutritionResultFragment.newInstance(Bundle()), R.id.container_main)
             }
         }
         return binding.root

@@ -20,6 +20,9 @@ import javax.inject.Inject
 class DietVM @Inject constructor(private val dietRepository: DietRepository, private val foodRepository: FoodRepository): BaseViewModel() {
 
     var cDate: Date = Utils.makeCalendarToDate(Calendar.getInstance())
+    var tDate: Date = Utils.makeCalendarToDate(Calendar.getInstance())
+
+    private val dateList = mutableListOf<Calendar>()
 
     val foodListAdapter: FoodListAdapter by lazy {
         FoodListAdapter()
@@ -30,7 +33,7 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository, pri
     }
 
     val dietListAdapter: DietListAdapter by lazy {
-        DietListAdapter()
+        DietListAdapter(this)
     }
 
     init {
@@ -65,20 +68,38 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository, pri
 
     fun getDiets(): Observable<List<Diet>> = this.getDiet(cDate)
 
+    fun deleteDiet(id: Long) {
+        dietRepository.delDiet(id)
+        getDiets()
+    }
+
+    fun getDietById(id: Long): Observable<Diet> = dietRepository.getDietById(id)
     fun getFoodById(id: Long): Observable<Food> = foodRepository.getFoodById(id)
 
     fun initDate(){
+        if(dateList.isNotEmpty())
+            return
 
-        var calendar:Calendar = Calendar.getInstance()
-        val dateList = mutableListOf<Calendar>()
-
-        for (i in -2..7){
-            calendar = Calendar.getInstance()
-            calendar.add(Calendar.DAY_OF_WEEK, i)
+        for (i in -2..4){
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DATE, i)
             dateList.add(calendar)
         }
+        dateListAdapter.initDateList(dateList)
+    }
 
-        dateListAdapter.updateDateList(dateList)
+    fun updateDate(date: Date){
+        var i = 0
+        var j = 0
+
+        for(d in dateList){
+            if(d.time == date)
+                i = dateList.indexOf(d)
+            if(d.time == cDate)
+                j = dateList.indexOf(d)
+        }
+
+        dateListAdapter.updateDateList(dateList, i, j)
     }
 }
 
