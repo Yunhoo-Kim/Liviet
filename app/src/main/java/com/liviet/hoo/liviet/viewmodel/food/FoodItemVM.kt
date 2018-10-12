@@ -35,8 +35,8 @@ class FoodItemVM: BaseViewModel() {
         this.amt.value = "${food.amount}${food.measure}"
         this.resId.value = food.resource_id
         this.measure.value = food.measure
-        this.carbon.value = "${food.carbon_hydrate} ${food.measure}"
-        this.protein.value = "${food.protein} ${food.measure}"
-        this.fat.value = "${food.fat} ${food.measure}"
+        this.carbon.value = "${food.carbon_hydrate}g"
+        this.protein.value = "${food.protein}g"
+        this.fat.value = "${food.fat}g"
     }
 }

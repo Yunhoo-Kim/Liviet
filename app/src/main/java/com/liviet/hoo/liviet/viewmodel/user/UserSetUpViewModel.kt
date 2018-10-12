@@ -48,9 +48,25 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
             this.add("$i kg")
     }
 
-
     init {
+        updateUserInfo()
+    }
 
+    fun updateUserInfo(){
+        try{
+            val user = getUserInfo()
+            this.age.value = "${user.age}세"
+            this.height.value = "${user.height} cm"
+            this.weight.value = "${user.weight} kg"
+            this.sex.value = user.sex == 0
+            this.ageDfIdx = this.ageEntries.indexOf(this.age.value!!)
+            this.heightDfIdx = this.heightEntries.indexOf(this.height.value!!)
+            this.weightDfIdx = this.weightEntries.indexOf(this.weight.value!!)
+
+            Log.d("Error", "${this.age.value} ${this.weight.value} ${this.height.value}")
+        }catch (e: NullPointerException){
+            Log.d("Error", "Error NullPointer")
+        }
     }
 
     fun saveUserInfo(){

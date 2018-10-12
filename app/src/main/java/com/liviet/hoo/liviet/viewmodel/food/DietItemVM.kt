@@ -37,9 +37,9 @@ class DietItemVM: BaseViewModel() {
         this.amt.value = "${diet.amount}${food.measure}"
         this.resId.value = food.resource_id
         this.measure.value = food.measure
-        this.carbon.value = "${food.carbon_hydrate / food.amount.toFloat() * diet.amount} ${food.measure}"
-        this.protein.value = "${food.protein / food.amount.toFloat() * diet.amount} ${food.measure}"
-        this.fat.value = "${food.fat / food.amount.toFloat() * diet.amount} ${food.measure}"
+        this.carbon.value = "${food.carbon_hydrate / food.amount.toFloat() * diet.amount}g"
+        this.protein.value = "${food.protein / food.amount.toFloat() * diet.amount}g"
+        this.fat.value = "${food.fat / food.amount.toFloat() * diet.amount}g"
         this.kcal.value = "${(food.cal / food.amount * diet.amount).toInt()} Kcal"
 
 //        defCarbon = food.carbon_hydrate / food.amount.toFloat()

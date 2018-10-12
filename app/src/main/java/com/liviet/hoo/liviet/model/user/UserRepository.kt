@@ -8,12 +8,13 @@ import javax.inject.Inject
 class UserRepository @Inject constructor(private val userDao: UserDao, private val sharedPreferenceHelper: SharedPreferenceHelper){
 
     fun saveUserInfo(user: User): Observable<User> {
+        deleteAllUser()
         val userId: Long = userDao.insert(user)
         val savedUser: User = userDao.getUserById(userId)
         return Observable.just(savedUser)
     }
 
-    fun deleteAllUser() = userDao.deleteAll()
+    private fun deleteAllUser() = userDao.deleteAll()
 
     fun getUser(): Observable<User> {
         return Observable.just(userDao.getUser())

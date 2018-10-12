@@ -32,6 +32,8 @@ class UserSetUpActivity: BaseActivity() {
                 getString(R.string.admob_id))
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(UserSetUpViewModel::class.java)
+        viewModel.updateUserInfo()
+
         binding.viewModel = viewModel
         binding.next.setOnClickListener {
             viewModel.height.value = binding.heightSpinner.selectedItem as String
@@ -48,4 +50,13 @@ class UserSetUpActivity: BaseActivity() {
 //            UiUtli.addNewFragment(this, DietStyleSetUpFragment.newInstance(Bundle()), R.id.container_main)
         }
     }
+
+    override fun onResume() {
+        super.onResume()
+//        binding.ageSpinner.setSelection(viewModel.ageEntries.indexOf(viewModel.age.toString()))
+//        binding.heightSpinner.setSelection(viewModel.heightEntries.indexOf(viewModel.height.toString()))
+//        binding.weightSpinner.setSelection(viewModel.weightEntries.indexOf(viewModel.weight.toString()))
+        if(viewModel.sex.value!!) binding.male.isChecked = true else binding.female.isChecked = true
+    }
+
 }

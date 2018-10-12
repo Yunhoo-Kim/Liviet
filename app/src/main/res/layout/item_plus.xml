@@ -17,7 +17,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/appFont.Title"
+                style="@style/appFont"
                 android:textColor="@color/colorPrimary"
                 android:textStyle="bold"
                 android:text="@string/diet_plus" />

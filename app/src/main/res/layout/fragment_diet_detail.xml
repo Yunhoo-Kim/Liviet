@@ -43,8 +43,8 @@
 
                 <ImageView
                     android:id="@+id/food_image"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
                     android:layout_marginTop="40dp"
                     android:src="@drawable/dish"
                     imageRes="@{viewModel.resId}"
@@ -58,6 +58,7 @@
                     app:layout_constraintTop_toBottomOf="@+id/food_image"
                     android:layout_width="300dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent">
 
