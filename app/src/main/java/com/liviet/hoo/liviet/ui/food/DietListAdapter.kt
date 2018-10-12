@@ -2,6 +2,7 @@ package com.liviet.hoo.liviet.ui.food
 
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.v4.app.FragmentActivity
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -94,7 +95,7 @@ class DietListAdapter constructor(val dietVM: DietVM): RecyclerView.Adapter<Recy
     class PlusViewHolder(private val binding: ItemPlusBinding): RecyclerView.ViewHolder(binding.root){
         fun bind(){
             binding.plusCont.setOnClickListener {
-                UiUtli.addNewFragment(it.getParentActivity()!!, AddDietFoodFragment.newInstance(Bundle()), R.id.container_main)
+                UiUtli.addNewFragment(it.context as FragmentActivity, AddDietFoodFragment.newInstance(Bundle()), R.id.container_main)
             }
         }
     }

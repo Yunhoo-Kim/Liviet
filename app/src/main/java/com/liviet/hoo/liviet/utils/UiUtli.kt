@@ -21,7 +21,7 @@ import java.util.*
 @Suppress("unused")
 class UiUtli {
     companion object {
-        fun addNewFragment(activity:FragmentActivity, fragment: Fragment, container_id:Int){
+        fun addNewFragment(activity:FragmentActivity, fragment: Fragment, container_id:Int, addToBackStack: Boolean = true){
             activity.supportFragmentManager.apply {
                 this.beginTransaction()
                         .addToBackStack(null)

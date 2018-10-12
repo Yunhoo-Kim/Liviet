@@ -46,10 +46,7 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository, pri
     }
 
     fun getDiet(date: Date): Observable<List<Diet>>{
-        Log.d("Date", date.toString())
-
         val dietList = dietRepository.getDietsByDate(date).blockingFirst()
-        Log.d("Date", dietList.size.toString())
         val mDietList: MutableList<Pair<Diet, Food>> = mutableListOf()
 
 

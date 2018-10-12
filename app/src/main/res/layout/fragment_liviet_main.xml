@@ -50,6 +50,25 @@
 
         </android.support.v7.widget.RecyclerView>
 
+        <!--<android.support.constraint.ConstraintLayout-->
+            <!--android:id="@+id/plus_cont"-->
+            <!--android:padding="12dp"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:layout_constraintTop_toBottomOf="@+id/date_list"-->
+            <!--app:layout_constraintStart_toStartOf="parent"-->
+            <!--app:layout_constraintEnd_toEndOf="parent">-->
+
+            <!--<TextView-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--style="@style/appFont"-->
+                <!--android:textColor="@color/colorPrimary"-->
+                <!--android:textStyle="bold"-->
+                <!--android:text="@string/diet_plus" />-->
+
+        <!--</android.support.constraint.ConstraintLayout>-->
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/diet_list"
             android:layout_marginTop="16dp"

@@ -14,6 +14,7 @@ import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseFragment
 import com.liviet.hoo.liviet.databinding.FragmentLivietMainBinding
 import com.liviet.hoo.liviet.di.ViewModelFactory
+import com.liviet.hoo.liviet.ui.food.AddDietFoodFragment
 import com.liviet.hoo.liviet.ui.user.UserSetUpActivity
 import com.liviet.hoo.liviet.utils.UiUtli
 import com.liviet.hoo.liviet.viewmodel.food.DietVM
@@ -47,10 +48,29 @@ class LivietMainFragment: BaseFragment() {
             startActivity(intent)
 //            finish()
         }
+//        binding.plusCont.setOnClickListener {
+//            UiUtli.addNewFragment(this.activity!!, AddDietFoodFragment.newInstance(Bundle()), R.id.container_main)
+//        }
+//        binding.plus
 //        viewModel.getDiet(Date())
 //        viewModel.addFoods()
 
         return binding.root
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        Log.d("Date2", "$isVisibleToUser")
+        if(isVisibleToUser && isResumed) {
+            Log.d("Date1", "OnResume")
+            viewModel.getDiet(viewModel.cDate)
+        }
+
+    }
+
+    override fun onPause() {
+        super.onPause()
+        Log.d("Date", "OnPause")
     }
 
     override fun onResume() {

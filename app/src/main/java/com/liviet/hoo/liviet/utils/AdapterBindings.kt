@@ -4,6 +4,8 @@ import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.databinding.BindingAdapter
 import android.net.Uri
+import android.support.v4.app.FragmentPagerAdapter
+import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.RecyclerView
 import android.util.Log
@@ -55,6 +57,11 @@ fun setImageResourceByURI(view: ImageView, image_id: MutableLiveData<String>?){
 //    view.setImageURI(Uri.parse(image_id.value))
 }
 
+@Suppress("unused")
+@BindingAdapter("tabadapter")
+fun setTabAdapter(view: ViewPager, adapter: FragmentPagerAdapter) {
+    view.adapter = adapter
+}
 
 //@BindingAdapter("entries")
 //@Suppress("unused")
