@@ -89,9 +89,9 @@ class AddDietFoodDetailFragment: BaseFragment() {
                     return
                 }
 
-                binding.carbonHydrateAmount.text = "${defCarbon * p0.toString().toInt()}${food.measure}"
-                binding.proteinAmount.text = "${defProtein * p0.toString().toInt()}${food.measure}"
-                binding.fatAmount.text = "${defFat * p0.toString().toInt()}${food.measure}"
+                binding.carbonHydrateAmount.text = "${defCarbon * p0.toString().toInt()}g"
+                binding.proteinAmount.text = "${defProtein * p0.toString().toInt()}g"
+                binding.fatAmount.text = "${defFat * p0.toString().toInt()}g"
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

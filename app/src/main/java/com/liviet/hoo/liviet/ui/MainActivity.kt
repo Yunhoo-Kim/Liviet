@@ -39,7 +39,7 @@ class  MainActivity: BaseActivity() {
         binding.tabPageAdapter = fragmentPageAdapter
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(UserSetUpViewModel::class.java)
-        binding.tabsMain.setupWithViewPager(binding.viewpagerMain)
+//        binding.tabsMain.setupWithViewPager(binding.viewpagerMain)
 
         try {
             viewModel.getUserInfo().id
@@ -50,21 +50,31 @@ class  MainActivity: BaseActivity() {
             finish()
         }
 
-//        binding.viewpagerMain.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
-//            override fun onPageScrollStateChanged(state: Int) {
-//                Log.d("Date4", "OnResume")
-//            }
-//
-//
-//            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
-//                Log.d("Date5", "OnResume")
-//            }
-//
-//            override fun onPageSelected(position: Int) {
-//                Log.d("Date6", "OnResume")
-//            }
-//
-//        })
+        binding.tabMain.setOnNavigationItemSelectedListener {
+            when(it.itemId){
+                R.id.bottom_diet -> {
+                    binding.viewpagerMain.currentItem = 0
+                    return@setOnNavigationItemSelectedListener true
+                }
+                R.id.bottom_camera -> {
+                    binding.viewpagerMain.currentItem = 1
+                    return@setOnNavigationItemSelectedListener true
+                }
+                else -> {
+                    binding.viewpagerMain.currentItem = 1
+                    return@setOnNavigationItemSelectedListener true
+                }
+            }
+        }
+
+        binding.viewpagerMain.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+
+            override fun onPageSelected(position: Int) {
+                binding.tabMain.menu.getItem(position).isChecked = true
+            }
+        })
 //        finally{
 //            UiUtli.replaceNewFragment(this, LivietMainFragment.newInstance(Bundle()), R.id.container_main)
 //        }

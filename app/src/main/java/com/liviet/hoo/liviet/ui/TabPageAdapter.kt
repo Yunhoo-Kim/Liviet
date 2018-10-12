@@ -9,7 +9,7 @@ import com.liviet.hoo.liviet.ui.user.DietStyleSetUpFragment
 
 class TabPageAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
     override fun getCount(): Int {
-        return 2
+        return 3
     }
 
     override fun getItem(position: Int): Fragment {
@@ -17,6 +17,7 @@ class TabPageAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
             0 -> {
                 LivietMainFragment.newInstance(Bundle())
             }
+            1 -> DietStyleSetUpFragment.newInstance(Bundle())
             else -> DietStyleSetUpFragment.newInstance(Bundle())
         }
     }
