@@ -73,6 +73,9 @@ dependencies {
     // Image Crop
     implementation 'com.theartofdev.edmodo:android-image-cropper:2.7.0'
 
+    //  Chart
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.0.3'
+
     // Ad
     implementation 'com.google.android.gms:play-services-ads:15.0.1'
     implementation 'com.google.firebase:firebase-ads:15.0.1'

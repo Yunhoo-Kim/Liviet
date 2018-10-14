@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentManager
 import android.support.v4.app.FragmentPagerAdapter
+import com.liviet.hoo.liviet.ui.food.DietStatisticFragment
 import com.liviet.hoo.liviet.ui.user.DietStyleSetUpFragment
 
 
@@ -17,7 +18,7 @@ class TabPageAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
             0 -> {
                 LivietMainFragment.newInstance(Bundle())
             }
-            1 -> DietStyleSetUpFragment.newInstance(Bundle())
+            1 -> DietStatisticFragment.newInstance(Bundle())
             else -> DietStyleSetUpFragment.newInstance(Bundle())
         }
     }

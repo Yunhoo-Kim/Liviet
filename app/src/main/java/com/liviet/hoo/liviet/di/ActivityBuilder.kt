@@ -18,6 +18,7 @@ abstract class ActivityBuilder{
 
     @ContributesAndroidInjector(modules = [MainActivityModule::class])
     abstract fun bindMainActivityModule(): MainActivity
+
     @ContributesAndroidInjector(modules = [DietStyleSetUpFragmentModule::class])
     abstract fun bindDietStyleSetUpFragmentModule(): DietStyleSetUpFragment
 
@@ -44,6 +45,9 @@ abstract class ActivityBuilder{
 
     @ContributesAndroidInjector(modules = [LivietMainFragmentModule::class])
     abstract fun bindLivietMainFragment(): LivietMainFragment
+
+    @ContributesAndroidInjector(modules = [DietStatisticFragmentModule::class])
+    abstract fun bindDietStatisticFragment(): DietStatisticFragment
 
     @ContributesAndroidInjector(modules = [UserSetUpActivityModule::class])
     abstract fun bindSetupNutritionResultFragment(): SetUpNutritionResultFragment

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.liviet.hoo.liviet.viewmodel.food.DietVM"/>
+    </data>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:clickable="true"
+        android:focusable="true">
+        <com.github.mikephil.charting.charts.RadarChart
+            android:id="@+id/radar"
+            android:layout_width="match_parent"
+            android:layout_height="400dp" />
+
+        <!--<com.ultramegasoft.radarchart.RadarView-->
+            <!--android:id="@+id/radar"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--app:polygonColor="@color/colorPrimary"-->
+            <!--android:layout_centerHorizontal="true" />-->
+    </android.support.constraint.ConstraintLayout>
+</layout>
