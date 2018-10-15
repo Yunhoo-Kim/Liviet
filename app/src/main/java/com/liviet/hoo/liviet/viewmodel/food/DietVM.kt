@@ -1,12 +1,16 @@
 package com.liviet.hoo.liviet.viewmodel.food
 
 import android.util.Log
+import com.github.mikephil.charting.data.RadarData
+import com.github.mikephil.charting.data.RadarDataSet
+import com.github.mikephil.charting.data.RadarEntry
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseViewModel
 import com.liviet.hoo.liviet.model.nutrition.Diet
 import com.liviet.hoo.liviet.model.nutrition.DietRepository
 import com.liviet.hoo.liviet.model.nutrition.Food
 import com.liviet.hoo.liviet.model.nutrition.FoodRepository
+import com.liviet.hoo.liviet.model.user.UserRepository
 import com.liviet.hoo.liviet.ui.food.DietListAdapter
 import com.liviet.hoo.liviet.ui.food.FoodListAdapter
 import com.liviet.hoo.liviet.ui.food.MainDateListAdapter
@@ -17,7 +21,9 @@ import javax.inject.Inject
 
 
 @Suppress("unused")
-class DietVM @Inject constructor(private val dietRepository: DietRepository, private val foodRepository: FoodRepository): BaseViewModel() {
+class DietVM @Inject constructor(private val dietRepository: DietRepository,
+                                 private val foodRepository: FoodRepository,
+                                 private val userRepository: UserRepository): BaseViewModel() {
 
     var cDate: Date = Utils.makeCalendarToDate(Calendar.getInstance())
     var tDate: Date = Utils.makeCalendarToDate(Calendar.getInstance())
@@ -97,6 +103,25 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository, pri
         }
 
         dateListAdapter.updateDateList(dateList, i, j)
+    }
+
+    fun getStandardDietRadar(): RadarDataSet{
+        val entries = mutableListOf<RadarEntry>()
+        val user = userRepository.getUser().blockingFirst()
+        val bM = Utils.getBasalMetabolism(user.weight, user.age, user.sex, user.height)
+        val kcal = Utils.getKcal(bM, user.life_type)
+        val carbon = Utils.getCarbonHydrate(user.weight, user.age, user.sex, user.height, user.life_type)
+        val fat = Utils.getFat(user.weight, user.age, user.sex, user.height, user.life_type)
+        val protein = Utils.getProtein(user.weight, user.age, user.sex, user.height, user.life_type)
+
+//        entries.add(RadarEntry(kcal.toFloat(), "kcal"))
+//        entries.add(RadarEntry(kcal.toFloat(), "kcal"))
+        entries.add(RadarEntry(carbon.toFloat(), "aa"))
+        entries.add(RadarEntry(fat.toFloat(), "bb"))
+        entries.add(RadarEntry(protein.toFloat(), "cc"))
+//        entries.add(RadarEntry(4.2f, "dd"))
+
+        return RadarDataSet(entries, "nnn")
     }
 }
 

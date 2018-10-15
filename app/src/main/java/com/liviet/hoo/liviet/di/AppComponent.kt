@@ -10,7 +10,8 @@ import javax.inject.Singleton
 
 @Suppress(names = ["unchecked", "unsafe"])
 @Singleton
-@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class, NetworkModule::class, ActivityBuilder::class, DaoModule::class, ViewModelModule::class])
+@Component(modules = [AndroidSupportInjectionModule::class, AppModule::class, NetworkModule::class,
+    ActivityBuilder::class, DaoModule::class, ViewModelModule::class])
 interface AppComponent {
 
     @Component.Builder

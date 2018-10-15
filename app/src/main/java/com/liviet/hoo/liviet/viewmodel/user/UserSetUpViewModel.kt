@@ -10,6 +10,7 @@ import com.liviet.hoo.liviet.model.user.UserRepository
 import com.liviet.hoo.liviet.ui.user.BodyInfoCardListAdapter
 import com.liviet.hoo.liviet.ui.user.NutritionListAdapter
 import com.liviet.hoo.liviet.utils.UiUtli
+import com.liviet.hoo.liviet.utils.Utils
 import javax.inject.Inject
 
 
@@ -81,7 +82,6 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
                 sex = sex,
                 life_type = lifeType,
                 diet_type = 0)
-
         userRepository.saveUserInfo(user)
     }
 
@@ -96,17 +96,17 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
         val height:Int = this.height.value!!.replace("""[\D]+""".toRegex(), "").toInt()
         val sex:Int = if(this.sex.value!!) 0 else 1
 
-        val basalMetabolism:Double = (12.2 * weight) - (4.82 * age) - (126.1 * sex) + (2.85 * height) + 468.3
+        val basalMetabolism:Double = Utils.getBasalMetabolism(weight, age, height, sex)
         val standardWeight:Double = if(height > 150) (height - 100) * 0.9 else (height - 100).toDouble()
         val bmi = (weight / ((height * height) * 0.0001)).toInt()
         val bmiDegree = "정상체중"
 
         val kcal: Int = (basalMetabolism * life_type.value!!).toInt()
-        this.kcal.value = "${kcal} kcal"
+        this.kcal.value = "$kcal kcal"
 
-        val carbohydrate = UiUtli.getFormatNumber(((kcal * 0.65) / 4).toInt())
-        val fat = UiUtli.getFormatNumber(((kcal * 0.15) / 9).toInt())
-        val protein = UiUtli.getFormatNumber(((kcal * 0.20) / 4).toInt())
+        val carbohydrate = Utils.getCarbonHydrate(weight, age, height, sex, life_type.value!!)
+        val fat = Utils.getFat(weight, age, height, sex, life_type.value!!)
+        val protein = Utils.getProtein(weight, age, height, sex, life_type.value!!)
 
         val nList = mutableListOf<NutritionResult>()
         val bList = mutableListOf<NutritionResult>()

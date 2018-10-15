@@ -28,6 +28,7 @@ class DietStatisticFragment: BaseFragment() {
     private lateinit var viewModel: DietVM
     private lateinit var binding: FragmentStatisticBinding
 
+    private val labels = mutableListOf("탄수화물", "단백질", "지방")
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -35,36 +36,37 @@ class DietStatisticFragment: BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistic, container, false)
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(DietVM::class.java)
         binding.viewModel = viewModel
-//        binding.radar.setData(
-//                arrayListOf(RadarHolder("칼로리", 200),
-//                        RadarHolder("탄수화물", 100),
-//                        RadarHolder("단백질", 50),
-//                        RadarHolder("지방", 20)))
-//        binding.radar.isInteractive = false
+
         val entries = mutableListOf<RadarEntry>()
-        entries.add(RadarEntry(14.2f, "abc"))
-        entries.add(RadarEntry(1.2f, "aa"))
-        entries.add(RadarEntry(10.2f, "bb"))
+        entries.add(RadarEntry(100.2f, "bb"))
         entries.add(RadarEntry(24.2f, "cc"))
-        entries.add(RadarEntry(4.2f, "dd"))
-        val labels = mutableListOf<String>()
-        labels.add("칼로리")
-        labels.add("칼로")
-        labels.add("로리")
-        labels.add("리")
-        labels.add("칼리h")
-        binding.radar.data = RadarData(RadarDataSet(entries, "nnn").apply {
-//            this.color = getColor(R.color.colorPrimary)
+        entries.add(RadarEntry(40.2f, "dd"))
+
+        val standardDiet = viewModel.getStandardDietRadar().apply {
+            this.label = "일일 권장량"
+            this.color = context!!.getColor(R.color.colorPrimaryBlue)
+            this.fillColor = context!!.getColor(R.color.colorPrimaryBlue)
+            this.fillAlpha = 100
+            this.setDrawFilled(true)
+            this.setDrawHighlightIndicators(false)
+        }
+
+        val todayDiet = RadarDataSet(entries, "일일 섭취량").apply {
             this.color = context!!.getColor(R.color.colorPrimary)
             this.fillColor = context!!.getColor(R.color.colorPrimaryDark)
-            this.fillAlpha = 90
+            this.fillAlpha = 100
             this.setDrawFilled(true)
-        }).apply {
-            this.labels = labels
+            this.setDrawHighlightIndicators(false)
         }
+
+        binding.radar.data = RadarData(listOf(todayDiet, standardDiet)).apply {
+            this.labels = labels
+            this.setDrawValues(false)
+        }
+
         binding.radar.setDrawWeb(true)
         binding.radar.description.isEnabled = false
-        binding.radar.webLineWidthInner = 0.5f
+        binding.radar.webLineWidthInner = 1f
         binding.radar.webAlpha = 100
         binding.radar.xAxis.apply {
             this.xOffset = 0f
@@ -73,6 +75,7 @@ class DietStatisticFragment: BaseFragment() {
                 return@IAxisValueFormatter labels[value.toInt() % labels.size]
             }
         }
+
         binding.radar.yAxis.apply {
             this.setDrawLabels(false)
         }

@@ -29,8 +29,36 @@ class Utils {
             bitmap.compress(Bitmap.CompressFormat.JPEG, 100, baos)
 
             return imageRef.putBytes(baos.toByteArray())
-
         }
+
+        fun getBasalMetabolism(weight: Int, age: Int, sex: Int, height: Int): Double {
+            val basalMetabolism:Double = (12.2 * weight) - (4.82 * age) - (126.1 * sex) + (2.85 * height) + 468.3
+            return basalMetabolism
+        }
+
+        fun getKcal(bM: Double, lifeType: Double): Int = (bM * lifeType).toInt()
+
+        fun getCarbonHydrate(weight: Int, age: Int, sex: Int, height: Int, lifeType: Double): String{
+            val basalMetabolism = getBasalMetabolism(weight, age, sex, height)
+
+            val kcal: Int = getKcal(basalMetabolism , lifeType)
+            return UiUtli.getFormatNumber(((kcal * 0.65) / 4).toInt())
+        }
+
+        fun getFat(weight: Int, age: Int, sex: Int, height: Int, lifeType: Double): String {
+            val basalMetabolism = getBasalMetabolism(weight, age, sex, height)
+
+            val kcal: Int = getKcal(basalMetabolism , lifeType)
+            return  UiUtli.getFormatNumber(((kcal * 0.15) / 9).toInt())
+        }
+
+        fun getProtein(weight: Int, age: Int, sex: Int, height: Int, lifeType: Double): String {
+            val basalMetabolism = getBasalMetabolism(weight, age, sex, height)
+
+            val kcal: Int = getKcal(basalMetabolism , lifeType)
+            return UiUtli.getFormatNumber(((kcal * 0.20) / 4).toInt())
+        }
+
 
         fun makeRandomString(): String = UUID.randomUUID().toString()
     }
