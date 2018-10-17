@@ -3,6 +3,7 @@
     <dimen name="radio_button_conner_radius">5dp</dimen>
     <dimen name="radio_button_stroke_border">1dp</dimen>
 
+    <dimen name="textXSmallSize">12.5dp</dimen>
     <dimen name="textSmallSize">14dp</dimen>
     <dimen name="textMediumSize">16.3dp</dimen>
     <dimen name="textMediumLargeSize">19.60dp</dimen>

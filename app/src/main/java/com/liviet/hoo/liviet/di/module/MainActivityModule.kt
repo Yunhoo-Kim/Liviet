@@ -17,10 +17,6 @@ abstract class MainActivityModule {
     @Binds
     abstract fun provideMainActivity(activity: MainActivity): MainActivity
 
-//    @FragmentScope
-//    @Binds
-//    abstract fun bindDietStyleSetUpFragment(dietStyleSetUpFragment: DietStyleSetUpFragment): DietStyleSetUpFragment
-//
     @FragmentScope
     @Binds
     abstract fun bindSetUpNutritionResultFragment(setUpNutritionResultFragment: SetUpNutritionResultFragment): SetUpNutritionResultFragment

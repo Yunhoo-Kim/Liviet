@@ -31,30 +31,28 @@ class Utils {
             return imageRef.putBytes(baos.toByteArray())
         }
 
-        fun getBasalMetabolism(weight: Int, age: Int, sex: Int, height: Int): Double {
+        fun getBasalMetabolism(weight: Int, height: Int, age: Int, sex: Int): Double {
             val basalMetabolism:Double = (12.2 * weight) - (4.82 * age) - (126.1 * sex) + (2.85 * height) + 468.3
             return basalMetabolism
         }
 
         fun getKcal(bM: Double, lifeType: Double): Int = (bM * lifeType).toInt()
 
-        fun getCarbonHydrate(weight: Int, age: Int, sex: Int, height: Int, lifeType: Double): String{
-            val basalMetabolism = getBasalMetabolism(weight, age, sex, height)
+        fun getCarbonHydrate(weight: Int, height: Int, age: Int, sex: Int,  lifeType: Double): String{
+            val basalMetabolism = getBasalMetabolism(weight, height, age, sex)
 
             val kcal: Int = getKcal(basalMetabolism , lifeType)
             return UiUtli.getFormatNumber(((kcal * 0.65) / 4).toInt())
         }
 
-        fun getFat(weight: Int, age: Int, sex: Int, height: Int, lifeType: Double): String {
-            val basalMetabolism = getBasalMetabolism(weight, age, sex, height)
-
+        fun getFat(weight: Int, height: Int, age: Int, sex: Int,  lifeType: Double): String {
+            val basalMetabolism = getBasalMetabolism(weight, height, age, sex)
             val kcal: Int = getKcal(basalMetabolism , lifeType)
             return  UiUtli.getFormatNumber(((kcal * 0.15) / 9).toInt())
         }
 
-        fun getProtein(weight: Int, age: Int, sex: Int, height: Int, lifeType: Double): String {
-            val basalMetabolism = getBasalMetabolism(weight, age, sex, height)
-
+        fun getProtein(weight: Int, height: Int, age: Int, sex: Int,  lifeType: Double): String {
+            val basalMetabolism = getBasalMetabolism(weight, height, age, sex)
             val kcal: Int = getKcal(basalMetabolism , lifeType)
             return UiUtli.getFormatNumber(((kcal * 0.20) / 4).toInt())
         }

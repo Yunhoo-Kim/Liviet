@@ -1,6 +1,8 @@
 package com.liviet.hoo.liviet.di
 
+import com.liviet.hoo.liviet.model.SharedPreferenceHelper
 import com.liviet.hoo.liviet.model.database.AppDatabase
+import com.liviet.hoo.liviet.model.liviet.VersionsRepository
 import com.liviet.hoo.liviet.model.nutrition.DietDao
 import com.liviet.hoo.liviet.model.nutrition.DietRepository
 import com.liviet.hoo.liviet.model.nutrition.FoodDao
@@ -15,13 +17,21 @@ import javax.inject.Singleton
 
 @Module
 @Suppress("unused")
-abstract class RepositoryModule {
-    @Binds
-    abstract fun bindUserRepository(userRepository: UserRepository): UserRepository
+class RepositoryModule {
 
-    @Binds
-    abstract fun bindFoodRepository(foodRepository: FoodRepository): FoodRepository
-
-    @Binds
-    abstract fun bindDietRepository(dietRepository: DietRepository): DietRepository
+//    @Provides
+//    @FragmentScope
+//    fun provideUserRepository(userDao: UserDao, sharedPreferenceHelper: SharedPreferenceHelper): UserRepository = UserRepository(userDao, sharedPreferenceHelper)
+//
+//    @Provides
+//    @FragmentScope
+//    fun bindFoodRepository(foodDao: FoodDao, sharedPreferenceHelper: SharedPreferenceHelper): FoodRepository = FoodRepository(foodDao, sharedPreferenceHelper)
+//
+//    @Provides
+//    @FragmentScope
+//    fun bindDietRepository(dietRepository: DietRepository): DietRepository
+//
+//    @Binds
+//    @FragmentScope
+//    fun bindVersionRepository(versionsRepository: VersionsRepository): VersionsRepository
 }

@@ -12,9 +12,7 @@ import android.view.ViewGroup
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseFragment
 import com.liviet.hoo.liviet.databinding.FragmentAddDietFoodBinding
-import com.liviet.hoo.liviet.databinding.FragmentSelectFoodBinding
 import com.liviet.hoo.liviet.di.ViewModelFactory
-import com.liviet.hoo.liviet.ui.LivietMainFragment
 import com.liviet.hoo.liviet.utils.UiUtli
 import com.liviet.hoo.liviet.viewmodel.food.DietVM
 import com.liviet.hoo.liviet.viewmodel.food.FoodVM

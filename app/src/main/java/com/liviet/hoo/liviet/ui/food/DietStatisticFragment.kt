@@ -36,38 +36,18 @@ class DietStatisticFragment: BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistic, container, false)
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(DietVM::class.java)
         binding.viewModel = viewModel
+        //
+        binding.setLifecycleOwner(this)
 
-        val entries = mutableListOf<RadarEntry>()
-        entries.add(RadarEntry(100.2f, "bb"))
-        entries.add(RadarEntry(24.2f, "cc"))
-        entries.add(RadarEntry(40.2f, "dd"))
+        initViewData()
+        return binding.root
+    }
 
-        val standardDiet = viewModel.getStandardDietRadar().apply {
-            this.label = "일일 권장량"
-            this.color = context!!.getColor(R.color.colorPrimaryBlue)
-            this.fillColor = context!!.getColor(R.color.colorPrimaryBlue)
-            this.fillAlpha = 100
-            this.setDrawFilled(true)
-            this.setDrawHighlightIndicators(false)
-        }
-
-        val todayDiet = RadarDataSet(entries, "일일 섭취량").apply {
-            this.color = context!!.getColor(R.color.colorPrimary)
-            this.fillColor = context!!.getColor(R.color.colorPrimaryDark)
-            this.fillAlpha = 100
-            this.setDrawFilled(true)
-            this.setDrawHighlightIndicators(false)
-        }
-
-        binding.radar.data = RadarData(listOf(todayDiet, standardDiet)).apply {
-            this.labels = labels
-            this.setDrawValues(false)
-        }
-
-        binding.radar.setDrawWeb(true)
+    private fun initViewData(){
+//        binding.radar.setDrawWeb(true)
         binding.radar.description.isEnabled = false
-        binding.radar.webLineWidthInner = 1f
-        binding.radar.webAlpha = 100
+//        binding.radar.webLineWidthInner = 1f
+//        binding.radar.webAlpha = 100
         binding.radar.xAxis.apply {
             this.xOffset = 0f
             this.yOffset = 0f
@@ -75,12 +55,18 @@ class DietStatisticFragment: BaseFragment() {
                 return@IAxisValueFormatter labels[value.toInt() % labels.size]
             }
         }
-
         binding.radar.yAxis.apply {
             this.setDrawLabels(false)
         }
         binding.radar.animate()
-        return binding.root
+    }
+
+    override fun setUserVisibleHint(isVisibleToUser: Boolean) {
+        super.setUserVisibleHint(isVisibleToUser)
+        if(isVisibleToUser && ::binding.isInitialized){
+            viewModel.loadCharData(context!!)
+            binding.radar.animate()
+        }
     }
 
     companion object {

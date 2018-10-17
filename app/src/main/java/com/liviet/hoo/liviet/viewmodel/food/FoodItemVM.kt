@@ -31,11 +31,11 @@ class FoodItemVM: BaseViewModel() {
         this.name.value = food.name
         this.amount.value = food.amount.toString()
         this.amountText.value = food.amount.toString()
-        this.image.value = food.image_url
+        this.image.value = food.imageUrl
         this.amt.value = "${food.amount}${food.measure}"
-        this.resId.value = food.resource_id
+        this.resId.value = 0
         this.measure.value = food.measure
-        this.carbon.value = "${food.carbon_hydrate}g"
+        this.carbon.value = "${food.carbonHydrate}g"
         this.protein.value = "${food.protein}g"
         this.fat.value = "${food.fat}g"
     }

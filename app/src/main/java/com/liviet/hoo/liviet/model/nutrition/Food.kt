@@ -8,16 +8,15 @@ import android.arch.persistence.room.PrimaryKey
 @Entity(indices = [Index(value = ["name"], unique = true)])
 @Suppress("unused")
 data class Food(
-        @field: PrimaryKey(autoGenerate = true)
+        @field: PrimaryKey
         val id: Long = 0,
         val name: String,
-        val image_url: String,
-        val resource_id: Int,
-        val carbon_hydrate: Float,
-        val fat: Float,
-        val protein: Float,
-        val cal: Float,
-        val na: Float,
+        val imageUrl: String,
+        val carbonHydrate: Double,
+        val fat: Double,
+        val protein: Double,
+        val cal: Int,
+        val na: Double = 0.0,
         val amount: Int,
         val measure: String,
         var selected: Boolean = false

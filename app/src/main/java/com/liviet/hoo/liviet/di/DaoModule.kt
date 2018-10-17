@@ -1,6 +1,7 @@
 package com.liviet.hoo.liviet.di
 
 import com.liviet.hoo.liviet.model.database.AppDatabase
+import com.liviet.hoo.liviet.model.liviet.VersionsDao
 import com.liviet.hoo.liviet.model.nutrition.DietDao
 import com.liviet.hoo.liviet.model.nutrition.FoodDao
 import com.liviet.hoo.liviet.model.user.UserDao
@@ -23,4 +24,8 @@ class DaoModule {
     @Provides
     @Singleton
     fun provideDietDao(database: AppDatabase): DietDao = database.dietDao()
+
+    @Provides
+    @Singleton
+    fun provideVersionsDao(database: AppDatabase): VersionsDao = database.versionsDao()
 }

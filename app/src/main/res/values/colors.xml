@@ -4,7 +4,7 @@
     <color name="radio_button_unselected_color">#ffffff</color>
     <color name="colorPrimary">#E86F74</color>
     <color name="colorPrimaryDark">#F57D7F</color>
-    <color name="colorPrimaryGray">#CBCBCB</color>
+    <color name="colorPrimaryGray">#E0E0E0</color>
     <color name="colorPrimaryDarkGray">#585757</color>
     <color name="colorPrimaryBlue">#ADBEC5</color>
     <color name="colorPrimaryWhite">#F2F3EE</color>

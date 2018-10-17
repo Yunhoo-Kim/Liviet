@@ -50,6 +50,7 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
     }
 
     init {
+        sex.value = true
         updateUserInfo()
     }
 
@@ -96,23 +97,24 @@ class UserSetUpViewModel @Inject constructor(private val userRepository: UserRep
         val height:Int = this.height.value!!.replace("""[\D]+""".toRegex(), "").toInt()
         val sex:Int = if(this.sex.value!!) 0 else 1
 
-        val basalMetabolism:Double = Utils.getBasalMetabolism(weight, age, height, sex)
+        val basalMetabolism:Double = Utils.getBasalMetabolism(weight, height, age, sex)
         val standardWeight:Double = if(height > 150) (height - 100) * 0.9 else (height - 100).toDouble()
         val bmi = (weight / ((height * height) * 0.0001)).toInt()
         val bmiDegree = "정상체중"
 
-        val kcal: Int = (basalMetabolism * life_type.value!!).toInt()
-        this.kcal.value = "$kcal kcal"
 
-        val carbohydrate = Utils.getCarbonHydrate(weight, age, height, sex, life_type.value!!)
-        val fat = Utils.getFat(weight, age, height, sex, life_type.value!!)
-        val protein = Utils.getProtein(weight, age, height, sex, life_type.value!!)
+        val kcal: Int = (basalMetabolism * life_type.value!!).toInt()
+        this.kcal.value = "$kcal cal"
+
+        val carbohydrate = Utils.getCarbonHydrate(weight, height, age, sex, life_type.value!!)
+        val fat = Utils.getFat(weight, height, age,  sex, life_type.value!!)
+        val protein = Utils.getProtein(weight, height, age, sex, life_type.value!!)
 
         val nList = mutableListOf<NutritionResult>()
         val bList = mutableListOf<NutritionResult>()
 
-        nList.add(NutritionResult(name = R.string.protein, ratio = "0", amt = "${protein}g"))
         nList.add(NutritionResult(name = R.string.carbohydrate, ratio = "0", amt = "${carbohydrate}g"))
+        nList.add(NutritionResult(name = R.string.protein, ratio = "0", amt = "${protein}g"))
         nList.add(NutritionResult(name = R.string.fat, ratio = "0", amt = "${fat}g"))
         bList.add(NutritionResult(name = R.string.bmi, ratio = "1", amt = "$bmi $bmiDegree"))
         bList.add(NutritionResult(name = R.string.standard_weight, ratio = "1", amt = "${standardWeight.toInt()}kg"))

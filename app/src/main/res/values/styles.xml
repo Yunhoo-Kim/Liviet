@@ -21,6 +21,7 @@
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@color/colorPrimary</item>
     </style>
+
     <style name="spinnerDropDownItemStyle">
         <item name="android:textAppearance">@style/appFont.Medium</item>
         <item name="android:gravity">center_vertical</item>
@@ -56,6 +57,10 @@
         <item name="android:textStyle">normal</item>
         <item name="android:textColor">@color/black</item>
         <item name="android:fontFamily">@font/nanum_square</item>
+    </style>
+
+    <style name="appFont.XSmall">
+        <item name="android:textSize">@dimen/textXSmallSize</item>
     </style>
 
     <style name="appFont.Small">

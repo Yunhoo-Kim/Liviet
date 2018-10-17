@@ -18,15 +18,15 @@
 
         <TextView
             android:id="@+id/day"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:gravity="center"
             android:text="@{viewModel.day}"
             android:background="@drawable/circle_background"
-            style="@style/appFont"
+            style="@style/appFont.Medium"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textAlignment="center" />

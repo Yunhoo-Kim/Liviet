@@ -45,9 +45,9 @@ class AddDietFoodDetailFragment: BaseFragment() {
     private lateinit var binding: FragmentAddDietFoodDetailBinding
     private lateinit var food: Food
 
-    private var defCarbon: Float = 0.0f
-    private var defProtein: Float = 0.0f
-    private var defFat: Float = 0.0f
+    private var defCarbon: Double = 0.0
+    private var defProtein: Double = 0.0
+    private var defFat: Double = 0.0
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -64,9 +64,9 @@ class AddDietFoodDetailFragment: BaseFragment() {
 
         binding.itemViewModel = itemVM
 
-        defCarbon = food.carbon_hydrate / food.amount.toFloat()
-        defProtein = food.protein / food.amount.toFloat()
-        defFat = food.fat / food.amount.toFloat()
+        defCarbon = food.carbonHydrate / food.amount
+        defProtein = food.protein / food.amount
+        defFat = food.fat / food.amount
 
         binding.saveDiet.setOnClickListener {
             val amount = binding.foodAmountInput.text
@@ -89,9 +89,9 @@ class AddDietFoodDetailFragment: BaseFragment() {
                     return
                 }
 
-                binding.carbonHydrateAmount.text = "${defCarbon * p0.toString().toInt()}g"
-                binding.proteinAmount.text = "${defProtein * p0.toString().toInt()}g"
-                binding.fatAmount.text = "${defFat * p0.toString().toInt()}g"
+                binding.carbonHydrateAmount.text = "${String.format("%.2f", defCarbon * p0.toString().toInt())}g"
+                binding.proteinAmount.text = "${String.format("%.2f", defProtein * p0.toString().toInt())}g"
+                binding.fatAmount.text = "${String.format("%.2f", defFat * p0.toString().toInt())}g"
             }
 
             override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {

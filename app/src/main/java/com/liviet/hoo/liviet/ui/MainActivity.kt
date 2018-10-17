@@ -39,9 +39,9 @@ class  MainActivity: BaseActivity() {
         binding.tabPageAdapter = fragmentPageAdapter
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(UserSetUpViewModel::class.java)
-//        binding.tabsMain.setupWithViewPager(binding.viewpagerMain)
 
         try {
+            // Check user exists if not setup user
             viewModel.getUserInfo().id
         }catch (e: NullPointerException){
             // start setup activity
@@ -69,14 +69,12 @@ class  MainActivity: BaseActivity() {
 
         binding.viewpagerMain.addOnPageChangeListener(object: ViewPager.OnPageChangeListener{
             override fun onPageScrollStateChanged(state: Int) {}
-            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {}
+            override fun onPageScrolled(position: Int, positionOffset: Float, positionOffsetPixels: Int) {
 
+            }
             override fun onPageSelected(position: Int) {
                 binding.tabMain.menu.getItem(position).isChecked = true
             }
         })
-//        finally{
-//            UiUtli.replaceNewFragment(this, LivietMainFragment.newInstance(Bundle()), R.id.container_main)
-//        }
     }
 }

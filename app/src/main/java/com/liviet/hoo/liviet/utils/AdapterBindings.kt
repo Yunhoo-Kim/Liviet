@@ -15,7 +15,10 @@ import android.widget.SpinnerAdapter
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.github.mikephil.charting.charts.RadarChart
+import com.github.mikephil.charting.data.RadarData
 import com.google.firebase.storage.FirebaseStorage
+import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.utils.extension.getParentActivity
 
 
@@ -28,7 +31,6 @@ fun setAdapter(view: RecyclerView, adapter: RecyclerView.Adapter<*>) {
 @BindingAdapter("android:text")
 @Suppress("unused")
 fun setText(view: TextView, data: MutableLiveData<Float>?){
-    Log.d("AndroidText", data!!.value.toString())
     if (data != null)
         view.text = data.value.toString()
 }
@@ -36,31 +38,38 @@ fun setText(view: TextView, data: MutableLiveData<Float>?){
 @BindingAdapter("imageRes")
 @Suppress("unused")
 fun setImageResource(view: ImageView, image_id: MutableLiveData<Int>?){
-    if(image_id!!.value == 0)
+    if(image_id!!.value == 0){
+        view.setImageResource(R.drawable.dish)
         return
-
-    Log.d("Image Tag", image_id!!.value.toString())
+    }
     view.setImageResource(image_id.value!!)
 }
 
 @BindingAdapter("imageResUri")
 @Suppress("unused")
 fun setImageResourceByURI(view: ImageView, image_id: MutableLiveData<String>?){
-    Log.d("Image String", image_id!!.value)
-    if(image_id.value.isNullOrEmpty())
+    if(image_id!!.value.isNullOrEmpty()) {
+        view.setImageResource(R.drawable.dish)
         return
+    }
 
     Glide.with(view.getParentActivity()!!)
             .load(FirebaseStorage.getInstance().reference.child(image_id.value!!))
 //            .apply(RequestOptions.)
             .into(view)
-//    view.setImageURI(Uri.parse(image_id.value))
 }
 
 @Suppress("unused")
 @BindingAdapter("tabadapter")
 fun setTabAdapter(view: ViewPager, adapter: FragmentPagerAdapter) {
     view.adapter = adapter
+}
+
+@Suppress("unused")
+@BindingAdapter("chartData")
+fun setChartData(view: RadarChart, data: MutableLiveData<RadarData>) {
+    Log.d("Nutrition", "Data In")
+    view.data = data.value
 }
 
 //@BindingAdapter("entries")

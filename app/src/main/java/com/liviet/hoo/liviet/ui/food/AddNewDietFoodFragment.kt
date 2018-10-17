@@ -84,17 +84,18 @@ class AddNewDietFoodFragment: BaseFragment() {
                 binding.proteinAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
                 binding.kcalAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
                 else -> {
-                    Log.d("Food info", "$mCurrentPhotoPath ${binding.foodName.text} ${binding.foodAmountInput.text} ${binding.foodAmountMeasure.selectedItem}  ${binding.carbonHydrateAmount.text}  ${binding.fatAmount.text}   ${binding.proteinAmount.text}")
-                    val food  = Food(image_url = mCurrentPhotoPath,
-                            resource_id = 0,
+//                    Log.d("Food info", "$mCurrentPhotoPath ${binding.foodName.text} ${binding.foodAmountInput.text} ${binding.foodAmountMeasure.selectedItem}  ${binding.carbonHydrateAmount.text}  ${binding.fatAmount.text}   ${binding.proteinAmount.text}")
+
+                    val food  = Food(
+                            id = System.currentTimeMillis(),
+                            imageUrl = mCurrentPhotoPath,
                             name = binding.foodName.text.toString(),
                             measure = binding.foodAmountMeasure.selectedItem.toString(),
-                            carbon_hydrate = binding.carbonHydrateAmount.text.toString().toFloat(),
-                            fat = binding.fatAmount.text.toString().toFloat(),
-                            protein = binding.proteinAmount.text.toString().toFloat(),
+                            carbonHydrate = binding.carbonHydrateAmount.text.toString().toDouble(),
+                            fat = binding.fatAmount.text.toString().toDouble(),
+                            protein = binding.proteinAmount.text.toString().toDouble(),
                             amount = binding.foodAmountInput.text.toString().toInt(),
-                            cal = binding.kcalAmount.text.toString().toFloat(),
-                            na = 0.0f)
+                            cal = binding.kcalAmount.text.toString().toInt())
 
                     viewModel.insertFood(food)
                     activity?.onBackPressed()

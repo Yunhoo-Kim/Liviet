@@ -41,22 +41,14 @@ class UserSetUpActivity: BaseActivity() {
             viewModel.age.value = binding.ageSpinner.selectedItem as String
             viewModel.sex.value = binding.male.isChecked
 
-            Log.d("Select NextButton","age item ${binding.ageSpinner.selectedItem}")
-            Log.d("Select NextButton","height item ${binding.heightSpinner.selectedItem}")
-            Log.d("Select NextButton","weight item ${binding.weightSpinner.selectedItem}")
-            Log.d("Select NextButton","Is Man ${binding.male.isChecked}")
-
             UiUtli.addNewFragment(this, LifeStyleSetUpFragment.newInstance(Bundle()), R.id.container_main)
-//            UiUtli.addNewFragment(this, DietStyleSetUpFragment.newInstance(Bundle()), R.id.container_main)
         }
     }
 
     override fun onResume() {
         super.onResume()
-//        binding.ageSpinner.setSelection(viewModel.ageEntries.indexOf(viewModel.age.toString()))
-//        binding.heightSpinner.setSelection(viewModel.heightEntries.indexOf(viewModel.height.toString()))
-//        binding.weightSpinner.setSelection(viewModel.weightEntries.indexOf(viewModel.weight.toString()))
-        if(viewModel.sex.value!!) binding.male.isChecked = true else binding.female.isChecked = true
+        if(::viewModel.isInitialized)
+            if(viewModel.sex.value!!) binding.male.isChecked = true else binding.female.isChecked = true
     }
 
 }

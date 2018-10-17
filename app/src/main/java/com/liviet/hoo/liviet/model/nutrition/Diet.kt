@@ -6,10 +6,11 @@ import android.arch.persistence.room.PrimaryKey
 import java.util.*
 
 
-@Entity(foreignKeys = [ForeignKey(entity = Food::class,
-        parentColumns = ["id"],
-        childColumns = ["foodId"],
-        onDelete = ForeignKey.CASCADE)])
+//@Entity(foreignKeys = [ForeignKey(entity = Food::class,
+//        parentColumns = ["id"],
+//        childColumns = ["foodId"],
+//        onDelete = ForeignKey.CASCADE)])
+@Entity
 @Suppress("unused")
 data class Diet(
         @field: PrimaryKey(autoGenerate = true)

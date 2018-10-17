@@ -8,6 +8,7 @@
     <string name="next">다음</string>
     <string name="save">저장</string>
     <string name="plus">추가</string>
+    <string name="food_plus">새로운 \n음식 등록</string>
     <string name="diet_plus">식단 추가</string>
     <string name="setup_info">정보를\n입력해주세요.</string>
     <string name="setup_diet_style">다이어트 끼니를\n선택해주세요.</string>
@@ -33,7 +34,7 @@
     <string name="select_one_of_them">하나를 선택해주세요.</string>
     <string name="plz_fill_info">정보를 전부 입력해주세요.</string>
     <string name="select_food">식단 생성에 포함할\n음식을 선택해주세요.</string>
-    <string name="add_food">음식을 선택해주세요.</string>
+    <string name="add_food">추가할 식단을\n선택해주세요.</string>
     <string name="add_food_amount">음식 양을 입력해주세요.</string>
     <string name="add_new_food">새로운 식단 정보를\n입력해주세요.</string>
     <string name="add_new_food_info">식단 단위, 정량, 영양정보를 입력해주세요.</string>
@@ -56,6 +57,8 @@
     <string name="cancel">취소</string>
     <string name="dl">통계</string>
     <string name="settings">설정</string>
+    <string name="today_taking">오늘 섭취량</string>
+    <string name="suggested_daily_taking">하루 권장 섭취량</string>
     <string-array name="select_measure">
         <item>g</item>
         <item>mg</item>

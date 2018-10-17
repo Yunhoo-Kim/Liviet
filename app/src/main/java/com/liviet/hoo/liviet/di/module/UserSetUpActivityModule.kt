@@ -27,7 +27,7 @@ abstract class UserSetUpActivityModule {
     @Binds
     abstract fun bindSetUpNutritionResultFragment(setUpNutritionResultFragment: SetUpNutritionResultFragment): SetUpNutritionResultFragment
 
-    @FragmentScope
-    @Binds
-    abstract fun bindUserRepository(userRepository: UserRepository): UserRepository
+//    @FragmentScope
+//    @Binds
+//    abstract fun bindUserRepository(userRepository: UserRepository): UserRepository
 }
