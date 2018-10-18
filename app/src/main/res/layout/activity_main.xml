@@ -39,7 +39,9 @@
             <android.support.design.widget.BottomNavigationView
                 android:id="@+id/tab_main"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="50dp"
+                android:elevation="5dp"
+                android:background="@drawable/shadow"
                 app:itemBackground="@color/white"
                 app:itemIconTint="@color/navi_color"
                 app:itemTextColor="@color/navi_color"

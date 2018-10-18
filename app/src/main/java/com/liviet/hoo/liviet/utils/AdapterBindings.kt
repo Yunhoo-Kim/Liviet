@@ -15,7 +15,11 @@ import android.widget.SpinnerAdapter
 import android.widget.TextView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.github.mikephil.charting.charts.HorizontalBarChart
+import com.github.mikephil.charting.charts.LineChart
 import com.github.mikephil.charting.charts.RadarChart
+import com.github.mikephil.charting.data.BarData
+import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.RadarData
 import com.google.firebase.storage.FirebaseStorage
 import com.liviet.hoo.liviet.R
@@ -65,11 +69,26 @@ fun setTabAdapter(view: ViewPager, adapter: FragmentPagerAdapter) {
     view.adapter = adapter
 }
 
+//@Suppress("unused")
+//@BindingAdapter("chartData")
+//fun setChartData(view: RadarChart, data: MutableLiveData<RadarData>) {
+//    Log.d("Nutrition", "Data In")
+//    view.data = data.value
+//    view.invalidate()
+//}
+
 @Suppress("unused")
 @BindingAdapter("chartData")
-fun setChartData(view: RadarChart, data: MutableLiveData<RadarData>) {
-    Log.d("Nutrition", "Data In")
+fun setChartData(view: HorizontalBarChart, data: MutableLiveData<BarData>) {
     view.data = data.value
+    view.invalidate()
+}
+
+@Suppress("unused")
+@BindingAdapter("weeklyData")
+fun setWeeklyData(view: LineChart, data: MutableLiveData<LineData>) {
+    view.data = data.value
+    view.invalidate()
 }
 
 //@BindingAdapter("entries")

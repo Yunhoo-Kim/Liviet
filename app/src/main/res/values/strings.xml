@@ -57,8 +57,10 @@
     <string name="cancel">취소</string>
     <string name="dl">통계</string>
     <string name="settings">설정</string>
-    <string name="today_taking">오늘 섭취량</string>
+    <string name="today_taking">오늘 영양 섭취량</string>
     <string name="suggested_daily_taking">하루 권장 섭취량</string>
+    <string name="weekly_taking">주간 영양 섭취량</string>
+    <string name="search">검색</string>
     <string-array name="select_measure">
         <item>g</item>
         <item>mg</item>

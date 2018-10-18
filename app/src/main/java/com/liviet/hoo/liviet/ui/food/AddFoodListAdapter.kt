@@ -13,8 +13,10 @@ import com.liviet.hoo.liviet.utils.extension.getParentActivity
 import com.liviet.hoo.liviet.viewmodel.food.FoodItemVM
 
 
-class AddFoodListAdapter: RecyclerView.Adapter<AddFoodListAdapter.ViewHolder>() {
+class AddFoodListAdapter: RecyclerView.Adapter<AddFoodListAdapter.ViewHolder>(){
     private lateinit var foodList: List<Food>
+    lateinit var originFoodList: List<Food>
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AddFoodListAdapter.ViewHolder {
         val binding: ItemAddFoodBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.context), R.layout.item_add_food, parent,false)
@@ -25,8 +27,14 @@ class AddFoodListAdapter: RecyclerView.Adapter<AddFoodListAdapter.ViewHolder>() 
         holder.bind(foodList[position])
     }
 
+    fun updateSearchList(foodList: List<Food>){
+        this.foodList = foodList
+        notifyDataSetChanged()
+    }
+
     fun updateFoodList(foodList : List<Food>){
         this.foodList = foodList
+        this.originFoodList = foodList
         notifyDataSetChanged()
     }
 
@@ -39,8 +47,9 @@ class AddFoodListAdapter: RecyclerView.Adapter<AddFoodListAdapter.ViewHolder>() 
             foodItemVm.bind(food)
             binding.viewModel = foodItemVm
             binding.foodCard.setOnClickListener {
-                var bundle = Bundle()
+                val bundle = Bundle()
                 bundle.putLong("foodId", food.id)
+                UiUtli.hideSoftKeyboard(it, it.context)
                 UiUtli.addNewFragment(it.getParentActivity()!!, AddDietFoodDetailFragment.newInstance(bundle), R.id.container_main)
             }
         }

@@ -83,5 +83,6 @@ class FoodRepository @Inject constructor(private val foodDao: FoodDao,
 
     fun getFoods(): Observable<List<Food>> = Observable.just(foodDao.getFoods())
     fun getFoodById(id: Long): Observable<Food> = Observable.just(foodDao.getFoodById(id))
+    fun searchFood(query: String): List<Food> = foodDao.searchFoodByName("%$query%")
 
 }

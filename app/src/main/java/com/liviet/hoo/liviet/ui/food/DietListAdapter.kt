@@ -79,16 +79,16 @@ class DietListAdapter constructor(val dietVM: DietVM): RecyclerView.Adapter<Recy
                 UiUtli.addNewFragment(it.getParentActivity()!!, DietDetailFragment.newInstance(bundle), R.id.container_main)
             }
 
-            binding.foodCheck.setOnClickListener {
-                val builder = AlertDialog.Builder(it.context)
-                builder.setMessage(R.string.do_you_want_to_remove)
-                        .setPositiveButton(R.string.remove) { _, _ ->
-                            // delete
-                            dietVM.deleteDiet(diet.id)
-                        }
-                        .setNegativeButton(R.string.cancel) { _,_ -> }
-                builder.show()
-            }
+//            binding.foodCheck.setOnClickListener {
+//                val builder = AlertDialog.Builder(it.context)
+//                builder.setMessage(R.string.do_you_want_to_remove)
+//                        .setPositiveButton(R.string.remove) { _, _ ->
+//                            // delete
+//                            dietVM.deleteDiet(diet.id)
+//                        }
+//                        .setNegativeButton(R.string.cancel) { _,_ -> }
+//                builder.show()
+//            }
         }
     }
 

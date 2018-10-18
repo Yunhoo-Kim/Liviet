@@ -42,19 +42,19 @@ class Utils {
             val basalMetabolism = getBasalMetabolism(weight, height, age, sex)
 
             val kcal: Int = getKcal(basalMetabolism , lifeType)
-            return UiUtli.getFormatNumber(((kcal * 0.65) / 4).toInt())
+            return ((kcal * 0.65) / 4).toString()
         }
 
         fun getFat(weight: Int, height: Int, age: Int, sex: Int,  lifeType: Double): String {
             val basalMetabolism = getBasalMetabolism(weight, height, age, sex)
             val kcal: Int = getKcal(basalMetabolism , lifeType)
-            return  UiUtli.getFormatNumber(((kcal * 0.15) / 9).toInt())
+            return  ((kcal * 0.15) / 9).toString()
         }
 
         fun getProtein(weight: Int, height: Int, age: Int, sex: Int,  lifeType: Double): String {
             val basalMetabolism = getBasalMetabolism(weight, height, age, sex)
             val kcal: Int = getKcal(basalMetabolism , lifeType)
-            return UiUtli.getFormatNumber(((kcal * 0.20) / 4).toInt())
+            return ((kcal * 0.20) / 4).toString()
         }
 
 

@@ -6,9 +6,8 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.widget.GridLayoutManager
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.support.v7.widget.SearchView
+import android.view.*
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseFragment
 import com.liviet.hoo.liviet.databinding.FragmentAddDietFoodBinding
@@ -39,12 +38,32 @@ class AddDietFoodFragment: BaseFragment() {
         binding.foodSelectList.isNestedScrollingEnabled = false
 
         binding.addNewFoodBtn.setOnClickListener {
+            UiUtli.hideSoftKeyboard(activity!!)
             UiUtli.addNewFragment(activity!!, AddNewDietFoodFragment.newInstance(Bundle()), R.id.container_main)
         }
 
         viewModel.loadFoodOnAdd()
 
+        binding.searchFood.apply {
+            //            this.setSearch
+            isActivated = true
+            onActionViewExpanded()
+            setIconifiedByDefault(false)
+            setOnQueryTextListener(object: SearchView.OnQueryTextListener {
 
+                override fun onQueryTextChange(newText: String?): Boolean {
+                    viewModel.filter.filter(newText)
+                    return false
+                }
+
+                override fun onQueryTextSubmit(query: String?): Boolean {
+                    viewModel.filter.filter(query)
+                    return false
+                }
+            })
+        }
+
+        binding.setLifecycleOwner(this)
         return binding.root
     }
 

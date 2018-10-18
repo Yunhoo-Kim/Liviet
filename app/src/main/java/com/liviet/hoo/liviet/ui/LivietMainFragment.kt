@@ -37,12 +37,14 @@ class LivietMainFragment: BaseFragment() {
         binding.viewModel = viewModel
         binding.dietList.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
         binding.dateList.layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.HORIZONTAL, false)
+        binding.setLifecycleOwner(activity)
 
         viewModel.initDate()
 
         binding.capture.setOnClickListener {
             UiUtli.makeSnackbar(it.rootView, R.string.not_ready_yet)
         }
+
         binding.settings.setOnClickListener {
             val intent = Intent(this.activity, UserSetUpActivity::class.java)
             startActivity(intent)

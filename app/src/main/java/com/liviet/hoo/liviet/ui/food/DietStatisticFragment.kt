@@ -2,15 +2,11 @@ package com.liviet.hoo.liviet.ui.food
 
 import android.arch.lifecycle.ViewModelProviders
 import android.databinding.DataBindingUtil
-import android.graphics.Color
 import android.os.Bundle
-import android.support.v4.content.ContextCompat.getColor
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.github.mikephil.charting.data.RadarData
-import com.github.mikephil.charting.data.RadarDataSet
-import com.github.mikephil.charting.data.RadarEntry
+import com.github.mikephil.charting.components.XAxis
 import com.github.mikephil.charting.formatter.IAxisValueFormatter
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseFragment
@@ -27,8 +23,7 @@ class DietStatisticFragment: BaseFragment() {
 
     private lateinit var viewModel: DietVM
     private lateinit var binding: FragmentStatisticBinding
-
-    private val labels = mutableListOf("탄수화물", "단백질", "지방")
+    private lateinit var labels: MutableList<String>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
@@ -36,36 +31,113 @@ class DietStatisticFragment: BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_statistic, container, false)
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(DietVM::class.java)
         binding.viewModel = viewModel
-        //
-        binding.setLifecycleOwner(this)
+        binding.setLifecycleOwner(activity)
+
+        labels = mutableListOf(
+                getString(R.string.kcal),
+                getString(R.string.carbohydrate),
+                getString(R.string.protein),
+                getString(R.string.fat))
+
+        viewModel.loadCharData(context!!)
 
         initViewData()
         return binding.root
     }
 
     private fun initViewData(){
-//        binding.radar.setDrawWeb(true)
-        binding.radar.description.isEnabled = false
-//        binding.radar.webLineWidthInner = 1f
-//        binding.radar.webAlpha = 100
-        binding.radar.xAxis.apply {
-            this.xOffset = 0f
-            this.yOffset = 0f
-            this.valueFormatter = IAxisValueFormatter { value, _ ->
-                return@IAxisValueFormatter labels[value.toInt() % labels.size]
-            }
-        }
-        binding.radar.yAxis.apply {
-            this.setDrawLabels(false)
-        }
-        binding.radar.animate()
+        initTodayStatistic()
+        initWeeklyStatistic()
     }
 
     override fun setUserVisibleHint(isVisibleToUser: Boolean) {
         super.setUserVisibleHint(isVisibleToUser)
         if(isVisibleToUser && ::binding.isInitialized){
             viewModel.loadCharData(context!!)
-            binding.radar.animate()
+            binding.horizontalGraph.apply {
+                invalidate()
+                animateY(700)
+            }
+            binding.weeklyChart.xAxis.apply {
+                valueFormatter = IAxisValueFormatter { value, _ ->
+                    return@IAxisValueFormatter viewModel.weeklyDateData[value.toInt() % labels.size]
+                }
+            }
+
+            binding.weeklyChart.apply {
+                invalidate()
+                animateXY(700, 700)
+            }
+        }
+    }
+
+    private fun initWeeklyStatistic(){
+        binding.weeklyChart.apply {
+            description.isEnabled = false
+            isClickable = false
+            setTouchEnabled(false)
+            setScaleEnabled(false)
+            legend.isEnabled = false
+            setBorderWidth(2f)
+
+        }
+
+        binding.weeklyChart.xAxis.apply {
+//            setDrawAxisLine(false)
+            setDrawGridLines(false)
+            granularity = 1f
+            textSize = 10f
+            position = XAxis.XAxisPosition.BOTTOM
+        }
+
+        binding.weeklyChart.axisLeft.apply {
+            setDrawLabels(false)
+            setDrawAxisLine(false)
+            setDrawGridLines(false)
+            isEnabled = false
+            granularity = 1f
+        }
+
+        binding.weeklyChart.axisRight.apply {
+            setDrawAxisLine(true)
+            setDrawGridLines(false)
+            isEnabled = false
+        }
+    }
+
+    private fun initTodayStatistic(){
+        binding.horizontalGraph.apply {
+            description.isEnabled = false
+            isClickable = false
+            legend.isEnabled = false
+            setFitBars(true)
+        }
+
+        binding.horizontalGraph.xAxis.apply {
+            setDrawAxisLine(false)
+            setDrawGridLines(false)
+            granularity = 1f
+            textSize = 15f
+            valueFormatter = IAxisValueFormatter { value, _ ->
+                return@IAxisValueFormatter labels[value.toInt() % labels.size]
+            }
+            position = XAxis.XAxisPosition.BOTTOM
+        }
+
+        binding.horizontalGraph.axisLeft.apply {
+            setDrawLabels(false)
+            setDrawAxisLine(false)
+            setDrawGridLines(false)
+            isEnabled = false
+            granularity = 1f
+            axisMinimum = 0f
+            axisMaximum = 100f
+            yOffset = 10f
+        }
+        binding.horizontalGraph.axisRight.apply {
+            setDrawAxisLine(true)
+            setDrawGridLines(false)
+            isEnabled = false
         }
     }
 

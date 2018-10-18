@@ -3,9 +3,8 @@ package com.liviet.hoo.liviet.viewmodel.food
 import android.arch.lifecycle.MutableLiveData
 import android.content.Context
 import android.util.Log
-import com.github.mikephil.charting.data.RadarData
-import com.github.mikephil.charting.data.RadarDataSet
-import com.github.mikephil.charting.data.RadarEntry
+import com.github.mikephil.charting.data.*
+import com.github.mikephil.charting.formatter.IValueFormatter
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseViewModel
 import com.liviet.hoo.liviet.model.liviet.VersionsRepository
@@ -29,11 +28,14 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository,
                                  private val versionsRepository: VersionsRepository,
                                  private val userRepository: UserRepository): BaseViewModel() {
 
+    private val dateList = mutableListOf<Calendar>()
+
     var cDate: Date = Utils.makeCalendarToDate(Calendar.getInstance())
     var tDate: Date = Utils.makeCalendarToDate(Calendar.getInstance())
-
-    private val dateList = mutableListOf<Calendar>()
-    var chartData: MutableLiveData<RadarData> = MutableLiveData()
+    var cal: MutableLiveData<String> = MutableLiveData()
+    var chartData: MutableLiveData<BarData> = MutableLiveData()
+    var weeklyData: MutableLiveData<LineData> = MutableLiveData()
+    lateinit var weeklyDateData: MutableList<String>
 
     val foodListAdapter: FoodListAdapter by lazy {
         FoodListAdapter()
@@ -49,6 +51,7 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository,
 
     init {
         versionsRepository.checkVersion()
+        cal.value = "0Kcal"
     }
 
     fun insertDiet(diet: Diet) {
@@ -60,15 +63,18 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository,
         val dietList = dietRepository.getDietsByDate(date).blockingFirst()
         val mDietList: MutableList<Pair<Diet, Food>> = mutableListOf()
 
-
         mDietList.add(Pair(Diet(amount = 0, foodId = 1, date = cDate), Food(name = "plus", amount = 100, carbonHydrate = 10.0, cal = 10, fat = 10.0
                 ,imageUrl = "", measure = "g", protein = 10.0)))
 
+        var kcal = 0
+
         for(d in dietList){
             val pair = Pair<Diet, Food>(d, getFoodById(d.foodId).blockingFirst() )
+            kcal += pair.first.amount * pair.second.cal / pair.second.amount
             mDietList.add(pair)
         }
 
+        cal.value = "${kcal}Kcal"
         dietListAdapter.updateDietList(mDietList)
         return Observable.just(dietList)
     }
@@ -120,56 +126,120 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository,
 
         Log.d("Nutrition1", "$carbon $fat $protein")
 
-        entries.add(RadarEntry(carbon.toFloat() / 4, 0))
-        entries.add(RadarEntry(protein.toFloat(), 1))
-        entries.add(RadarEntry(fat.toFloat(), 2))
+        entries.add(RadarEntry(carbon.toFloat(), 0))
+        entries.add(RadarEntry(protein.toFloat() * 3.2f, 1))
+        entries.add(RadarEntry(fat.toFloat() * 10.0f, 2))
 
         return RadarDataSet(entries, "")
     }
 
-    private fun getTodayDietInfo(): RadarDataSet {
+
+    private fun getWeeksDietInfo(context: Context): LineData {
+        weeklyDateData = mutableListOf()
+
+        val setEntries = mutableListOf<LineDataSet>()
+        val calEntries = mutableListOf<Entry>()
+        val carbonEntries = mutableListOf<Entry>()
+        val proteinEntries = mutableListOf<Entry>()
+        val fatEntries = mutableListOf<Entry>()
+
+        for(i in -5..0){
+            val calendar = Calendar.getInstance()
+            calendar.add(Calendar.DATE, i)
+            val date = Utils.makeCalendarToDate(calendar)
+            var carbon = 0.0
+            var fat = 0.0
+            var protein = 0.0
+            var kcal = 0
+            val diets = getDiet(date).blockingFirst()
+
+            for(diet in diets){
+                val food = getFoodById(diet.foodId).blockingFirst()
+                carbon += (food.carbonHydrate / food.amount) * diet.amount
+                fat += (food.fat / food.amount) * diet.amount
+                protein += (food.protein / food.amount) * diet.amount
+                kcal += diet.amount * food.cal / food.amount
+            }
+
+            val index = (i + 5).toFloat()
+            weeklyDateData.add(index.toInt(), "${calendar.get(Calendar.MONTH) + 1}/${calendar.get(Calendar.DATE)}")
+            calEntries.add(Entry(index, kcal.toFloat() / 8))
+            carbonEntries.add(Entry(index, carbon.toFloat() / 4))
+            proteinEntries.add(Entry(index, protein.toFloat() / 3))
+            fatEntries.add(Entry(index, fat.toFloat()))
+        }
+        setEntries.add(LineDataSet(calEntries, "").apply {
+            color = context.getColor(R.color.colorPrimaryBlue)
+            lineWidth = 2f
+        })
+        setEntries.add(LineDataSet(carbonEntries, "").apply {
+            color = context.getColor(R.color.colorPrimaryDark)
+            lineWidth = 2f
+        })
+        setEntries.add(LineDataSet(proteinEntries, "").apply {
+            color = context.getColor(R.color.colorPrimary)
+            lineWidth = 2f
+        })
+        setEntries.add(LineDataSet(fatEntries, "").apply {
+            lineWidth = 2f
+        })
+
+        return LineData(setEntries.toList()).apply {
+//            setValueFormatter { value, _, _, _ ->
+//                return@setValueFormatter "$value"
+//            }
+        }
+    }
+
+    private fun getTodayDietInfo(): BarDataSet {
         val todayDiets = getDiet(tDate).blockingFirst()
-        val entries = mutableListOf<RadarEntry>()
+        val entries = mutableListOf<BarEntry>()
         var carbon = 0.0
         var fat = 0.0
         var protein = 0.0
+        var kcal = 0
+
+        val user = userRepository.getUser().blockingFirst()
+        val bM = Utils.getBasalMetabolism(user.weight, user.height, user.age, user.sex)
+        val sKcal = Utils.getKcal(bM, user.life_type)
+        val sCarbon = Utils.getCarbonHydrate(user.weight, user.height,user.age, user.sex, user.life_type)
+        val sFat = Utils.getFat(user.weight, user.height, user.age, user.sex,  user.life_type)
+        val sProtein = Utils.getProtein(user.weight, user.height, user.age, user.sex,  user.life_type)
 
         for(diet in todayDiets){
             val food = getFoodById(diet.foodId).blockingFirst()
             carbon += (food.carbonHydrate / food.amount) * diet.amount
             fat += (food.fat / food.amount) * diet.amount
             protein += (food.protein / food.amount) * diet.amount
+            kcal += diet.amount * food.cal / food.amount
         }
 
-        Log.d("Nutrition", "$carbon $fat $protein")
-
-        entries.add(RadarEntry(carbon.toFloat(), 0))
-        entries.add(RadarEntry(protein.toFloat(), 1))
-        entries.add(RadarEntry(fat.toFloat(), 2))
-        return RadarDataSet(entries, "")
+        entries.add(BarEntry(0f, ((kcal.toFloat() / sKcal.toFloat()) * 100).toInt().toFloat()))
+        entries.add(BarEntry(1f, ((carbon.toFloat() / sCarbon.toFloat()) * 100).toInt().toFloat()))
+        entries.add(BarEntry(2f, ((protein.toFloat() / sProtein.toFloat()) * 100).toInt().toFloat()))
+        entries.add(BarEntry(3f, ((fat.toFloat() / sFat.toFloat()) * 100).toInt().toFloat()))
+        return BarDataSet(entries, "")
     }
 
     fun loadCharData(context: Context){
 
-        chartData.value = RadarData(listOf())
-        val standardDiet = getStandardDietRadar().apply {
-            this.label = context.getString(R.string.suggested_daily_taking)
-            this.color = context.getColor(R.color.colorPrimaryBlue)
-            this.fillColor = context.getColor(R.color.colorPrimaryBlue)
-            this.fillAlpha = 100
-            this.setDrawFilled(true)
-            this.setDrawHighlightIndicators(false)
-        }
         val todayDiet = getTodayDietInfo().apply {
-            this.label = context.getString(R.string.today_taking)
-            this.color = context.getColor(R.color.colorPrimary)
-            this.fillColor = context.getColor(R.color.colorPrimaryDark)
-            this.fillAlpha = 100
-            this.setDrawFilled(true)
-            this.setDrawHighlightIndicators(false)
+            label = ""
+            valueTextSize = 15.2f
+            valueFormatter = IValueFormatter { value, _, _, _ ->
+                return@IValueFormatter "${value.toInt()}%"
+            }
+
+            barBorderColor = context.getColor(R.color.colorPrimary)
+            barBorderWidth = 2f
+            color = context.getColor(R.color.colorPrimaryDark)
         }
-        chartData.value = RadarData(listOf(standardDiet, todayDiet)).apply {
-            this.setDrawValues(false)
+
+        weeklyData.value = getWeeksDietInfo(context).apply {
+        }
+
+        chartData.value = BarData(todayDiet).apply {
+            barWidth = 0.5f
         }
     }
 }

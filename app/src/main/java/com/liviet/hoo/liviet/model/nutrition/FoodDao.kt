@@ -14,7 +14,7 @@ interface FoodDao {
     @Query("SELECT * FROM food where id=:id")
     fun getFoodById(id: Long): Food
 
-    @Query("SELECT * FROM food where name LIKE %:name%")
+    @Query("SELECT * FROM food where name LIKE :name")
     fun searchFoodByName(name: String): List<Food>
 
     @Insert(onConflict = REPLACE)

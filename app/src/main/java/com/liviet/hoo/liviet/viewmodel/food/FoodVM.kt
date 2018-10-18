@@ -1,5 +1,7 @@
 package com.liviet.hoo.liviet.viewmodel.food
 
+import android.widget.Filter
+import android.widget.Filterable
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseViewModel
 import com.liviet.hoo.liviet.model.nutrition.Food
@@ -11,7 +13,7 @@ import javax.inject.Inject
 
 
 @Suppress("unused")
-class FoodVM @Inject constructor(private val foodRepository: FoodRepository): BaseViewModel() {
+class FoodVM @Inject constructor(private val foodRepository: FoodRepository): BaseViewModel(), Filterable {
 
     var measureEntries: MutableList<String> = mutableListOf<String>().apply {
 //        R.array.select_measure
@@ -49,5 +51,25 @@ class FoodVM @Inject constructor(private val foodRepository: FoodRepository): Ba
     fun loadFoodOnAdd(): Observable<List<Food>> {
         addFoodListAdapter.updateFoodList(foodRepository.getFoods().blockingFirst())
         return foodRepository.getFoods()
+    }
+
+    override fun getFilter(): Filter {
+        return object: Filter(){
+            override fun performFiltering(constraint: CharSequence?): FilterResults {
+                if(constraint!!.isEmpty()){
+                    return FilterResults().apply {
+                        values = addFoodListAdapter.originFoodList
+                    }
+                }
+                return FilterResults().apply {
+                    values = foodRepository.searchFood(constraint.toString())
+                }
+            }
+
+            override fun publishResults(constraint: CharSequence?, results: FilterResults?) {
+                val searchFoodList:List<Food> = results!!.values as List<Food>
+                addFoodListAdapter.updateSearchList(searchFoodList)
+            }
+        }
     }
 }

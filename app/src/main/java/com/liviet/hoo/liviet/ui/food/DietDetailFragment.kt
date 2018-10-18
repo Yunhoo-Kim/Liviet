@@ -70,6 +70,12 @@ class DietDetailFragment: BaseFragment() {
             fragmentManager!!.popBackStack() // close this fragment
         }
 
+        binding.removeDiet.setOnClickListener {
+            viewModel.deleteDiet(dietId)
+            viewModel.getDiets()
+            fragmentManager!!.popBackStack() // close this fragment
+        }
+
         return binding.root
     }
 

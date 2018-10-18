@@ -1,7 +1,9 @@
 package com.liviet.hoo.liviet.utils
 
+import android.app.Activity
 import android.content.ContentResolver
 import android.content.ContentValues
+import android.content.Context
 import android.graphics.Bitmap
 import android.net.Uri
 import android.provider.MediaStore
@@ -9,6 +11,7 @@ import android.support.design.widget.Snackbar
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageButton
 import android.widget.ImageView
 import com.bumptech.glide.Glide
@@ -61,6 +64,14 @@ class UiUtli {
             Glide.with(view.rootView)
                     .load(FirebaseStorage.getInstance().reference.child(url))
                     .into(view)
+        }
+
+        fun hideSoftKeyboard(activity: Activity) {
+            (activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(activity.currentFocus.windowToken, 0)
+        }
+
+        fun hideSoftKeyboard(view: View, context: Context) {
+            (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view.windowToken, 0)
         }
 
     }
