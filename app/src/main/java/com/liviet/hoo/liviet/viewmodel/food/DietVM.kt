@@ -30,6 +30,11 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository,
 
     private val dateList = mutableListOf<Calendar>()
 
+    lateinit var calDataSet: LineDataSet
+    lateinit var carbonDataSet: LineDataSet
+    lateinit var proteinDataSet: LineDataSet
+    lateinit var fatDataSet: LineDataSet
+
     var cDate: Date = Utils.makeCalendarToDate(Calendar.getInstance())
     var tDate: Date = Utils.makeCalendarToDate(Calendar.getInstance())
     var cal: MutableLiveData<String> = MutableLiveData()
@@ -115,8 +120,8 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository,
         dateListAdapter.updateDateList(dateList, i, j)
     }
 
-    private fun getStandardDietRadar(): RadarDataSet{
-        val entries = mutableListOf<RadarEntry>()
+    private fun getStandardData(): MutableList<Float>{
+        val entries = mutableListOf<Float>()
         val user = userRepository.getUser().blockingFirst()
         val bM = Utils.getBasalMetabolism(user.weight, user.height, user.age, user.sex)
         val kcal = Utils.getKcal(bM, user.life_type)
@@ -126,11 +131,12 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository,
 
         Log.d("Nutrition1", "$carbon $fat $protein")
 
-        entries.add(RadarEntry(carbon.toFloat(), 0))
-        entries.add(RadarEntry(protein.toFloat() * 3.2f, 1))
-        entries.add(RadarEntry(fat.toFloat() * 10.0f, 2))
+        entries.add(kcal.toFloat())
+        entries.add(carbon.toFloat())
+        entries.add(protein.toFloat())
+        entries.add(fat.toFloat())
 
-        return RadarDataSet(entries, "")
+        return entries
     }
 
 
@@ -163,32 +169,36 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository,
 
             val index = (i + 5).toFloat()
             weeklyDateData.add(index.toInt(), "${calendar.get(Calendar.MONTH) + 1}/${calendar.get(Calendar.DATE)}")
-            calEntries.add(Entry(index, kcal.toFloat() / 8))
-            carbonEntries.add(Entry(index, carbon.toFloat() / 4))
-            proteinEntries.add(Entry(index, protein.toFloat() / 3))
+            calEntries.add(Entry(index, kcal.toFloat()))
+            carbonEntries.add(Entry(index, carbon.toFloat()))
+            proteinEntries.add(Entry(index, protein.toFloat()))
             fatEntries.add(Entry(index, fat.toFloat()))
         }
-        setEntries.add(LineDataSet(calEntries, "").apply {
-            color = context.getColor(R.color.colorPrimaryBlue)
-            lineWidth = 2f
-        })
-        setEntries.add(LineDataSet(carbonEntries, "").apply {
-            color = context.getColor(R.color.colorPrimaryDark)
-            lineWidth = 2f
-        })
-        setEntries.add(LineDataSet(proteinEntries, "").apply {
-            color = context.getColor(R.color.colorPrimary)
-            lineWidth = 2f
-        })
-        setEntries.add(LineDataSet(fatEntries, "").apply {
-            lineWidth = 2f
-        })
 
-        return LineData(setEntries.toList()).apply {
-//            setValueFormatter { value, _, _, _ ->
-//                return@setValueFormatter "$value"
-//            }
+        calDataSet = LineDataSet(calEntries, "").apply {
+            color = context.getColor(R.color.colorPrimaryBlue)
+            lineWidth = 3f
+            valueTextSize = 10f
         }
+
+        carbonDataSet = LineDataSet(carbonEntries, "").apply {
+            color = context.getColor(R.color.colorPrimaryDark)
+            lineWidth = 3f
+            valueTextSize = 10f
+        }
+
+        proteinDataSet = LineDataSet(proteinEntries, "").apply {
+            color = context.getColor(R.color.colorPrimary)
+            lineWidth = 3f
+            valueTextSize = 10f
+        }
+
+        fatDataSet = LineDataSet(fatEntries, "").apply {
+            lineWidth = 3f
+            valueTextSize = 10f
+        }
+
+        return LineData(setEntries.toList())
     }
 
     private fun getTodayDietInfo(): BarDataSet {
@@ -229,17 +239,23 @@ class DietVM @Inject constructor(private val dietRepository: DietRepository,
             valueFormatter = IValueFormatter { value, _, _, _ ->
                 return@IValueFormatter "${value.toInt()}%"
             }
-
             barBorderColor = context.getColor(R.color.colorPrimary)
             barBorderWidth = 2f
             color = context.getColor(R.color.colorPrimaryDark)
         }
 
-        weeklyData.value = getWeeksDietInfo(context).apply {
-        }
-
         chartData.value = BarData(todayDiet).apply {
             barWidth = 0.5f
+        }
+        getWeeksDietInfo(context)
+    }
+
+    fun loadLineChart(pos: Int){
+        when(pos){
+            0-> weeklyData.value = LineData(calDataSet)
+            1-> weeklyData.value = LineData(carbonDataSet)
+            2-> weeklyData.value = LineData(proteinDataSet)
+            else -> weeklyData.value = LineData(fatDataSet)
         }
     }
 }

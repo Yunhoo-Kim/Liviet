@@ -40,6 +40,16 @@ class DietStatisticFragment: BaseFragment() {
                 getString(R.string.fat))
 
         viewModel.loadCharData(context!!)
+        viewModel.loadLineChart(0)
+
+        binding.weekGroup.setOnCheckedChangeListener { _, checkedId ->
+            when(checkedId){
+                R.id.wKcal -> loadLineChart(0)
+                R.id.wCarbon -> loadLineChart(1)
+                R.id.wProtein -> loadLineChart(2)
+                else -> loadLineChart(3)
+            }
+        }
 
         initViewData()
         return binding.root
@@ -58,16 +68,27 @@ class DietStatisticFragment: BaseFragment() {
                 invalidate()
                 animateY(700)
             }
+
             binding.weeklyChart.xAxis.apply {
                 valueFormatter = IAxisValueFormatter { value, _ ->
-                    return@IAxisValueFormatter viewModel.weeklyDateData[value.toInt() % labels.size]
+                    return@IAxisValueFormatter viewModel.weeklyDateData[value.toInt() % viewModel.weeklyDateData.size]
                 }
             }
 
-            binding.weeklyChart.apply {
-                invalidate()
-                animateXY(700, 700)
+            when{
+                binding.wKcal.isChecked -> loadLineChart(0)
+                binding.wCarbon.isChecked -> loadLineChart(1)
+                binding.wProtein.isChecked -> loadLineChart(2)
+                binding.wFat.isChecked -> loadLineChart(3)
             }
+        }
+    }
+
+    private fun loadLineChart(pos: Int){
+        viewModel.loadLineChart(pos)
+        binding.weeklyChart.apply {
+            invalidate()
+            animateXY(700, 700)
         }
     }
 
@@ -78,12 +99,11 @@ class DietStatisticFragment: BaseFragment() {
             setTouchEnabled(false)
             setScaleEnabled(false)
             legend.isEnabled = false
-            setBorderWidth(2f)
+            setBorderWidth(10f)
 
         }
 
         binding.weeklyChart.xAxis.apply {
-//            setDrawAxisLine(false)
             setDrawGridLines(false)
             granularity = 1f
             textSize = 10f
