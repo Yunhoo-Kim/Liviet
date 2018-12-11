@@ -41,33 +41,20 @@
                     android:textColor="@color/black"
                     style="@style/appFont.Title"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    />
-
-                <ImageView
-                    android:id="@+id/food_image"
-                    android:layout_width="150dp"
-                    android:layout_height="150dp"
-                    android:layout_marginTop="40dp"
-                    android:src="@drawable/dish"
-                    imageRes="@{itemViewModel.resId}"
-                    imageResUri="@{itemViewModel.image}"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title"/>
+                    app:layout_constraintStart_toStartOf="parent" />
 
                 <TextView
                     android:id="@+id/food_name"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
+                    android:layout_marginTop="60dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginEnd="8dp"
                     android:text="@{itemViewModel.name}"
                     android:textColor="@color/black"
                     style="@style/appFont"
                     android:textAlignment="center"
-                    app:layout_constraintTop_toBottomOf="@+id/food_image"
+                    app:layout_constraintTop_toBottomOf="@+id/title"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"/>
 
@@ -102,6 +89,46 @@
                         app:layout_constraintStart_toEndOf="@+id/food_amount_input"/>
                 </android.support.constraint.ConstraintLayout>
 
+
+                <info.hoang8f.android.segmented.SegmentedGroup
+                    android:id="@+id/meal_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/food_amount_cont"
+                    app:sc_corner_radius="4dp"
+                    app:sc_border_width="2dp"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/breakfast"
+                        android:text="@string/breakfast"
+                        style="@style/RadioButton"
+                        android:textAppearance="@style/appFont.Medium"
+                        android:checked="true"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/lunch"
+                        android:text="@string/lunch"
+                        style="@style/RadioButton"
+                        android:textAppearance="@style/appFont.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/dinner"
+                        android:text="@string/dinner"
+                        style="@style/RadioButton"
+                        android:textAppearance="@style/appFont.Medium"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                </info.hoang8f.android.segmented.SegmentedGroup>
+
+
                 <TextView
                     android:id="@+id/food_kcal"
                     android:layout_width="match_parent"
@@ -111,7 +138,7 @@
                     android:textAlignment="center"
                     android:gravity="center_vertical"
                     android:textColor="@color/colorPrimary"
-                    app:layout_constraintTop_toBottomOf="@+id/food_amount_cont"/>
+                    app:layout_constraintTop_toBottomOf="@+id/meal_type"/>
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/food_info_cont"
@@ -123,9 +150,38 @@
                     app:layout_constraintTop_toBottomOf="@+id/food_kcal">
 
                     <android.support.constraint.ConstraintLayout
-                        android:id="@+id/carbon_hydrate_cont"
+                        android:id="@+id/cal_cont"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/cal"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@string/kcal"
+                            android:textAlignment="center"
+                            style="@style/appFont.Medium"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toStartOf="@+id/cal_amount"/>
+
+                        <TextView
+                            android:id="@+id/cal_amount"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:text="@{itemViewModel.cal}"
+                            android:textAlignment="center"
+                            style="@style/appFont.Medium"
+                            app:layout_constraintStart_toEndOf="@+id/cal"
+                            app:layout_constraintEnd_toEndOf="parent"/>
+
+                    </android.support.constraint.ConstraintLayout>
+
+                    <android.support.constraint.ConstraintLayout
+                        android:id="@+id/carbon_hydrate_cont"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        app:layout_constraintTop_toBottomOf="@+id/cal_cont">
 
                         <TextView
                             android:id="@+id/carbon_hydrate"
@@ -210,6 +266,23 @@
                 </android.support.constraint.ConstraintLayout>
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="320dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="12dp"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            ads:layout_constraintBottom_toTopOf="@+id/saveDiet"
+            android:background="@android:color/transparent"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/admob_id">
+        </com.google.android.gms.ads.AdView>
 
         <Button
             android:id="@+id/saveDiet"

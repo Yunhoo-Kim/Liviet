@@ -39,7 +39,7 @@ class FoodRepository @Inject constructor(private val foodDao: FoodDao,
                                 fat = doc.data["fat"].toString().toDouble(),
                                 cal = doc.data["cal"].toString().toInt(),
                                 measure = doc.data["measure"].toString(),
-                                imageUrl = doc.data["imageUrl"].toString()))
+                                imageUrl = "abc.png"))
                     }
                     emitter.onNext(foodDao.getFoods())
                 }else{

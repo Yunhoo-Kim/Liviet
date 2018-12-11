@@ -56,23 +56,23 @@ class AddNewDietFoodFragment: BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_add_new_diet_food, container, false)
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(FoodVM::class.java)
         binding.viewModel = viewModel
-        binding.foodImage.setOnClickListener {
-            val builder = AlertDialog.Builder(context!!)
-            builder.setItems(R.array.select_image){ dialog, i ->
-                when(i){
-                    0 -> {
-                        requestCamera()
-                    }
-                    else -> {
-                        val intent = Intent(Intent.ACTION_PICK)
-                        intent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-                        intent.type = "image/*"
-                        startActivityForResult(intent, SELECTIMG)
-                    }
-                }
-            }
-            builder.show()
-        }
+//        binding.foodImage.setOnClickListener {
+//            val builder = AlertDialog.Builder(context!!)
+//            builder.setItems(R.array.select_image){ dialog, i ->
+//                when(i){
+//                    0 -> {
+//                        requestCamera()
+//                    }
+//                    else -> {
+//                        val intent = Intent(Intent.ACTION_PICK)
+//                        intent.data = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+//                        intent.type = "image/*"
+//                        startActivityForResult(intent, SELECTIMG)
+//                    }
+//                }
+//            }
+//            builder.show()
+//        }
 
 
         binding.saveFood.setOnClickListener {
@@ -84,11 +84,10 @@ class AddNewDietFoodFragment: BaseFragment() {
                 binding.proteinAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
                 binding.kcalAmount.text.isNullOrBlank() -> UiUtli.makeSnackbar(it, R.string.plz_fill_info)
                 else -> {
-//                    Log.d("Food info", "$mCurrentPhotoPath ${binding.foodName.text} ${binding.foodAmountInput.text} ${binding.foodAmountMeasure.selectedItem}  ${binding.carbonHydrateAmount.text}  ${binding.fatAmount.text}   ${binding.proteinAmount.text}")
 
                     val food  = Food(
                             id = System.currentTimeMillis(),
-                            imageUrl = mCurrentPhotoPath,
+                            imageUrl = "abc.png",
                             name = binding.foodName.text.toString(),
                             measure = binding.foodAmountMeasure.selectedItem.toString(),
                             carbonHydrate = binding.carbonHydrateAmount.text.toString().toDouble(),
@@ -98,6 +97,7 @@ class AddNewDietFoodFragment: BaseFragment() {
                             cal = binding.kcalAmount.text.toString().toInt())
 
                     viewModel.insertFood(food)
+                    UiUtli.hideSoftKeyboard(activity!!)
                     activity?.onBackPressed()
                 }
             }
@@ -136,41 +136,41 @@ class AddNewDietFoodFragment: BaseFragment() {
                 .start(context!!, this)
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if(resultCode == RESULT_OK){
-            when(requestCode) {
-                SELECTIMG -> {
-                    mCurrentPhotoPath = data!!.dataString
-                    cropImage(Uri.parse(mCurrentPhotoPath))
-                }
-                CAMERA -> {
-                    cropImage(Uri.parse(mCurrentPhotoPath))
-                }
-                CROP -> {
-                    binding.foodImage.setImageURI(Uri.parse(mCurrentPhotoPath))
-                }
-                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
-
-                    Utils.uploadImageToGCS(
-                            UiUtli.convertURIBM(context!!.contentResolver,
-                            CropImage.getActivityResult(data).uri), storage.reference).run {
-                        this.addOnFailureListener {
-                            UiUtli.makeSnackbar(this@AddNewDietFoodFragment.view!!, "Fail to upload")
-                        }
-                        this.addOnSuccessListener {
-                            mCurrentPhotoPath = it.metadata?.name!!
-//                            binding.view
-                            UiUtli.loadImage(binding.foodImage, mCurrentPhotoPath)
-//                            binding.foodImage.setImageURI(Uri.parse(mCurrentPhotoPath))
-
-                        }
-                    }
-
-                }
-            }
-        }
-    }
+//    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+//        super.onActivityResult(requestCode, resultCode, data)
+//        if(resultCode == RESULT_OK){
+//            when(requestCode) {
+//                SELECTIMG -> {
+//                    mCurrentPhotoPath = data!!.dataString
+//                    cropImage(Uri.parse(mCurrentPhotoPath))
+//                }
+//                CAMERA -> {
+//                    cropImage(Uri.parse(mCurrentPhotoPath))
+//                }
+//                CROP -> {
+//                    binding.foodImage.setImageURI(Uri.parse(mCurrentPhotoPath))
+//                }
+//                CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE -> {
+//
+//                    Utils.uploadImageToGCS(
+//                            UiUtli.convertURIBM(context!!.contentResolver,
+//                            CropImage.getActivityResult(data).uri), storage.reference).run {
+//                        this.addOnFailureListener {
+//                            UiUtli.makeSnackbar(this@AddNewDietFoodFragment.view!!, "Fail to upload")
+//                        }
+//                        this.addOnSuccessListener {
+//                            mCurrentPhotoPath = it.metadata?.name!!
+////                            binding.view
+//                            UiUtli.loadImage(binding.foodImage, mCurrentPhotoPath)
+////                            binding.foodImage.setImageURI(Uri.parse(mCurrentPhotoPath))
+//
+//                        }
+//                    }
+//
+//                }
+//            }
+//        }
+//    }
 
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<out String>, grantResults: IntArray) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)

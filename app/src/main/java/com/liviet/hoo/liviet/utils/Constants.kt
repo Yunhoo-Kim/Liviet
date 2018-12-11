@@ -11,3 +11,6 @@ const val DIET : Int = 0
 const val BULKUP : Int = 1
 const val MALE : Int = 0
 const val FEMALE : Int = 1
+const val BREAKFAST: Int = 0
+const val LUNCH: Int = 1
+const val DINNER: Int = 2

@@ -64,10 +64,10 @@ class DietStatisticFragment: BaseFragment() {
         super.setUserVisibleHint(isVisibleToUser)
         if(isVisibleToUser && ::binding.isInitialized){
             viewModel.loadCharData(context!!)
-            binding.horizontalGraph.apply {
-                invalidate()
-                animateY(700)
-            }
+//            binding.horizontalGraph.apply {
+//                invalidate()
+//                animateY(700)
+//            }
 
             binding.weeklyChart.xAxis.apply {
                 valueFormatter = IAxisValueFormatter { value, _ ->
@@ -126,39 +126,39 @@ class DietStatisticFragment: BaseFragment() {
     }
 
     private fun initTodayStatistic(){
-        binding.horizontalGraph.apply {
-            description.isEnabled = false
-            isClickable = false
-            legend.isEnabled = false
-            setFitBars(true)
-        }
+//        binding.horizontalGraph.apply {
+//            description.isEnabled = false
+//            isClickable = false
+//            legend.isEnabled = false
+//            setFitBars(true)
+//        }
 
-        binding.horizontalGraph.xAxis.apply {
-            setDrawAxisLine(false)
-            setDrawGridLines(false)
-            granularity = 1f
-            textSize = 15f
-            valueFormatter = IAxisValueFormatter { value, _ ->
-                return@IAxisValueFormatter labels[value.toInt() % labels.size]
-            }
-            position = XAxis.XAxisPosition.BOTTOM
-        }
-
-        binding.horizontalGraph.axisLeft.apply {
-            setDrawLabels(false)
-            setDrawAxisLine(false)
-            setDrawGridLines(false)
-            isEnabled = false
-            granularity = 1f
-            axisMinimum = 0f
-            axisMaximum = 100f
-            yOffset = 10f
-        }
-        binding.horizontalGraph.axisRight.apply {
-            setDrawAxisLine(true)
-            setDrawGridLines(false)
-            isEnabled = false
-        }
+//        binding.horizontalGraph.xAxis.apply {
+//            setDrawAxisLine(false)
+//            setDrawGridLines(false)
+//            granularity = 1f
+//            textSize = 15f
+//            valueFormatter = IAxisValueFormatter { value, _ ->
+//                return@IAxisValueFormatter labels[value.toInt() % labels.size]
+//            }
+//            position = XAxis.XAxisPosition.BOTTOM
+//        }
+//
+//        binding.horizontalGraph.axisLeft.apply {
+//            setDrawLabels(false)
+//            setDrawAxisLine(false)
+//            setDrawGridLines(false)
+//            isEnabled = false
+//            granularity = 1f
+//            axisMinimum = 0f
+//            axisMaximum = 100f
+//            yOffset = 10f
+//        }
+//        binding.horizontalGraph.axisRight.apply {
+//            setDrawAxisLine(true)
+//            setDrawGridLines(false)
+//            isEnabled = false
+//        }
     }
 
     companion object {

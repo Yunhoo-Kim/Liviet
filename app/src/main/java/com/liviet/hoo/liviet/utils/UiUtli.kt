@@ -5,6 +5,7 @@ import android.content.ContentResolver
 import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.net.Uri
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
@@ -12,14 +13,13 @@ import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.view.View
 import android.view.inputmethod.InputMethodManager
-import android.widget.ImageButton
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.google.firebase.storage.FirebaseStorage
 import java.io.ByteArrayOutputStream
-import java.net.URI
 import java.text.NumberFormat
 import java.util.*
+import android.util.Base64
 
 @Suppress("unused")
 class UiUtli {
@@ -72,6 +72,17 @@ class UiUtli {
 
         fun hideSoftKeyboard(view: View, context: Context) {
             (context.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager).hideSoftInputFromWindow(view.windowToken, 0)
+        }
+
+        fun convertStringToBitmap(bitmapString: String): Bitmap{
+            val decodedBytes = Base64.decode(bitmapString.substring(bitmapString.indexOf(",") + 1),
+                    Base64.DEFAULT)
+            return BitmapFactory.decodeByteArray(decodedBytes, 0, decodedBytes.size)
+        }
+        fun convertBitmapToString(bitmap: Bitmap): String{
+            val bytes = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes)
+            return Base64.encodeToString(bytes.toByteArray(), Base64.DEFAULT)
         }
 
     }

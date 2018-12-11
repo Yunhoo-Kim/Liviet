@@ -6,8 +6,11 @@ import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.SearchView
 import android.view.*
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.MobileAds
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseFragment
 import com.liviet.hoo.liviet.databinding.FragmentAddDietFoodBinding
@@ -34,8 +37,13 @@ class AddDietFoodFragment: BaseFragment() {
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(FoodVM::class.java)
         dietViewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(DietVM::class.java)
         binding.viewModel = viewModel
-        binding.foodSelectList.layoutManager = GridLayoutManager(this.context, 2)
-        binding.foodSelectList.isNestedScrollingEnabled = false
+        binding.foodSelectList.apply {
+            layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+            isNestedScrollingEnabled = false
+        }
+
+        val adRequest = AdRequest.Builder().build()
+        binding.adView.loadAd(adRequest)
 
         binding.addNewFoodBtn.setOnClickListener {
             UiUtli.hideSoftKeyboard(activity!!)

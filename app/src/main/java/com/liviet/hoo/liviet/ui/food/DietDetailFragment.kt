@@ -15,6 +15,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.google.android.gms.ads.AdRequest
 import com.liviet.hoo.liviet.R
 import com.liviet.hoo.liviet.base.BaseFragment
 import com.liviet.hoo.liviet.databinding.FragmentAddDietFoodBinding
@@ -56,6 +57,7 @@ class DietDetailFragment: BaseFragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
 
+        val adRequest = AdRequest.Builder().build()
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_diet_detail, container, false)
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(DietVM::class.java)
 
@@ -66,9 +68,12 @@ class DietDetailFragment: BaseFragment() {
         itemVM.bind(diet, food)
         binding.viewModel = itemVM
 
+        binding.adView.loadAd(adRequest)
+
         binding.saveDiet.setOnClickListener {
             fragmentManager!!.popBackStack() // close this fragment
         }
+
 
         binding.removeDiet.setOnClickListener {
             viewModel.deleteDiet(dietId)

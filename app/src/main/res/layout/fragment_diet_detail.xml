@@ -41,31 +41,31 @@
                     app:layout_constraintStart_toStartOf="parent"
                     />
 
-                <ImageView
-                    android:id="@+id/food_image"
-                    android:layout_width="120dp"
-                    android:layout_height="120dp"
-                    android:layout_marginTop="40dp"
-                    android:src="@drawable/dish"
-                    imageRes="@{viewModel.resId}"
-                    imageResUri="@{viewModel.image}"
-                    android:scaleType="centerCrop"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/title"/>
+                <!--<ImageView-->
+                    <!--android:id="@+id/food_image"-->
+                    <!--android:layout_width="120dp"-->
+                    <!--android:layout_height="120dp"-->
+                    <!--android:layout_marginTop="40dp"-->
+                    <!--android:src="@drawable/dish"-->
+                    <!--imageRes="@{viewModel.resId}"-->
+                    <!--imageResUri="@{viewModel.image}"-->
+                    <!--android:scaleType="centerCrop"-->
+                    <!--app:layout_constraintStart_toStartOf="parent"-->
+                    <!--app:layout_constraintEnd_toEndOf="parent"-->
+                    <!--app:layout_constraintTop_toBottomOf="@+id/title"/>-->
 
                 <TextView
                     android:id="@+id/food_kcal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     style="@style/appFont.Title"
-                    android:layout_margin="8dp"
+                    android:layout_marginTop="100dp"
                     android:textAlignment="center"
                     android:textStyle="bold"
                     android:text="@{viewModel.kcal}"
                     android:gravity="center_vertical"
                     android:textColor="@color/colorPrimary"
-                    app:layout_constraintTop_toBottomOf="@+id/food_image"/>
+                    app:layout_constraintTop_toBottomOf="@+id/title"/>
 
                 <android.support.constraint.ConstraintLayout
                     android:id="@+id/food_amount_cont"
@@ -186,6 +186,23 @@
                 </android.support.constraint.ConstraintLayout>
             </android.support.constraint.ConstraintLayout>
         </android.support.v4.widget.NestedScrollView>
+
+        <com.google.android.gms.ads.AdView
+            xmlns:ads="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/adView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:minWidth="320dp"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+            ads:layout_constraintStart_toStartOf="parent"
+            ads:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginBottom="12dp"
+            ads:layout_constraintBottom_toTopOf="@+id/saveDiet"
+            android:background="@android:color/transparent"
+            ads:adSize="BANNER"
+            ads:adUnitId="@string/admob_id">
+        </com.google.android.gms.ads.AdView>
 
         <Button
             android:id="@+id/saveDiet"

@@ -40,10 +40,6 @@ class DietItemVM: BaseViewModel() {
         this.carbon.value = String.format("%.2fg", food.carbonHydrate / food.amount.toFloat() * diet.amount)
         this.protein.value = String.format("%.2fg", food.protein / food.amount.toFloat() * diet.amount)
         this.fat.value = String.format("%.2fg", food.fat / food.amount.toFloat() * diet.amount)
-        this.kcal.value = "${(food.cal / food.amount * diet.amount)} Kcal"
-
-//        defCarbon = food.carbon_hydrate / food.amount.toFloat()
-//        defProtein = food.protein / food.amount.toFloat()
-//        defFat = food.fat / food.amount.toFloat()
+        this.kcal.value = "${((food.cal.toFloat() / food.amount.toFloat()) * diet.amount).toInt()} Kcal"
     }
 }

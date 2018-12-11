@@ -47,6 +47,7 @@
     <string name="sat">토</string>
     <string name="sun">일</string>
     <string name="admob_id">ca-app-pub-7552170233373075/5730430259</string>
+    <string name="admob">ca-app-pub-7552170233373075~5678459367</string>
     <string name="default_amount">100g</string>
     <string name="allow_grant">권한을 허가해주세요.</string>
     <string name="measure">단위</string>

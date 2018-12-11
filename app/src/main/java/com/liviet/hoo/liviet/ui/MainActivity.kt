@@ -33,7 +33,7 @@ class  MainActivity: BaseActivity() {
         setContentView(binding.root)
 
         MobileAds.initialize(this,
-                getString(R.string.admob_id))
+                getString(R.string.admob))
 
         val fragmentPageAdapter = TabPageAdapter(supportFragmentManager)
         binding.tabPageAdapter = fragmentPageAdapter

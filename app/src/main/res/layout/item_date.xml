@@ -13,20 +13,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingStart="7dp"
-        android:paddingEnd="7dp"
-        >
+        android:paddingEnd="7dp">
 
         <TextView
             android:id="@+id/day"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             android:gravity="center"
             android:text="@{viewModel.day}"
             android:background="@drawable/circle_background"
-            style="@style/appFont.Medium"
+            style="@style/appFont.Small"
             android:textColor="@color/white"
             android:textStyle="bold"
             android:textAlignment="center" />
@@ -38,7 +37,7 @@
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            style="@style/appFont.Small"
+            style="@style/appFont.XSmall"
             android:textStyle="bold"
             android:text="@{viewModel.dayOfWeek}"
             android:textAlignment="center"

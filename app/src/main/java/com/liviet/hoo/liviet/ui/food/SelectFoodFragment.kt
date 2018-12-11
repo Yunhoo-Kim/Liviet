@@ -5,6 +5,7 @@ import android.content.Intent
 import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -33,8 +34,12 @@ class SelectFoodFragment: BaseFragment() {
         binding = DataBindingUtil.inflate(inflater, R.layout.fragment_select_food, container, false)
         viewModel = ViewModelProviders.of(activity!!, viewModelFactory).get(FoodVM::class.java)
         binding.viewModel = viewModel
-        binding.foodSelectList.layoutManager = GridLayoutManager(this.context, 2)
-        binding.foodSelectList.isNestedScrollingEnabled = false
+        binding.foodSelectList.apply {
+        layoutManager = LinearLayoutManager(this.context, LinearLayoutManager.VERTICAL, false)
+//        binding.foodSelectList.layoutManager = GridLayoutManager(this.context, 2)
+        isNestedScrollingEnabled = false
+        }
+
         viewModel.getFoods()
         binding.dietStyleNext.setOnClickListener {
 //            UiUtli.addNewFragment(this.activity!!, LivietMainFragment.newInstance(Bundle()), R.id.container_main)

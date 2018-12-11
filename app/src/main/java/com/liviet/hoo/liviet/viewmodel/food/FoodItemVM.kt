@@ -24,6 +24,7 @@ class FoodItemVM: BaseViewModel() {
     val measure: MutableLiveData<String> = MutableLiveData()
     var amountText: MutableLiveData<String> = MutableLiveData()
     var carbon: MutableLiveData<String> = MutableLiveData()
+    var cal: MutableLiveData<String> = MutableLiveData()
     var protein: MutableLiveData<String> = MutableLiveData()
     var fat: MutableLiveData<String> = MutableLiveData()
 
@@ -38,5 +39,6 @@ class FoodItemVM: BaseViewModel() {
         this.carbon.value = "${food.carbonHydrate}g"
         this.protein.value = "${food.protein}g"
         this.fat.value = "${food.fat}g"
+        this.cal.value = "${food.cal}"
     }
 }

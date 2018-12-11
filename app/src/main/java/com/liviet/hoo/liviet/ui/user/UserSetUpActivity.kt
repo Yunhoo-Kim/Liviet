@@ -29,7 +29,7 @@ class UserSetUpActivity: BaseActivity() {
         setContentView(binding.root)
 
         MobileAds.initialize(this,
-                getString(R.string.admob_id))
+                getString(R.string.admob))
 
         viewModel = ViewModelProviders.of(this, viewModelFactory).get(UserSetUpViewModel::class.java)
         viewModel.updateUserInfo()

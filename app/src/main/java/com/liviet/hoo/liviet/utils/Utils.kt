@@ -42,21 +42,20 @@ class Utils {
             val basalMetabolism = getBasalMetabolism(weight, height, age, sex)
 
             val kcal: Int = getKcal(basalMetabolism , lifeType)
-            return ((kcal * 0.65) / 4).toString()
+            return "%.1f".format((kcal * 0.65) / 4)
         }
 
         fun getFat(weight: Int, height: Int, age: Int, sex: Int,  lifeType: Double): String {
             val basalMetabolism = getBasalMetabolism(weight, height, age, sex)
             val kcal: Int = getKcal(basalMetabolism , lifeType)
-            return  ((kcal * 0.15) / 9).toString()
+            return  "%.1f".format((kcal * 0.15) / 9)
         }
 
         fun getProtein(weight: Int, height: Int, age: Int, sex: Int,  lifeType: Double): String {
             val basalMetabolism = getBasalMetabolism(weight, height, age, sex)
             val kcal: Int = getKcal(basalMetabolism , lifeType)
-            return ((kcal * 0.20) / 4).toString()
+            return "%.1f".format((kcal * 0.20) / 4)
         }
-
 
         fun makeRandomString(): String = UUID.randomUUID().toString()
     }

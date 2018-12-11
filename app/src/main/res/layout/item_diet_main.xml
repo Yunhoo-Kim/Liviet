@@ -11,7 +11,6 @@
     <android.support.v7.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border_gray"
         app:cardElevation="1dp"
         app:cardCornerRadius="4dp"
         android:layout_marginTop="8dp"
@@ -22,17 +21,17 @@
         android:layout_width="match_parent"
         android:layout_height="80dp">
 
-        <ImageView
-            android:id="@+id/food_image"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            app:layout_constraintDimensionRatio="1:1"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/dish"
-            imageRes="@{viewModel.resId}"
-            imageResUri="@{viewModel.image}" />
+        <!--<ImageView-->
+            <!--android:id="@+id/food_image"-->
+            <!--android:layout_width="0dp"-->
+            <!--android:layout_height="0dp"-->
+            <!--app:layout_constraintDimensionRatio="1:1"-->
+            <!--app:layout_constraintTop_toTopOf="parent"-->
+            <!--app:layout_constraintBottom_toBottomOf="parent"-->
+            <!--android:scaleType="centerCrop"-->
+            <!--android:src="@drawable/dish"-->
+            <!--imageRes="@{viewModel.resId}"-->
+            <!--imageResUri="@{viewModel.image}" />-->
 
         <android.support.constraint.ConstraintLayout
             android:id="@+id/food_text_cont"
@@ -40,10 +39,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:padding="4dp"
-            app:layout_constraintStart_toEndOf="@+id/food_image"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/food_kcal"
-            app:layout_constraintTop_toTopOf="@+id/food_image"
-            app:layout_constraintBottom_toBottomOf="@+id/food_image">
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent">
 
             <TextView
                 android:id="@+id/food_name"
@@ -74,7 +73,7 @@
 
         <TextView
             android:id="@+id/food_kcal"
-            android:layout_width="0dp"
+            android:layout_width="100dp"
             android:layout_height="wrap_content"
             android:text="@{viewModel.kcal}"
             style="@style/appFont.Medium"
